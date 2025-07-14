@@ -7,6 +7,8 @@
  */
 var RAW_VALUE = 0x01;
 
+/* eslint no-redeclare: "off" */
+/* eslint-disable */
 // Chirpstack v4
 function decodeUplink(input) {
     var decoded = milesightDeviceDecode(input.bytes);
@@ -22,6 +24,7 @@ function Decode(fPort, bytes) {
 function Decoder(bytes, port) {
     return milesightDeviceDecode(bytes);
 }
+/* eslint-enable */
 
 var valve_chns = [0x03, 0x05];
 var valve_pulse_chns = [0x04, 0x06];
@@ -35,7 +38,7 @@ var valve_opening_duration_chns = [0x0e, 0x0f];
 function milesightDeviceDecode(bytes) {
     var decoded = {};
 
-    for (var i = 0; i < bytes.length;) {
+    for (var i = 0; i < bytes.length; ) {
         var channel_id = bytes[i++];
         var channel_type = bytes[i++];
 
@@ -145,15 +148,15 @@ function milesightDeviceDecode(bytes) {
             event.condition = condition_type;
             switch (condition_type_value) {
                 case 0x01:
-                    event.min_threshold = min;
+                    event.threshold_min = min;
                     break;
                 case 0x02:
-                    event.max_threshold = max;
+                    event.threshold_max = max;
                     break;
                 case 0x03:
                 case 0x04:
-                    event.min_threshold = min;
-                    event.max_threshold = max;
+                    event.threshold_min = min;
+                    event.threshold_max = max;
                     break;
             }
             event.pressure = pressure;
@@ -206,13 +209,13 @@ function milesightDeviceDecode(bytes) {
         }
         // DOWNLINK RESPONSE
         else if (channel_id === 0xfe || channel_id === 0xff) {
-            result = handle_downlink_response(channel_type, bytes, i);
+            var result = handle_downlink_response(channel_type, bytes, i);
             decoded = Object.assign(decoded, result.data);
             i = result.offset;
         }
         // DOWNLINK RESPONSE EXT
         else if (channel_id === 0xf8 || channel_id === 0xf9) {
-            result = handle_downlink_response_ext(channel_id, channel_type, bytes, i);
+            var result = handle_downlink_response_ext(channel_id, channel_type, bytes, i);
             decoded = Object.assign(decoded, result.data);
             i = result.offset;
         } else {
@@ -227,6 +230,30 @@ function handle_downlink_response(channel_type, bytes, offset) {
     var decoded = {};
 
     switch (channel_type) {
+        case 0x10:
+            decoded.reboot = readYesNoStatus(1);
+            offset += 1;
+            break;
+        case 0x1e:
+            decoded.class_a_response_time = readUInt32LE(bytes.slice(offset, offset + 4));
+            offset += 4;
+            break;
+        case 0x28:
+            decoded.report_status = readYesNoStatus(1);
+            offset += 1;
+            break;
+        case 0x35:
+            decoded.d2d_key = readHexString(bytes.slice(offset, offset + 8));
+            offset += 8;
+            break;
+        case 0x46:
+            decoded.gpio_jitter_time = readUInt8(bytes[offset]);
+            offset += 1;
+            break;
+        case 0x4a:
+            decoded.sync_time = readYesNoStatus(1);
+            offset += 1;
+            break;
         case 0x4b: // batch_read_rules
             var type = readUInt8(bytes[offset]);
             var rule_bit_offset = { rule_1: 0, rule_2: 1, rule_3: 2, rule_4: 3, rule_5: 4, rule_6: 5, rule_7: 6, rule_8: 7, rule_9: 8, rule_10: 9, rule_11: 10, rule_12: 11, rule_13: 12, rule_14: 13, rule_15: 14, rule_16: 15 };
@@ -235,7 +262,7 @@ function handle_downlink_response(channel_type, bytes, offset) {
                 decoded.batch_read_rules = {};
                 var data = readUInt16LE(bytes.slice(offset + 1, offset + 3));
                 for (var key in rule_bit_offset) {
-                    decoded.batch_read_rules[key] = readYesNo((data >>> rule_bit_offset[key]) & 0x01);
+                    decoded.batch_read_rules[key] = readYesNoStatus((data >>> rule_bit_offset[key]) & 0x01);
                 }
             }
             // batch enable rules
@@ -251,7 +278,7 @@ function handle_downlink_response(channel_type, bytes, offset) {
                 decoded.batch_remove_rules = {};
                 var data = readUInt16LE(bytes.slice(offset + 1, offset + 3));
                 for (var key in rule_bit_offset) {
-                    decoded.batch_remove_rules[key] = readYesNo((data >>> rule_bit_offset[key]) & 0x01);
+                    decoded.batch_remove_rules[key] = readYesNoStatus((data >>> rule_bit_offset[key]) & 0x01);
                 }
             }
             // enable single rule
@@ -264,7 +291,7 @@ function handle_downlink_response(channel_type, bytes, offset) {
             else if (type === 4) {
                 var rule_index = readUInt8(bytes[offset + 1]);
                 var rule_x_name = "rule_" + rule_index + "_remove";
-                decoded[rule_x_name] = readYesNo(bytes[offset + 2]);
+                decoded[rule_x_name] = readYesNoStatus(bytes[offset + 2]);
             }
             offset += 3;
             break;
@@ -272,7 +299,7 @@ function handle_downlink_response(channel_type, bytes, offset) {
             var valve_index = readUInt8(bytes[offset]);
             var valve_index_name = "clear_valve_" + valve_index + "_pulse";
             // ignore the next byte
-            decoded[valve_index_name] = readYesNo(1);
+            decoded[valve_index_name] = readYesNoStatus(1);
             offset += 2;
             break;
         case 0x52:
@@ -286,7 +313,7 @@ function handle_downlink_response(channel_type, bytes, offset) {
             var rule_index = readUInt8(bytes[offset]);
             var rule_index_name = "rule_" + rule_index;
             decoded.query_rule_config = decoded.query_rule_config || {};
-            decoded.query_rule_config[rule_index_name] = readYesNo(1);
+            decoded.query_rule_config[rule_index_name] = readYesNoStatus(1);
             offset += 1;
             break;
         case 0x55:
@@ -300,6 +327,10 @@ function handle_downlink_response(channel_type, bytes, offset) {
             decoded.rules_config = decoded.rules_config || [];
             decoded.rules_config.push(rule_config);
             break;
+        case 0x84:
+            decoded.d2d_enable = readEnableStatus(bytes[offset]);
+            offset += 1;
+            break;
         case 0x8e:
             // ignore the first byte
             decoded.report_interval = readUInt16LE(bytes.slice(offset + 1, offset + 3));
@@ -312,8 +343,12 @@ function handle_downlink_response(channel_type, bytes, offset) {
             offset += 5;
             break;
         case 0xbd:
-            decoded.timezone = readTimeZone(readInt16LE(bytes.slice(offset, offset + 2)));
+            decoded.time_zone = readTimeZone(readInt16LE(bytes.slice(offset, offset + 2)));
             offset += 2;
+            break;
+        case 0xf3:
+            decoded.response_enable = readEnableStatus(bytes[offset]);
+            offset += 1;
             break;
         default:
             throw new Error("unknown downlink response");
@@ -350,7 +385,6 @@ function handle_downlink_response_ext(code, channel_type, bytes, offset) {
             var time_control_enable_value = (data >> 7) & 0x01;
             var valve_pulse_control_enable_value = (data >> 6) & 0x01;
             var valve_index_name = "valve_" + valve_index + "_task";
-
             decoded[valve_index_name] = {};
             decoded[valve_index_name].time_control_enable = readEnableStatus(time_control_enable_value);
             decoded[valve_index_name].valve_pulse_control_enable = readEnableStatus(valve_pulse_control_enable_value);
@@ -369,7 +403,7 @@ function handle_downlink_response_ext(code, channel_type, bytes, offset) {
             break;
         case 0x5b:
             var pressure_index = readUInt8(bytes[offset]);
-            var pressure_index_name = "pressure_" + pressure_index + "_calibration_config";
+            var pressure_index_name = "pressure_" + pressure_index + "_calibration_settings";
             decoded[pressure_index_name] = {};
             decoded[pressure_index_name].enable = readEnableStatus(bytes[offset + 1]);
             decoded[pressure_index_name].calibration = readInt16LE(bytes.slice(offset + 2, offset + 4));
@@ -395,7 +429,7 @@ function handle_downlink_response_ext(code, channel_type, bytes, offset) {
             decoded.query_valve_opening_duration = decoded.query_valve_opening_duration || {};
             var valve_index = readUInt8(bytes[offset]);
             var valve_index_name = "valve_" + valve_index;
-            decoded.query_valve_opening_duration[valve_index_name] = readYesNo(1);
+            decoded.query_valve_opening_duration[valve_index_name] = readYesNoStatus(1);
             offset += 1;
             break;
         case 0x71:
@@ -405,19 +439,19 @@ function handle_downlink_response_ext(code, channel_type, bytes, offset) {
             offset += 2;
             break;
         case 0x72:
-            decoded.query_device_config = readYesNo(1);
+            decoded.query_device_config = readYesNoStatus(1);
             offset += 1;
             break;
         case 0x73:
-            decoded.query_pressure_calibration_config = readYesNo(1);
+            decoded.query_pressure_calibration_settings = readYesNoStatus(1);
             offset += 1;
             break;
         case 0x74:
-            decoded.query_gpio_type = readYesNo(1);
+            decoded.query_gpio_type = readYesNoStatus(1);
             offset += 1;
             break;
         case 0x75:
-            decoded.query_valve_config = readYesNo(1);
+            decoded.query_valve_config = readYesNoStatus(1);
             offset += 1;
             break;
         case 0x76:
@@ -437,7 +471,7 @@ function handle_downlink_response_ext(code, channel_type, bytes, offset) {
             offset += 17;
             break;
         case 0x77:
-            decoded.query_pressure_config = readYesNo(1);
+            decoded.query_pressure_config = readYesNoStatus(1);
             offset += 1;
             break;
         default:
@@ -449,10 +483,12 @@ function handle_downlink_response_ext(code, channel_type, bytes, offset) {
         offset += 1;
 
         if (result_value !== 0) {
+            var request = decoded;
             decoded = {};
             decoded.device_response_result = {};
             decoded.device_response_result.channel_type = channel_type;
-            decoded.device_response_result.result = readResultStatus(bytes[offset]);
+            decoded.device_response_result.result = readResultStatus(result_value);
+            decoded.device_response_result.request = request;
         }
     }
 
@@ -579,9 +615,9 @@ function readPressureSensorStatus(status) {
     return getValue(status_map, status);
 }
 
-function readTimeZone(timezone) {
+function readTimeZone(time_zone) {
     var timezone_map = { "-720": "UTC-12", "-660": "UTC-11", "-600": "UTC-10", "-570": "UTC-9:30", "-540": "UTC-9", "-480": "UTC-8", "-420": "UTC-7", "-360": "UTC-6", "-300": "UTC-5", "-240": "UTC-4", "-210": "UTC-3:30", "-180": "UTC-3", "-120": "UTC-2", "-60": "UTC-1", 0: "UTC", 60: "UTC+1", 120: "UTC+2", 180: "UTC+3", 210: "UTC+3:30", 240: "UTC+4", 270: "UTC+4:30", 300: "UTC+5", 330: "UTC+5:30", 345: "UTC+5:45", 360: "UTC+6", 390: "UTC+6:30", 420: "UTC+7", 480: "UTC+8", 540: "UTC+9", 570: "UTC+9:30", 600: "UTC+10", 630: "UTC+10:30", 660: "UTC+11", 720: "UTC+12", 765: "UTC+12:45", 780: "UTC+13", 840: "UTC+14" };
-    return getValue(timezone_map, timezone);
+    return getValue(timezone_map, time_zone);
 }
 
 function readValveFilterMode(mode) {
@@ -594,7 +630,7 @@ function readEnableStatus(status) {
     return getValue(status_map, status);
 }
 
-function readYesNo(status) {
+function readYesNoStatus(status) {
     var status_map = { 0: "no", 1: "yes" };
     return getValue(status_map, status);
 }
@@ -640,9 +676,9 @@ function readRuleCondition(bytes) {
         case 0x05:
             condition.valve_index = readUInt8(bytes[offset + 1]);
             condition.valve_strategy = readValveStrategy(readUInt8(bytes[offset + 2]));
-            condition.threshold_condition_type = readMathConditionType(readUInt8(bytes[offset + 3]));
-            condition.min_threshold = readUInt16LE(bytes.slice(offset + 4, offset + 6));
-            condition.max_threshold = readUInt16LE(bytes.slice(offset + 6, offset + 8));
+            condition.condition_type = readMathConditionType(readUInt8(bytes[offset + 3]));
+            condition.threshold_min = readUInt16LE(bytes.slice(offset + 4, offset + 6));
+            condition.threshold_max = readUInt16LE(bytes.slice(offset + 6, offset + 8));
             break;
     }
     return condition;
@@ -740,6 +776,7 @@ function readPressureSignalType(signal_type_value) {
     return getValue(signal_type_map, signal_type_value);
 }
 
+/* eslint-disable */
 function readUInt8(bytes) {
     return bytes & 0xff;
 }
@@ -789,6 +826,14 @@ function readAscii(bytes) {
     return str;
 }
 
+function readHexString(bytes) {
+    var temp = [];
+    for (var i = 0; i < bytes.length; i++) {
+        temp.push(("0" + (bytes[i] & 0xff).toString(16)).slice(-2));
+    }
+    return temp.join("");
+}
+
 function getValue(map, key) {
     if (RAW_VALUE) return key;
 
@@ -815,7 +860,6 @@ if (!Object.assign) {
         value: function (target) {
             "use strict";
             if (target == null) {
-                // TypeError if undefined or null
                 throw new TypeError("Cannot convert first argument to object");
             }
 
@@ -823,7 +867,6 @@ if (!Object.assign) {
             for (var i = 1; i < arguments.length; i++) {
                 var nextSource = arguments[i];
                 if (nextSource == null) {
-                    // Skip over if undefined or null
                     continue;
                 }
                 nextSource = Object(nextSource);
@@ -833,7 +876,12 @@ if (!Object.assign) {
                     var nextKey = keysArray[nextIndex];
                     var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
                     if (desc !== undefined && desc.enumerable) {
-                        to[nextKey] = nextSource[nextKey];
+                        // concat array
+                        if (Array.isArray(to[nextKey]) && Array.isArray(nextSource[nextKey])) {
+                            to[nextKey] = to[nextKey].concat(nextSource[nextKey]);
+                        } else {
+                            to[nextKey] = nextSource[nextKey];
+                        }
                     }
                 }
             }

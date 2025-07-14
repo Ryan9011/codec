@@ -7,6 +7,8 @@
  */
 var RAW_VALUE = 0x01;
 
+/* eslint no-redeclare: "off" */
+/* eslint-disable */
 // Chirpstack v4
 function decodeUplink(input) {
     var decoded = milesightDeviceDecode(input.bytes);
@@ -22,11 +24,12 @@ function Decode(fPort, bytes) {
 function Decoder(bytes, port) {
     return milesightDeviceDecode(bytes);
 }
+/* eslint-enable */
 
 function milesightDeviceDecode(bytes) {
     var decoded = {};
 
-    for (var i = 0; i < bytes.length;) {
+    for (var i = 0; i < bytes.length; ) {
         var channel_id = bytes[i++];
         var channel_type = bytes[i++];
 
@@ -93,7 +96,6 @@ function milesightDeviceDecode(bytes) {
             var sensor_id = readHexString(bytes.slice(i + 1, i + 9));
             var sensor_chn_name = "sensor_" + channel_idx;
             i += 9;
-
             decoded[sensor_chn_name + "_type"] = readSensorIDType(sensor_type);
             decoded[sensor_chn_name + "_sn"] = sensor_id;
         }
@@ -103,7 +105,6 @@ function milesightDeviceDecode(bytes) {
             data.temperature = readInt16LE(bytes.slice(i, i + 2)) / 10;
             data.temperature_alarm = readAlarmType(bytes[i + 2]);
             i += 3;
-
             decoded.temperature = data.temperature;
             decoded.event = decoded.event || [];
             decoded.event.push(data);
@@ -114,7 +115,6 @@ function milesightDeviceDecode(bytes) {
             data.humidity = readUInt8(bytes[i]) / 2;
             data.humidity_alarm = readAlarmType(bytes[i + 1]);
             i += 2;
-
             decoded.humidity = data.humidity;
             decoded.event = decoded.event || [];
             decoded.event.push(data);
@@ -126,7 +126,6 @@ function milesightDeviceDecode(bytes) {
             data.temperature_mutation = readInt16LE(bytes.slice(i + 2, i + 4)) / 10;
             data.temperature_alarm = readAlarmType(bytes[i + 4]);
             i += 5;
-
             decoded.temperature = data.temperature;
             decoded.event = decoded.event || [];
             decoded.event.push(data);
@@ -138,7 +137,6 @@ function milesightDeviceDecode(bytes) {
             data.humidity_mutation = readUInt8(bytes[i + 1]) / 2;
             data.humidity_alarm = readAlarmType(bytes[i + 2]);
             i += 3;
-
             decoded.humidity = data.humidity;
             decoded.event = decoded.event || [];
             decoded.event.push(data);
@@ -148,7 +146,6 @@ function milesightDeviceDecode(bytes) {
             var data = {};
             data.temperature_sensor_status = readSensorStatus(bytes[i]);
             i += 1;
-
             decoded.event = decoded.event || [];
             decoded.event.push(data);
         }
@@ -157,7 +154,6 @@ function milesightDeviceDecode(bytes) {
             var data = {};
             data.humidity_sensor_status = readSensorStatus(bytes[i]);
             i += 1;
-
             decoded.event = decoded.event || [];
             decoded.event.push(data);
         }
@@ -169,7 +165,6 @@ function milesightDeviceDecode(bytes) {
             var humidity = readUInt8(bytes[i + 7]) / 2;
             var event = bytes[i + 8];
             i += 9;
-
             var data = {};
             data.timestamp = timestamp;
             data.sensor_type = readSensorIDType(sensor_type);
@@ -179,7 +174,6 @@ function milesightDeviceDecode(bytes) {
             if (sensor_type === 2) {
                 data.humidity = humidity;
             }
-
             decoded.history = decoded.history || [];
             decoded.history.push(data);
         }
@@ -244,40 +238,36 @@ function handle_downlink_response(channel_type, bytes, offset) {
             break;
         case 0x96:
             var d2d_master_config = {};
-            d2d_master_config.event = readD2DEventType(bytes[offset]);
+            d2d_master_config.mode = readD2DEventType(bytes[offset]);
             d2d_master_config.enable = readEnableStatus(bytes[offset + 1]);
             d2d_master_config.lora_uplink_enable = readEnableStatus(bytes[offset + 2]);
             d2d_master_config.d2d_cmd = readD2DCommand(bytes.slice(offset + 3, offset + 5));
-            d2d_master_config.time = readUInt16LE(bytes.slice(offset + 5, offset + 7));
-            d2d_master_config.time_enable = readEnableStatus(bytes[offset + 7]);
-
+            offset += 8;
             decoded.d2d_master_config = decoded.d2d_master_config || [];
             decoded.d2d_master_config.push(d2d_master_config);
-            offset += 8;
             break;
         case 0xea:
             var data = readUInt8(bytes[offset]);
             var calibration_value = readInt16LE(bytes.slice(offset + 1, offset + 3));
-
             var type = (data >>> 0) & 0x01;
             var enable_value = (data >>> 7) & 0x01;
             if (type === 0) {
-                decoded.temperature_calibrate = {};
-                decoded.temperature_calibrate.enable = readEnableStatus(enable_value);
-                decoded.temperature_calibrate.calibration_value = calibration_value / 10;
+                decoded.temperature_calibration_settings = {};
+                decoded.temperature_calibration_settings.enable = readEnableStatus(enable_value);
+                decoded.temperature_calibration_settings.calibration_value = calibration_value / 10;
             } else if (type === 1) {
-                decoded.humidity_calibrate = {};
-                decoded.humidity_calibrate.enable = readEnableStatus(enable_value);
-                decoded.humidity_calibrate.calibration_value = calibration_value / 2;
+                decoded.humidity_calibration_settings = {};
+                decoded.humidity_calibration_settings.enable = readEnableStatus(enable_value);
+                decoded.humidity_calibration_settings.calibration_value = calibration_value / 2;
             }
             offset += 3;
             break;
         case 0xf2:
-            decoded.alarm_count = readUInt16LE(bytes.slice(offset, offset + 2));
+            decoded.alarm_report_counts = readUInt16LE(bytes.slice(offset, offset + 2));
             offset += 2;
             break;
         case 0xf5:
-            decoded.threshold_alarm_release_enable = readEnableStatus(bytes[offset]);
+            decoded.alarm_release_enable = readEnableStatus(bytes[offset]);
             offset += 1;
             break;
 
@@ -295,30 +285,30 @@ function handle_downlink_response_ext(code, channel_type, bytes, offset) {
         case 0x0b:
             var data_type = readUInt8(bytes[offset]);
             if (data_type === 0x01) {
-                decoded.temperature_threshold_config = {};
-                decoded.temperature_threshold_config.condition = readMathConditionType(bytes[offset + 1]);
-                decoded.temperature_threshold_config.max = readInt16LE(bytes.slice(offset + 2, offset + 4)) / 10;
-                decoded.temperature_threshold_config.min = readInt16LE(bytes.slice(offset + 4, offset + 6)) / 10;
-                decoded.temperature_threshold_config.enable = readEnableStatus(bytes[offset + 6]);
+                decoded.temperature_alarm_config = {};
+                decoded.temperature_alarm_config.condition = readMathConditionType(bytes[offset + 1]);
+                decoded.temperature_alarm_config.threshold_max = readInt16LE(bytes.slice(offset + 2, offset + 4)) / 10;
+                decoded.temperature_alarm_config.threshold_min = readInt16LE(bytes.slice(offset + 4, offset + 6)) / 10;
+                decoded.temperature_alarm_config.enable = readEnableStatus(bytes[offset + 6]);
             } else if (data_type === 0x03) {
-                decoded.humidity_threshold_config = {};
-                decoded.humidity_threshold_config.condition = readMathConditionType(bytes[offset + 1]);
-                decoded.humidity_threshold_config.max = readUInt16LE(bytes.slice(offset + 2, offset + 4)) / 2;
-                decoded.humidity_threshold_config.min = readUInt16LE(bytes.slice(offset + 4, offset + 6)) / 2;
-                decoded.humidity_threshold_config.enable = readEnableStatus(bytes[offset + 6]);
+                decoded.humidity_alarm_config = {};
+                decoded.humidity_alarm_config.condition = readMathConditionType(bytes[offset + 1]);
+                decoded.humidity_alarm_config.threshold_max = readUInt16LE(bytes.slice(offset + 2, offset + 4)) / 2;
+                decoded.humidity_alarm_config.threshold_min = readUInt16LE(bytes.slice(offset + 4, offset + 6)) / 2;
+                decoded.humidity_alarm_config.enable = readEnableStatus(bytes[offset + 6]);
             }
             offset += 7;
             break;
         case 0x0c:
             var data_type = readUInt8(bytes[offset]);
             if (data_type === 0x02) {
-                decoded.temperature_mutation_config = {};
-                decoded.temperature_mutation_config.threshold = readUInt16LE(bytes.slice(offset + 1, offset + 3)) / 10;
-                decoded.temperature_mutation_config.enable = readEnableStatus(bytes[offset + 3]);
+                decoded.temperature_mutation_alarm_config = {};
+                decoded.temperature_mutation_alarm_config.mutation = readUInt16LE(bytes.slice(offset + 1, offset + 3)) / 10;
+                decoded.temperature_mutation_alarm_config.enable = readEnableStatus(bytes[offset + 3]);
             } else if (data_type === 0x04) {
-                decoded.humidity_mutation_config = {};
-                decoded.humidity_mutation_config.threshold = readUInt16LE(bytes.slice(offset + 1, offset + 3)) / 2;
-                decoded.humidity_mutation_config.enable = readEnableStatus(bytes[offset + 3]);
+                decoded.humidity_mutation_alarm_config = {};
+                decoded.humidity_mutation_alarm_config.mutation = readUInt16LE(bytes.slice(offset + 1, offset + 3)) / 2;
+                decoded.humidity_mutation_alarm_config.enable = readEnableStatus(bytes[offset + 3]);
             }
             offset += 4;
             break;
@@ -475,11 +465,6 @@ function readSensorStatus(type) {
     return getValue(status_map, type);
 }
 
-function readDataStatus(type) {
-    var status_map = { 0: "normal", 1: "read error", 2: "out of range" };
-    return getValue(status_map, type);
-}
-
 function readHistoryEvent(value, sensor_type) {
     var event_map = { 1: "periodic", 2: "temperature alarm (threshold or mutation)", 3: "temperature alarm release", 4: "humidity alarm (threshold or mutation)", 5: "humidity alarm release", 6: "immediate" };
     var sensor_status_map = { 0: "normal", 1: "read error", 2: "out of range" };
@@ -511,20 +496,20 @@ function readD2DEventType(type) {
 
 function readSensorDataConfig(value) {
     var sensor_bit_offset = { temperature: 0, humidity: 1 };
-    var sensor_data_map = { 0: "disable", 1: "enable" };
+    var status_map = { 0: "disable", 1: "enable" };
     var data = {};
     for (var key in sensor_bit_offset) {
-        data[key] = getValue(sensor_data_map, (value >>> sensor_bit_offset[key]) & 0x01);
+        data[key] = getValue(status_map, (value >>> sensor_bit_offset[key]) & 0x01);
     }
     return data;
 }
 
 function readButtonLockConfig(value) {
     var button_bit_offset = { power_button: 0, report_button: 1 };
-    var button_data_map = { 0: "disable", 1: "enable" };
+    var status_map = { 0: "disable", 1: "enable" };
     var data = {};
     for (var key in button_bit_offset) {
-        data[key] = getValue(button_data_map, (value >>> button_bit_offset[key]) & 0x01);
+        data[key] = getValue(status_map, (value >>> button_bit_offset[key]) & 0x01);
     }
     return data;
 }
@@ -551,17 +536,17 @@ function readQueryConfig(value) {
         d2d_master_config_with_humidity_threshold_alarm: 8,
         d2d_master_config_with_humidity_threshold_alarm_release: 9,
         d2d_master_config_with_humidity_mutation_alarm: 10,
-        temperature_calibration_config: 11,
-        humidity_calibration_config: 12,
-        temperature_threshold_config: 13,
-        temperature_mutation_config: 14,
-        humidity_threshold_config: 15,
-        humidity_mutation_config: 16,
+        temperature_calibration_settings: 11,
+        humidity_calibration_settings: 12,
+        temperature_alarm_config: 13,
+        temperature_mutation_alarm_config: 14,
+        humidity_alarm_config: 15,
+        humidity_mutation_alarm_config: 16,
         led_indicator_enable: 17,
         collection_interval: 18,
         report_interval: 19,
-        threshold_alarm_release_enable: 20,
-        alarm_count: 21,
+        alarm_release_enable: 20,
+        alarm_report_counts: 21,
         retransmit_config: 22,
         history_enable: 23,
         history_resend_config: 24,
@@ -576,6 +561,7 @@ function readQueryConfig(value) {
     return query_config;
 }
 
+/* eslint-disable */
 function readUInt8(bytes) {
     return bytes & 0xff;
 }

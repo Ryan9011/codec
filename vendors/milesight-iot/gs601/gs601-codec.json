@@ -203,14 +203,14 @@
             "id": "pm1_0",
             "name": "PM1.0",
             "value": "",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "R",
             "data_type": "NUMBER",
             "value_type": "UINT16",
             "range": [0, 1000],
             "bacnet_type": "analog_input_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER"
         },
         {
             "id": "pm1_0_alarm.type",
@@ -235,27 +235,27 @@
             "id": "pm1_0_alarm.pm1_0",
             "name": "PM1.0 Alarm (PM1.0)",
             "value": "",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "R",
             "data_type": "NUMBER",
             "value_type": "UINT16",
             "range": [0, 1000],
             "bacnet_type": "analog_input_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER"
         },
         {
             "id": "pm2_5",
             "name": "PM2.5",
             "value": "",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "R",
             "data_type": "NUMBER",
             "value_type": "UINT16",
             "range": [0, 1000],
             "bacnet_type": "analog_input_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER"
         },
         {
             "id": "pm2_5_alarm.type",
@@ -280,27 +280,27 @@
             "id": "pm2_5_alarm.pm2_5",
             "name": "PM2.5 Alarm (PM2.5)",
             "value": "",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "R",
             "data_type": "NUMBER",
             "value_type": "UINT16",
             "range": [0, 1000],
             "bacnet_type": "analog_input_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER"
         },
         {
             "id": "pm10",
             "name": "PM10",
             "value": "",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "R",
             "data_type": "NUMBER",
             "value_type": "UINT16",
             "range": [0, 1000],
             "bacnet_type": "analog_input_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER"
         },
         {
             "id": "pm10_alarm.type",
@@ -325,20 +325,20 @@
             "id": "pm10_alarm.pm10",
             "name": "PM10 Alarm (PM10)",
             "value": "",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "R",
             "data_type": "NUMBER",
             "value_type": "UINT16",
             "range": [0, 1000],
             "bacnet_type": "analog_input_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER"
         },
         {
             "id": "temperature",
             "name": "Temperature",
             "value": "",
-            "unit": "℃",
+            "unit": "°C",
             "access_mode": "R",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
@@ -372,7 +372,7 @@
             "id": "temperature_alarm.temperature",
             "name": "Temperature Alarm (Temperature)",
             "value": "",
-            "unit": "℃",
+            "unit": "°C",
             "access_mode": "R",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
@@ -415,14 +415,14 @@
             "id": "tvoc",
             "name": "TVOC",
             "value": "",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "R",
             "data_type": "NUMBER",
             "value_type": "UINT16",
             "range": [0, 2000],
             "bacnet_type": "analog_input_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER"
         },
         {
             "id": "tvoc_alarm.type",
@@ -447,14 +447,14 @@
             "id": "tvoc_alarm.tvoc",
             "name": "TVOC Alarm (TVOC)",
             "value": "",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "R",
             "data_type": "NUMBER",
             "value_type": "UINT16",
             "range": [0, 2000],
             "bacnet_type": "analog_input_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER"
         },
         {
             "id": "tamper_status",
@@ -762,10 +762,10 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["temperature_alarm_settings.threshold_condition", "temperature_alarm_settings.threshold_min", "temperature_alarm_settings.threshold_max"]
+            "reference": ["temperature_alarm_settings.condition", "temperature_alarm_settings.threshold_min", "temperature_alarm_settings.threshold_max"]
         },
         {
-            "id": "temperature_alarm_settings.threshold_condition",
+            "id": "temperature_alarm_settings.condition",
             "name": "Temperature Alarm Settings (Threshold Condition)",
             "value": "0",
             "unit": "",
@@ -788,7 +788,7 @@
             "id": "temperature_alarm_settings.threshold_min",
             "name": "Temperature Alarm Settings (Threshold Min)",
             "value": "0",
-            "unit": "℃",
+            "unit": "°C",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
@@ -796,13 +796,13 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 62,
             "bacnet_unit_type": "UNITS_DEGREES_CELSIUS",
-            "reference": ["temperature_alarm_settings.enable", "temperature_alarm_settings.threshold_condition", "temperature_alarm_settings.threshold_max"]
+            "reference": ["temperature_alarm_settings.enable", "temperature_alarm_settings.condition", "temperature_alarm_settings.threshold_max"]
         },
         {
             "id": "temperature_alarm_settings.threshold_max",
             "name": "Temperature Alarm Settings (Threshold Max)",
             "value": "0",
-            "unit": "℃",
+            "unit": "°C",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
@@ -810,7 +810,7 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 62,
             "bacnet_unit_type": "UNITS_DEGREES_CELSIUS",
-            "reference": ["temperature_alarm_settings.enable", "temperature_alarm_settings.threshold_condition", "temperature_alarm_settings.threshold_min"]
+            "reference": ["temperature_alarm_settings.enable", "temperature_alarm_settings.condition", "temperature_alarm_settings.threshold_min"]
         },
         {
             "id": "pm1_0_alarm_settings.enable",
@@ -827,21 +827,21 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["pm1_0_alarm_settings.threshold_max"]
+            "reference": ["pm1_0_alarm_settings.enable", "pm1_0_alarm_settings.threshold_max"]
         },
         {
             "id": "pm1_0_alarm_settings.threshold_max",
             "name": "PM1.0 Alarm Settings (Threshold Max)",
             "value": "0",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
             "range": [0, 1000],
             "bacnet_type": "analog_value_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["pm1_0_alarm_settings.enable"]
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER",
+            "reference": ["pm1_0_alarm_settings.enable", "pm1_0_alarm_settings.threshold_max"]
         },
         {
             "id": "pm2_5_alarm_settings.enable",
@@ -858,21 +858,21 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["pm2_5_alarm_settings.threshold_max"]
+            "reference": ["pm2_5_alarm_settings.enable", "pm2_5_alarm_settings.threshold_max"]
         },
         {
             "id": "pm2_5_alarm_settings.threshold_max",
             "name": "PM2.5 Alarm Settings (Threshold Max)",
             "value": "0",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
             "range": [0, 1000],
             "bacnet_type": "analog_value_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["pm2_5_alarm_settings.enable"]
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER",
+            "reference": ["pm2_5_alarm_settings.enable", "pm2_5_alarm_settings.threshold_max"]
         },
         {
             "id": "pm10_alarm_settings.enable",
@@ -889,21 +889,21 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["pm10_alarm_settings.threshold_max"]
+            "reference": ["pm10_alarm_settings.enable", "pm10_alarm_settings.threshold_max"]
         },
         {
             "id": "pm10_alarm_settings.threshold_max",
             "name": "PM10 Alarm Settings (Threshold Max)",
             "value": "0",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
             "range": [0, 1000],
             "bacnet_type": "analog_value_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["pm10_alarm_settings.enable"]
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER",
+            "reference": ["pm10_alarm_settings.enable", "pm10_alarm_settings.threshold_max"]
         },
         {
             "id": "tvoc_alarm_settings.enable",
@@ -920,21 +920,21 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["tvoc_alarm_settings.threshold_max"]
+            "reference": ["tvoc_alarm_settings.enable", "tvoc_alarm_settings.threshold_max"]
         },
         {
             "id": "tvoc_alarm_settings.threshold_max",
             "name": "TVOC Alarm Settings (Threshold Max)",
             "value": "0",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
             "range": [0, 2000],
             "bacnet_type": "analog_value_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["tvoc_alarm_settings.enable"]
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER",
+            "reference": ["tvoc_alarm_settings.enable", "tvoc_alarm_settings.threshold_max"]
         },
         {
             "id": "vaping_index_alarm_settings.enable",
@@ -951,7 +951,7 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["vaping_index_alarm_settings.threshold_max"]
+            "reference": ["vaping_index_alarm_settings.enable", "vaping_index_alarm_settings.threshold_max"]
         },
         {
             "id": "vaping_index_alarm_settings.threshold_max",
@@ -965,7 +965,7 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["vaping_index_alarm_settings.enable"]
+            "reference": ["vaping_index_alarm_settings.enable", "vaping_index_alarm_settings.threshold_max"]
         },
         {
             "id": "alarm_reporting_times",
@@ -1017,7 +1017,7 @@
             "id": "temperature_calibration_settings.calibration_value",
             "name": "Temperature Calibration Settings (Calibration Value)",
             "value": "0",
-            "unit": "℃",
+            "unit": "°C",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
@@ -1079,14 +1079,14 @@
             "id": "pm1_0_calibration_settings.calibration_value",
             "name": "PM1.0 Calibration Settings (Calibration Value)",
             "value": "0",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "INT16",
             "range": [-1000, 1000],
             "bacnet_type": "analog_value_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER",
             "reference": ["pm1_0_calibration_settings.enable"]
         },
         {
@@ -1110,14 +1110,14 @@
             "id": "pm2_5_calibration_settings.calibration_value",
             "name": "Calibration Value",
             "value": "0",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "INT16",
             "range": [-1000, 1000],
             "bacnet_type": "analog_value_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER",
             "reference": ["pm2_5_calibration_settings.enable"]
         },
         {
@@ -1135,21 +1135,21 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["pm10_calibration_settings.calibration_value"]
+            "reference": ["pm10_calibration_settings.enable", "pm10_calibration_settings.calibration_value"]
         },
         {
             "id": "pm10_calibration_settings.calibration_value",
             "name": "PM10 Calibration Settings (Calibration Value)",
             "value": "0",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "INT16",
             "range": [-1000, 1000],
             "bacnet_type": "analog_value_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["pm10_calibration_settings.enable"]
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER",
+            "reference": ["pm10_calibration_settings.enable", "pm10_calibration_settings.calibration_value"]
         },
         {
             "id": "tvoc_calibration_settings.enable",
@@ -1172,14 +1172,14 @@
             "id": "tvoc_calibration_settings.calibration_value",
             "name": "Calibration Value",
             "value": "0",
-            "unit": "ug/m3",
+            "unit": "µg/m³",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "INT16",
             "range": [-2000, 2000],
             "bacnet_type": "analog_value_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "bacnet_unit_type_id": 219,
+            "bacnet_unit_type": "UNITS_MICROGRAMS_PER_CUBIC_METER",
             "reference": ["tvoc_calibration_settings.enable"]
         },
         {
@@ -1216,14 +1216,53 @@
         {
             "id": "time_zone",
             "name": "Time Zone",
-            "value": "0",
-            "unit": "min",
+            "value": "",
+            "unit": "",
             "access_mode": "RW",
-            "data_type": "NUMBER",
+            "data_type": "ENUM",
             "value_type": "INT16",
-            "bacnet_type": "analog_value_object",
-            "bacnet_unit_type_id": 72,
-            "bacnet_unit_type": "UNITS_MINUTES"
+            "values": [
+                { "value": -720, "name": "UTC-12" },
+                { "value": -660, "name": "UTC-11" },
+                { "value": -600, "name": "UTC-10" },
+                { "value": -570, "name": "UTC-9:30" },
+                { "value": -540, "name": "UTC-9" },
+                { "value": -480, "name": "UTC-8" },
+                { "value": -420, "name": "UTC-7" },
+                { "value": -360, "name": "UTC-6" },
+                { "value": -300, "name": "UTC-5" },
+                { "value": -240, "name": "UTC-4" },
+                { "value": -210, "name": "UTC-3:30" },
+                { "value": -180, "name": "UTC-3" },
+                { "value": -120, "name": "UTC-2" },
+                { "value": -60, "name": "UTC-1" },
+                { "value": 0, "name": "UTC" },
+                { "value": 60, "name": "UTC+1" },
+                { "value": 120, "name": "UTC+2" },
+                { "value": 180, "name": "UTC+3" },
+                { "value": 210, "name": "UTC+3:30" },
+                { "value": 240, "name": "UTC+4" },
+                { "value": 270, "name": "UTC+4:30" },
+                { "value": 300, "name": "UTC+5" },
+                { "value": 330, "name": "UTC+5:30" },
+                { "value": 345, "name": "UTC+5:45" },
+                { "value": 360, "name": "UTC+6" },
+                { "value": 390, "name": "UTC+6:30" },
+                { "value": 420, "name": "UTC+7" },
+                { "value": 480, "name": "UTC+8" },
+                { "value": 540, "name": "UTC+9" },
+                { "value": 570, "name": "UTC+9:30" },
+                { "value": 600, "name": "UTC+10" },
+                { "value": 630, "name": "UTC+10:30" },
+                { "value": 660, "name": "UTC+11" },
+                { "value": 720, "name": "UTC+12" },
+                { "value": 765, "name": "UTC+12:45" },
+                { "value": 780, "name": "UTC+13" },
+                { "value": 840, "name": "UTC+14" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
             "id": "daylight_saving_time.daylight_saving_time_enable",

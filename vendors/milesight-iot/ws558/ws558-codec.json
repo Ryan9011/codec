@@ -50,8 +50,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -66,10 +66,10 @@
             "data_type": "ENUM",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "ClassA" },
-                { "value": 1, "name": "ClassB" },
-                { "value": 2, "name": "ClassC" },
-                { "value": 3, "name": "ClassCtoB" }
+                { "value": 0, "name": "Class A" },
+                { "value": 1, "name": "Class B" },
+                { "value": 2, "name": "Class C" },
+                { "value": 3, "name": "Class CtoB" }
             ],
             "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
@@ -157,8 +157,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -173,8 +173,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -189,8 +189,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -205,8 +205,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -221,8 +221,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -237,8 +237,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -253,8 +253,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -269,10 +269,265 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
             "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+
+        {
+            "id": "reboot",
+            "name": "Reboot",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "report_status",
+            "name": "Report Status",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "report_interval",
+            "name": "Report Interval",
+            "value": "",
+            "unit": "s",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
+        },
+        {
+            "id": "delay_task.switch_1",
+            "name": "Delay Task (Switch 1)",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["delay_task.switch_1", "delay_task.task_id", "delay_task.delay_time"]
+        },
+        {
+            "id": "delay_task.switch_2",
+            "name": "Delay Task (Switch 2)",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["delay_task.switch_2", "delay_task.task_id", "delay_task.delay_time"]
+        },
+        {
+            "id": "delay_task.switch_3",
+            "name": "Delay Task (Switch 3)",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["delay_task.switch_3", "delay_task.task_id", "delay_task.delay_time"]
+        },
+        {
+            "id": "delay_task.switch_4",
+            "name": "Delay Task (Switch 4)",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["delay_task.switch_4", "delay_task.task_id", "delay_task.delay_time"]
+        },
+        {
+            "id": "delay_task.switch_5",
+            "name": "Delay Task (Switch 5)",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["delay_task.switch_5", "delay_task.task_id", "delay_task.delay_time"]
+        },
+        {
+            "id": "delay_task.switch_6",
+            "name": "Delay Task (Switch 6)",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["delay_task.switch_6", "delay_task.task_id", "delay_task.delay_time"]
+        },
+        {
+            "id": "delay_task.switch_7",
+            "name": "Delay Task (Switch 7)",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["delay_task.switch_7", "delay_task.task_id", "delay_task.delay_time"]
+        },
+        {
+            "id": "delay_task.switch_8",
+            "name": "Delay Task (Switch 8)",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["delay_task.switch_8", "delay_task.task_id", "delay_task.delay_time"]
+        },
+        {
+            "id": "delay_task.task_id",
+            "name": "Delay Task (Task ID)",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["delay_task.task_id", "delay_task.delay_time"]
+        },
+        {
+            "id": "delay_task.delay_time",
+            "name": "Delay Task (Delay Time)",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["delay_task.frame_count", "delay_task.delay_time"]
+        },
+        {
+            "id": "cancel_delay_task",
+            "name": "Cancel Delay Task",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "power_consumption_enable",
+            "name": "Power Consumption Enable",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "clear_power_consumption",
+            "name": "Clear Power Consumption",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         }

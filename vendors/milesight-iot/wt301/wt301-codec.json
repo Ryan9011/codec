@@ -11,8 +11,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
@@ -27,8 +27,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Disable" },
-                { "value": 1, "name": "Enable" }
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
             ],
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
@@ -43,9 +43,27 @@
             "data_type": "ENUM",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Cool" },
-                { "value": 1, "name": "Heat" },
-                { "value": 2, "name": "Fan" }
+                { "value": 0, "name": "cool" },
+                { "value": 1, "name": "heat" },
+                { "value": 2, "name": "fan" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "fan_speed",
+            "name": "Fan Speed",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "auto" },
+                { "value": 1, "name": "high" },
+                { "value": 2, "name": "medium" },
+                { "value": 3, "name": "low" }
             ],
             "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
@@ -84,8 +102,8 @@
             "data_type": "ENUM",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Remove" },
-                { "value": 1, "name": "Insert" }
+                { "value": 0, "name": "remove" },
+                { "value": 1, "name": "insert" }
             ],
             "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
@@ -100,8 +118,8 @@
             "data_type": "ENUM",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Auto" },
-                { "value": 1, "name": "Manual" }
+                { "value": 0, "name": "auto" },
+                { "value": 1, "name": "manual" }
             ],
             "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
@@ -118,6 +136,167 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 62,
             "bacnet_unit_type": "UNITS_DEGREES_CELSIUS"
+        },
+
+        {
+            "id": "query_thermostat_status",
+            "name": "Query Thermostat Status",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "query_button_lock_enable",
+            "name": "Query Button Lock Enable",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "query_mode",
+            "name": "Query Mode",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "query_fan_speed",
+            "name": "Query Fan Speed",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "query_temperature",
+            "name": "Query Temperature",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "query_target_temperature",
+            "name": "Query Target Temperature",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "query_card_mode",
+            "name": "Query Card Mode",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "query_control_mode",
+            "name": "Query Control Mode",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "query_server_temperature",
+            "name": "Query Server Temperature",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "query_all",
+            "name": "Query All",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
         }
     ]
 }

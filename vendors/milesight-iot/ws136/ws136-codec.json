@@ -50,8 +50,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -66,10 +66,10 @@
             "data_type": "ENUM",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "ClassA" },
-                { "value": 1, "name": "ClassB" },
-                { "value": 2, "name": "ClassC" },
-                { "value": 3, "name": "ClassCtoB" }
+                { "value": 0, "name": "Class A" },
+                { "value": 1, "name": "Class B" },
+                { "value": 2, "name": "Class C" },
+                { "value": 3, "name": "Class CtoB" }
             ],
             "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
@@ -109,8 +109,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Released" },
-                { "value": 1, "name": "Pressed" }
+                { "value": 0, "name": "released" },
+                { "value": 1, "name": "pressed" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -125,8 +125,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Released" },
-                { "value": 1, "name": "Pressed" }
+                { "value": 0, "name": "released" },
+                { "value": 1, "name": "pressed" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -141,8 +141,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Released" },
-                { "value": 1, "name": "Pressed" }
+                { "value": 0, "name": "released" },
+                { "value": 1, "name": "pressed" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -157,8 +157,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Released" },
-                { "value": 1, "name": "Pressed" }
+                { "value": 0, "name": "released" },
+                { "value": 1, "name": "pressed" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -173,8 +173,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Released" },
-                { "value": 1, "name": "Pressed" }
+                { "value": 0, "name": "released" },
+                { "value": 1, "name": "pressed" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -189,8 +189,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Released" },
-                { "value": 1, "name": "Pressed" }
+                { "value": 0, "name": "released" },
+                { "value": 1, "name": "pressed" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,

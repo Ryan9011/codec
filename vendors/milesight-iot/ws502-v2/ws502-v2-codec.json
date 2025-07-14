@@ -117,6 +117,7 @@
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
+
         {
             "id": "switch_1",
             "name": "Switch 1",
@@ -174,8 +175,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "No" },
-                { "value": 1, "name": "Yes" }
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -201,13 +202,13 @@
             "id": "report_interval",
             "name": "Report Interval",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
             "bacnet_type": "analog_value_object",
-            "bacnet_unit_type_id": 72,
-            "bacnet_unit_type": "UNITS_MINUTES"
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
         },
         {
             "id": "report_status",
@@ -286,7 +287,7 @@
             "bacnet_type": "analog_output_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["delay_task.switch_1", "delay_task.switch_2", "delay_task.frame_count", "delay_task.delay_time"]
+            "reference": ["delay_task.frame_count", "delay_task.delay_time"]
         },
         {
             "id": "delay_task.delay_time",
@@ -299,7 +300,7 @@
             "bacnet_type": "analog_output_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["delay_task.switch_1", "delay_task.switch_2", "delay_task.frame_count", "delay_task.delay_time"]
+            "reference": ["delay_task.frame_count", "delay_task.delay_time"]
         },
         {
             "id": "cancel_delay_task",
@@ -397,8 +398,8 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "timezone",
-            "name": "Timezone",
+            "id": "time_zone",
+            "name": "Time Zone",
             "value": "",
             "unit": "",
             "access_mode": "RW",
@@ -444,8 +445,8 @@
                 { "value": 840, "name": "UTC+14" }
             ],
             "bacnet_type": "multistate_value_object",
-            "bacnet_unit_type_id": 62,
-            "bacnet_unit_type": "UNITS_DEGREES_CELSIUS"
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
         }
     ]
 }

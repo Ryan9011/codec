@@ -7,6 +7,8 @@
  */
 var RAW_VALUE = 0x01;
 
+/* eslint no-redeclare: "off" */
+/* eslint-disable */
 // Chirpstack v4
 function decodeUplink(input) {
     var decoded = milesightDeviceDecode(input.bytes);
@@ -22,11 +24,12 @@ function Decode(fPort, bytes) {
 function Decoder(bytes, port) {
     return milesightDeviceDecode(bytes);
 }
+/* eslint-enable */
 
 function milesightDeviceDecode(bytes) {
     var decoded = {};
 
-    for (var i = 0; i < bytes.length;) {
+    for (var i = 0; i < bytes.length; ) {
         var channel_id = bytes[i++];
         var channel_type = bytes[i++];
 
@@ -153,7 +156,6 @@ function milesightDeviceDecode(bytes) {
                 data["valve_" + index + "_pulse"] = pulse;
             }
             i += 9;
-
             decoded.history = decoded.history || [];
             decoded.history.push(data);
         }
@@ -163,13 +165,12 @@ function milesightDeviceDecode(bytes) {
             data.timestamp = readUInt32LE(bytes.slice(i, i + 4));
             data.pressure = readUInt16LE(bytes.slice(i + 4, i + 6));
             i += 6;
-
             decoded.history = decoded.history || [];
             decoded.history.push(data);
         }
         // DOWNLINK RESPONSE
-        else if (channel_id === 0xfe) {
-            result = handle_downlink_response(channel_type, bytes, i);
+        else if (channel_id === 0xfe || channel_id === 0xff) {
+            var result = handle_downlink_response(channel_type, bytes, i);
             decoded = Object.assign(decoded, result.data);
             i = result.offset;
         } else {
@@ -194,7 +195,7 @@ function handle_downlink_response(channel_type, bytes, offset) {
             offset += 2;
             break;
         case 0x17:
-            decoded.timezone = readInt16LE(bytes.slice(offset, offset + 2)) / 10;
+            decoded.time_zone = readTimeZone(readInt16LE(bytes.slice(offset, offset + 2)));
             offset += 2;
             break;
         case 0x1d:
@@ -217,13 +218,21 @@ function handle_downlink_response(channel_type, bytes, offset) {
                 offset += 3;
             }
             if (pulse_rule_enable_value === 1) {
-                decoded[valve_name].pulse = readUInt32LE(bytes.slice(offset, offset + 4));
+                decoded[valve_name].valve_pulse = readUInt32LE(bytes.slice(offset, offset + 4));
                 offset += 4;
             }
             break;
         case 0x1e:
             decoded.class_a_response_time = readUInt32LE(bytes.slice(offset, offset + 4));
             offset += 4;
+            break;
+        case 0x27:
+            decoded.clear_history = readYesNoStatus(1);
+            offset += 1;
+            break;
+        case 0x28:
+            decoded.report_status = readYesNoStatus(1);
+            offset += 1;
             break;
         case 0x35:
             decoded.d2d_key = bytesToHexString(bytes.slice(offset, offset + 8));
@@ -235,6 +244,10 @@ function handle_downlink_response(channel_type, bytes, offset) {
             break;
         case 0x46:
             decoded.gpio_jitter_time = readUInt8(bytes[offset]);
+            offset += 1;
+            break;
+        case 0x4a:
+            decoded.sync_time = readYesNoStatus(1);
             offset += 1;
             break;
         case 0x4b: // batch_read_rules
@@ -363,9 +376,9 @@ function handle_downlink_response(channel_type, bytes, offset) {
             offset += 5;
             break;
         case 0xab:
-            decoded.pressure_calibration = {};
-            decoded.pressure_calibration.enable = readEnableStatus(bytes[offset]);
-            decoded.pressure_calibration.calibration_value = readInt16LE(bytes.slice(offset + 1, offset + 3));
+            decoded.pressure_calibration_settings = {};
+            decoded.pressure_calibration_settings.enable = readEnableStatus(bytes[offset]);
+            decoded.pressure_calibration_settings.calibration_value = readInt16LE(bytes.slice(offset + 1, offset + 3));
             offset += 3;
             break;
         case 0xf3:
@@ -466,6 +479,11 @@ function readYesNoStatus(status) {
     return getValue(status_map, status);
 }
 
+function readTimeZone(time_zone) {
+    var timezone_map = { "-120": "UTC-12", "-110": "UTC-11", "-100": "UTC-10", "-95": "UTC-9:30", "-90": "UTC-9", "-80": "UTC-8", "-70": "UTC-7", "-60": "UTC-6", "-50": "UTC-5", "-40": "UTC-4", "-35": "UTC-3:30", "-30": "UTC-3", "-20": "UTC-2", "-10": "UTC-1", 0: "UTC", 10: "UTC+1", 20: "UTC+2", 30: "UTC+3", 35: "UTC+3:30", 40: "UTC+4", 45: "UTC+4:30", 50: "UTC+5", 55: "UTC+5:30", 57: "UTC+5:45", 60: "UTC+6", 65: "UTC+6:30", 70: "UTC+7", 80: "UTC+8", 90: "UTC+9", 95: "UTC+9:30", 100: "UTC+10", 105: "UTC+10:30", 110: "UTC+11", 120: "UTC+12", 127: "UTC+12:45", 130: "UTC+13", 140: "UTC+14" };
+    return getValue(timezone_map, time_zone);
+}
+
 function readSyncTimeType(type) {
     var type_map = { 1: "v1.0.2", 2: "v1.0.3", 3: "v1.1.0" };
     return getValue(type_map, type);
@@ -528,18 +546,8 @@ function readWeekday(weekday_value) {
     return weekday;
 }
 
-function readValveStrategy(strategy_value) {
-    var valve_strategy_map = { 0: "always", 1: "valve 1 open", 2: "valve 2 open", 3: "valve 1 open or valve 2 open" };
-    return getValue(valve_strategy_map, strategy_value);
-}
-
 function readNewConditionType(condition_type_value) {
     var condition_type_map = { 0: "none", 1: "time", 2: "d2d", 3: "time_or_pulse_threshold", 4: "pulse_threshold", 5: "pressure_threshold" };
-    return getValue(condition_type_map, condition_type_value);
-}
-
-function readMathConditionType(condition_type_value) {
-    var condition_type_map = { 0: "none", 1: "below", 2: "above", 3: "between", 4: "outside" };
     return getValue(condition_type_map, condition_type_value);
 }
 
@@ -583,6 +591,7 @@ function readReportType(report_type_value) {
     return getValue(report_type_map, report_type_value);
 }
 
+/* eslint-disable */
 function readUInt8(bytes) {
     return bytes & 0xff;
 }

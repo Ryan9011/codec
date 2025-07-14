@@ -7,6 +7,8 @@
  */
 var RAW_VALUE = 0x01;
 
+/* eslint no-redeclare: "off" */
+/* eslint-disable */
 // Chirpstack v4
 function decodeUplink(input) {
     var decoded = milesightDeviceDecode(input.bytes);
@@ -22,11 +24,12 @@ function Decode(fPort, bytes) {
 function Decoder(bytes, port) {
     return milesightDeviceDecode(bytes);
 }
+/* eslint-enable */
 
 function milesightDeviceDecode(bytes) {
     var decoded = {};
 
-    for (var i = 0; i < bytes.length;) {
+    for (var i = 0; i < bytes.length; ) {
         var channel_id = bytes[i++];
         var channel_type = bytes[i++];
 
@@ -101,33 +104,32 @@ function milesightDeviceDecode(bytes) {
                 event.region_id = readUInt8(bytes[i + 4]);
             }
             i += 5;
-
             decoded.events = decoded.events || [];
             decoded.events.push(event);
         }
         // HISTORY DATA
         else if (channel_id === 0x20 && channel_type === 0xce) {
             var data = {};
-            data.id = readUInt16LE(bytes.slice(i, i + 2));
-            data.event_type = readAlarmType(bytes[i + 2]);
-            data.event_status = readAlarmStatus(bytes[i + 3]);
-            var event_type = bytes[i + 2];
+            data.timestamp = readUInt32LE(bytes.slice(i, i + 4));
+            data.alarm_id = readUInt16LE(bytes.slice(i + 4, i + 6));
+            data.alarm_type = readAlarmType(bytes[i + 6]);
+            data.alarm_status = readAlarmStatus(bytes[i + 7]);
+            var event_type = bytes[i + 6];
             // EVENT TYPE: OUT OF BED
             if (event_type === 3) {
-                data.region_id = readUInt8(bytes[i + 4]);
+                data.region_id = readUInt8(bytes[i + 8]);
             }
-            i += 5;
-
+            i += 9;
             decoded.history = decoded.history || [];
             decoded.history.push(data);
         }
         // DOWNLINK RESPONSE
         else if (channel_id === 0xfe || channel_id === 0xff) {
-            result = handle_downlink_response(channel_type, bytes, i);
+            var result = handle_downlink_response(channel_type, bytes, i);
             decoded = Object.assign(decoded, result.data);
             i = result.offset;
         } else if (channel_id === 0xf8 || channel_id === 0xf9) {
-            result = handle_downlink_response_ext(channel_id, channel_type, bytes, i);
+            var result = handle_downlink_response_ext(channel_id, channel_type, bytes, i);
             decoded = Object.assign(decoded, result.data);
             i = result.offset;
         } else {
@@ -302,10 +304,12 @@ function handle_downlink_response_ext(code, channel_type, bytes, offset) {
         offset += 1;
 
         if (result_value !== 0) {
+            var request = decoded;
             decoded = {};
             decoded.device_response_result = {};
             decoded.device_response_result.channel_type = channel_type;
-            decoded.device_response_result.result = readResultStatus(bytes[offset]);
+            decoded.device_response_result.result = readResultStatus(result_value);
+            decoded.device_response_result.request = request;
         }
     }
 
@@ -418,8 +422,8 @@ function readAlarmStatus(status) {
 }
 
 function readEnableStatus(status) {
-    var enable_status_map = { 0: "disable", 1: "enable" };
-    return getValue(enable_status_map, status);
+    var status_map = { 0: "disable", 1: "enable" };
+    return getValue(status_map, status);
 }
 
 function readYesNoStatus(status) {
@@ -577,6 +581,7 @@ function readD2DActionType(type) {
     return getValue(d2d_action_type_map, type);
 }
 
+/* eslint-disable */
 function readUInt8(bytes) {
     return bytes & 0xff;
 }

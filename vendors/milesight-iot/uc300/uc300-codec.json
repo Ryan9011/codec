@@ -50,8 +50,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -66,10 +66,10 @@
             "data_type": "ENUM",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "ClassA" },
-                { "value": 1, "name": "ClassB" },
-                { "value": 2, "name": "ClassC" },
-                { "value": 3, "name": "ClassCtoB" }
+                { "value": 0, "name": "Class A" },
+                { "value": 1, "name": "Class B" },
+                { "value": 2, "name": "Class C" },
+                { "value": 3, "name": "Class CtoB" }
             ],
             "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
@@ -97,8 +97,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Low" },
-                { "value": 1, "name": "High" }
+                { "value": 0, "name": "low" },
+                { "value": 1, "name": "high" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -113,8 +113,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Low" },
-                { "value": 1, "name": "High" }
+                { "value": 0, "name": "low" },
+                { "value": 1, "name": "high" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -129,8 +129,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Low" },
-                { "value": 1, "name": "High" }
+                { "value": 0, "name": "low" },
+                { "value": 1, "name": "high" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -145,8 +145,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Low" },
-                { "value": 1, "name": "High" }
+                { "value": 0, "name": "low" },
+                { "value": 1, "name": "high" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -161,8 +161,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Low" },
-                { "value": 1, "name": "High" }
+                { "value": 0, "name": "low" },
+                { "value": 1, "name": "high" }
             ],
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
@@ -177,8 +177,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Low" },
-                { "value": 1, "name": "High" }
+                { "value": 0, "name": "low" },
+                { "value": 1, "name": "high" }
             ],
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
@@ -917,16 +917,18 @@
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
+
         {
             "id": "reboot",
             "name": "Reboot",
             "value": "",
+            "unit": "",
             "access_mode": "W",
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "No" },
-                { "value": 1, "name": "Yes" }
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
             ],
             "bacnet_type": "binary_output_object",
             "bacnet_unit_type_id": 95,
@@ -936,12 +938,13 @@
             "id": "report_status",
             "name": "Report Status",
             "value": "",
+            "unit": "",
             "access_mode": "W",
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "No" },
-                { "value": 1, "name": "Yes" }
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
             ],
             "bacnet_type": "binary_output_object",
             "bacnet_unit_type_id": 95,
@@ -984,14 +987,53 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "timezone",
-            "name": "Timezone",
+            "id": "time_zone",
+            "name": "Time Zone",
             "value": "",
             "unit": "",
             "access_mode": "RW",
-            "data_type": "NUMBER",
-            "value_type": "UINT16",
-            "bacnet_type": "analog_value_object",
+            "data_type": "ENUM",
+            "value_type": "INT16",
+            "values": [
+                { "value": -120, "name": "UTC-12" },
+                { "value": -110, "name": "UTC-11" },
+                { "value": -100, "name": "UTC-10" },
+                { "value": -95, "name": "UTC-9:30" },
+                { "value": -90, "name": "UTC-9" },
+                { "value": -80, "name": "UTC-8" },
+                { "value": -70, "name": "UTC-7" },
+                { "value": -60, "name": "UTC-6" },
+                { "value": -50, "name": "UTC-5" },
+                { "value": -40, "name": "UTC-4" },
+                { "value": -35, "name": "UTC-3:30" },
+                { "value": -30, "name": "UTC-3" },
+                { "value": -20, "name": "UTC-2" },
+                { "value": -10, "name": "UTC-1" },
+                { "value": 0, "name": "UTC" },
+                { "value": 10, "name": "UTC+1" },
+                { "value": 20, "name": "UTC+2" },
+                { "value": 30, "name": "UTC+3" },
+                { "value": 35, "name": "UTC+3:30" },
+                { "value": 40, "name": "UTC+4" },
+                { "value": 45, "name": "UTC+4:30" },
+                { "value": 50, "name": "UTC+5" },
+                { "value": 55, "name": "UTC+5:30" },
+                { "value": 57, "name": "UTC+5:45" },
+                { "value": 60, "name": "UTC+6" },
+                { "value": 65, "name": "UTC+6:30" },
+                { "value": 70, "name": "UTC+7" },
+                { "value": 80, "name": "UTC+8" },
+                { "value": 90, "name": "UTC+9" },
+                { "value": 95, "name": "UTC+9:30" },
+                { "value": 100, "name": "UTC+10" },
+                { "value": 105, "name": "UTC+10:30" },
+                { "value": 110, "name": "UTC+11" },
+                { "value": 120, "name": "UTC+12" },
+                { "value": 127, "name": "UTC+12:45" },
+                { "value": 130, "name": "UTC+13" },
+                { "value": 140, "name": "UTC+14" }
+            ],
+            "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
@@ -999,12 +1041,13 @@
             "id": "sync_time",
             "name": "Sync Time",
             "value": "",
+            "unit": "",
             "access_mode": "W",
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "No" },
-                { "value": 1, "name": "Yes" }
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
             ],
             "bacnet_type": "binary_output_object",
             "bacnet_unit_type_id": 95,
@@ -1014,6 +1057,7 @@
             "id": "sniffer_config.channel_id",
             "name": "Sniffer Config Channel ID",
             "value": "",
+            "unit": "",
             "access_mode": "RW",
             "data_type": "ENUM",
             "value_type": "UINT8",

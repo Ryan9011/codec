@@ -338,9 +338,9 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "timezone",
-            "name": "Timezone",
-            "value": "8",
+            "id": "time_zone",
+            "name": "Time Zone",
+            "value": "",
             "unit": "",
             "access_mode": "RW",
             "data_type": "ENUM",
@@ -380,7 +380,7 @@
                 { "value": 630, "name": "UTC+10:30" },
                 { "value": 660, "name": "UTC+11" },
                 { "value": 720, "name": "UTC+12" },
-                { "value": 750, "name": "UTC+12:45" },
+                { "value": 765, "name": "UTC+12:45" },
                 { "value": 780, "name": "UTC+13" },
                 { "value": 840, "name": "UTC+14" }
             ],
@@ -401,7 +401,7 @@
             "bacnet_unit_type": "UNITS_MINUTES"
         },
         {
-            "id": "temperature_calibration.enable",
+            "id": "temperature_calibration_settings.enable",
             "name": "Temperature Calibration Enable",
             "value": "1",
             "unit": "",
@@ -415,10 +415,10 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["temperature_calibration.temperature"]
+            "reference": ["temperature_calibration_settings.calibration_value"]
         },
         {
-            "id": "temperature_calibration.temperature",
+            "id": "temperature_calibration_settings.calibration_value",
             "name": "Temperature Calibration Temperature",
             "value": "0",
             "unit": "°C",
@@ -428,7 +428,7 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 62,
             "bacnet_unit_type": "UNITS_DEGREES_CELSIUS",
-            "reference": ["temperature_calibration.enable"]
+            "reference": ["temperature_calibration_settings.enable"]
         },
         {
             "id": "temperature_control.enable",
@@ -466,7 +466,7 @@
             "id": "temperature_tolerance",
             "name": "Temperature Tolerance",
             "value": "0",
-            "unit": "℃",
+            "unit": "°C",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
@@ -474,6 +474,32 @@
             "bacnet_unit_type_id": 62,
             "bacnet_unit_type": "UNITS_DEGREES_CELSIUS",
             "reference": ["target_temperature"]
+        },
+        {
+            "id": "target_temperature_range.min",
+            "name": "Target Temperature Range (Min)",
+            "value": "0",
+            "unit": "°C",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 62,
+            "bacnet_unit_type": "UNITS_DEGREES_CELSIUS",
+            "reference": ["target_temperature_range.min", "target_temperature_range.max"]
+        },
+        {
+            "id": "target_temperature_range.max",
+            "name": "Target Temperature Range (Max)",
+            "value": "0",
+            "unit": "°C",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 62,
+            "bacnet_unit_type": "UNITS_DEGREES_CELSIUS",
+            "reference": ["target_temperature_range.min", "target_temperature_range.max"]
         },
         {
             "id": "open_window_detection.enable",
@@ -496,7 +522,7 @@
             "id": "open_window_detection.temperature_threshold",
             "name": "Open Window Detection Temperature Threshold",
             "value": "0",
-            "unit": "℃",
+            "unit": "°C",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
@@ -633,7 +659,7 @@
             "id": "outside_temperature",
             "name": "Outside Temperature",
             "value": "0",
-            "unit": "℃",
+            "unit": "°C",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
@@ -904,7 +930,7 @@
             "id": "effective_stroke.rate",
             "name": "Effective Stroke Rate",
             "value": "50",
-            "unit": "%",
+            "unit": "",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT8",

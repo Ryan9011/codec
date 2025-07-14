@@ -309,7 +309,7 @@
             "id": "temperature_alarm.temperature",
             "name": "Temperature Alarm (Temperature)",
             "value": "",
-            "unit": "",
+            "unit": "°C",
             "access_mode": "R",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
@@ -917,6 +917,23 @@
             "reference": ["fan_delay_config.enable", "fan_delay_config.delay_time"]
         },
         {
+            "id": "child_lock_settings.enable",
+            "name": "Child Lock Settings (Enable)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["child_lock_settings.enable", "child_lock_settings.system_button", "child_lock_settings.temperature_button", "child_lock_settings.fan_button", "child_lock_settings.temperature_control_button", "child_lock_settings.reboot_reset_button"]
+        },
+        {
             "id": "child_lock_settings.system_button",
             "name": "Child Lock Settings (System Button)",
             "value": "",
@@ -931,7 +948,7 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["child_lock_settings.system_button", "child_lock_settings.temperature_button", "child_lock_settings.fan_button", "child_lock_settings.temperature_control_button", "child_lock_settings.reboot_reset_button"]
+            "reference": ["child_lock_settings.enable", "child_lock_settings.system_button", "child_lock_settings.temperature_button", "child_lock_settings.fan_button", "child_lock_settings.temperature_control_button", "child_lock_settings.reboot_reset_button"]
         },
         {
             "id": "child_lock_settings.temperature_button",
@@ -948,7 +965,7 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["child_lock_settings.system_button", "child_lock_settings.temperature_button", "child_lock_settings.fan_button", "child_lock_settings.temperature_control_button", "child_lock_settings.reboot_reset_button"]
+            "reference": ["child_lock_settings.enable", "child_lock_settings.system_button", "child_lock_settings.temperature_button", "child_lock_settings.fan_button", "child_lock_settings.temperature_control_button", "child_lock_settings.reboot_reset_button"]
         },
         {
             "id": "child_lock_settings.fan_button",
@@ -965,7 +982,7 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["child_lock_settings.system_button", "child_lock_settings.temperature_button", "child_lock_settings.fan_button", "child_lock_settings.temperature_control_button", "child_lock_settings.reboot_reset_button"]
+            "reference": ["child_lock_settings.enable", "child_lock_settings.system_button", "child_lock_settings.temperature_button", "child_lock_settings.fan_button", "child_lock_settings.temperature_control_button", "child_lock_settings.reboot_reset_button"]
         },
         {
             "id": "child_lock_settings.temperature_control_button",
@@ -982,7 +999,7 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["child_lock_settings.system_button", "child_lock_settings.temperature_button", "child_lock_settings.fan_button", "child_lock_settings.temperature_control_button", "child_lock_settings.reboot_reset_button"]
+            "reference": ["child_lock_settings.enable", "child_lock_settings.system_button", "child_lock_settings.temperature_button", "child_lock_settings.fan_button", "child_lock_settings.temperature_control_button", "child_lock_settings.reboot_reset_button"]
         },
         {
             "id": "child_lock_settings.reboot_reset_button",
@@ -999,7 +1016,7 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["child_lock_settings.system_button", "child_lock_settings.temperature_button", "child_lock_settings.fan_button", "child_lock_settings.temperature_control_button", "child_lock_settings.reboot_reset_button"]
+            "reference": ["child_lock_settings.enable", "child_lock_settings.system_button", "child_lock_settings.temperature_button", "child_lock_settings.fan_button", "child_lock_settings.temperature_control_button", "child_lock_settings.reboot_reset_button"]
         },
         {
             "id": "temperature_alarm_settings.enable",
@@ -1016,10 +1033,10 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["temperature_alarm_settings.enable", "temperature_alarm_settings.threshold_condition", "temperature_alarm_settings.threshold_min", "temperature_alarm_settings.threshold_max"]
+            "reference": ["temperature_alarm_settings.enable", "temperature_alarm_settings.condition", "temperature_alarm_settings.threshold_min", "temperature_alarm_settings.threshold_max"]
         },
         {
-            "id": "temperature_alarm_settings.threshold_condition",
+            "id": "temperature_alarm_settings.condition",
             "name": "Temperature Alarm Settings (Threshold Condition)",
             "value": "",
             "unit": "",
@@ -1036,7 +1053,7 @@
             "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["temperature_alarm_settings.enable", "temperature_alarm_settings.threshold_condition", "temperature_alarm_settings.threshold_min", "temperature_alarm_settings.threshold_max"]
+            "reference": ["temperature_alarm_settings.enable", "temperature_alarm_settings.condition", "temperature_alarm_settings.threshold_min", "temperature_alarm_settings.threshold_max"]
         },
         {
             "id": "temperature_alarm_settings.threshold_min",
@@ -1049,7 +1066,7 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 62,
             "bacnet_unit_type": "UNITS_DEGREES_CELSIUS",
-            "reference": ["temperature_alarm_settings.enable", "temperature_alarm_settings.threshold_condition", "temperature_alarm_settings.threshold_min", "temperature_alarm_settings.threshold_max"]
+            "reference": ["temperature_alarm_settings.enable", "temperature_alarm_settings.condition", "temperature_alarm_settings.threshold_min", "temperature_alarm_settings.threshold_max"]
         },
         {
             "id": "temperature_alarm_settings.threshold_max",
@@ -1062,7 +1079,7 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 62,
             "bacnet_unit_type": "UNITS_DEGREES_CELSIUS",
-            "reference": ["temperature_alarm_settings.enable", "temperature_alarm_settings.threshold_condition", "temperature_alarm_settings.threshold_min", "temperature_alarm_settings.threshold_max"]
+            "reference": ["temperature_alarm_settings.enable", "temperature_alarm_settings.condition", "temperature_alarm_settings.threshold_min", "temperature_alarm_settings.threshold_max"]
         },
         {
             "id": "high_temperature_alarm_settings.enable",
@@ -1151,7 +1168,7 @@
             "reference": ["low_temperature_alarm_settings.enable", "low_temperature_alarm_settings.delta_temperature", "low_temperature_alarm_settings.duration"]
         },
         {
-            "id": "temperature_calibration_config.enable",
+            "id": "temperature_calibration_settings.enable",
             "name": "Temperature Calibration Config (Enable)",
             "value": "",
             "unit": "",
@@ -1165,10 +1182,10 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["temperature_calibration_config.enable", "temperature_calibration_config.calibration_value"]
+            "reference": ["temperature_calibration_settings.enable", "temperature_calibration_settings.calibration_value"]
         },
         {
-            "id": "temperature_calibration_config.calibration_value",
+            "id": "temperature_calibration_settings.calibration_value",
             "name": "Temperature Calibration Config (Calibration Value)",
             "value": "",
             "unit": "°C",
@@ -1178,10 +1195,10 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 62,
             "bacnet_unit_type": "UNITS_DEGREES_CELSIUS",
-            "reference": ["temperature_calibration_config.enable", "temperature_calibration_config.calibration_value"]
+            "reference": ["temperature_calibration_settings.enable", "temperature_calibration_settings.calibration_value"]
         },
         {
-            "id": "humidity_calibration_config.enable",
+            "id": "humidity_calibration_settings.enable",
             "name": "Humidity Calibration Config (Enable)",
             "value": "",
             "unit": "",
@@ -1195,10 +1212,10 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["humidity_calibration_config.enable", "humidity_calibration_config.calibration_value"]
+            "reference": ["humidity_calibration_settings.enable", "humidity_calibration_settings.calibration_value"]
         },
         {
-            "id": "humidity_calibration_config.calibration_value",
+            "id": "humidity_calibration_settings.calibration_value",
             "name": "Humidity Calibration Config (Calibration Value)",
             "value": "",
             "unit": "%r.h.",
@@ -1208,7 +1225,413 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 29,
             "bacnet_unit_type": "UNITS_PERCENT_RELATIVE_HUMIDITY",
-            "reference": ["humidity_calibration_config.enable", "humidity_calibration_config.calibration_value"]
+            "reference": ["humidity_calibration_settings.enable", "humidity_calibration_settings.calibration_value"]
+        },
+        {
+            "id": "valve_interface_settings.mode",
+            "name": "Valve Interface Settings (Mode)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "four_pipe_voltage" },
+                { "value": 1, "name": "two_pipe_voltage" },
+                { "value": 2, "name": "two_pipe_voltage_ec" },
+                { "value": 3, "name": "four_pipe_two_wire_ec" },
+                { "value": 4, "name": "two_pipe_two_wire_ec" },
+                { "value": 5, "name": "two_pipe_three_wire_ec" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "valve_interface_settings.four_pipe_voltage.cooling_valve",
+            "name": "Valve Interface Settings (Four Pipe Voltage Cooling Valve)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "valve_1" },
+                { "value": 1, "name": "valve_2" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.four_pipe_voltage.cooling_valve", "valve_interface_settings.four_pipe_voltage.heating_valve"]
+        },
+        {
+            "id": "valve_interface_settings.four_pipe_voltage.heating_valve",
+            "name": "Valve Interface Settings (Four Pipe Voltage Heating Valve)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "valve_1" },
+                { "value": 1, "name": "valve_2" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.four_pipe_voltage.cooling_valve", "valve_interface_settings.four_pipe_voltage.heating_valve"]
+        },
+        {
+            "id": "valve_interface_settings.two_pipe_voltage.control_valve",
+            "name": "Valve Interface Settings (Two Pipe Voltage Valve)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "valve_1" },
+                { "value": 1, "name": "valve_2" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.two_pipe_voltage.control_valve"]
+        },
+        {
+            "id": "valve_interface_settings.two_pipe_voltage_ec.control_valve",
+            "name": "Valve Interface Settings (Two Pipe Voltage EC Valve)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "valve_1" },
+                { "value": 1, "name": "valve_2" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.two_pipe_voltage_ec.control_valve", "valve_interface_settings.two_pipe_voltage_ec.ec", "valve_interface_settings.two_pipe_voltage_ec.ec_power"]
+        },
+        {
+            "id": "valve_interface_settings.two_pipe_voltage_ec.ec",
+            "name": "Valve Interface Settings (Two Pipe Voltage EC EC)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "valve_1" },
+                { "value": 1, "name": "valve_2" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.two_pipe_voltage_ec.control_valve", "valve_interface_settings.two_pipe_voltage_ec.ec", "valve_interface_settings.two_pipe_voltage_ec.ec_power"]
+        },
+        {
+            "id": "valve_interface_settings.two_pipe_voltage_ec.ec_power",
+            "name": "Valve Interface Settings (Two Pipe Voltage EC EC Power)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "none" },
+                { "value": 3, "name": "low" },
+                { "value": 4, "name": "medium" },
+                { "value": 5, "name": "high" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.two_pipe_voltage_ec.control_valve", "valve_interface_settings.two_pipe_voltage_ec.ec", "valve_interface_settings.two_pipe_voltage_ec.ec_power"]
+        },
+        {
+            "id": "valve_interface_settings.four_pipe_two_wire_ec.cooling_valve",
+            "name": "Valve Interface Settings (Four Pipe Two Wire EC Cooling Valve)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 3, "name": "low" },
+                { "value": 4, "name": "medium" },
+                { "value": 5, "name": "high" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.four_pipe_two_wire_ec.cooling_valve", "valve_interface_settings.four_pipe_two_wire_ec.heating_valve"]
+        },
+        {
+            "id": "valve_interface_settings.four_pipe_two_wire_ec.heating_valve",
+            "name": "Valve Interface Settings (Four Pipe Two Wire EC Heating Valve)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 3, "name": "low" },
+                { "value": 4, "name": "medium" },
+                { "value": 5, "name": "high" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.four_pipe_two_wire_ec.cooling_valve", "valve_interface_settings.four_pipe_two_wire_ec.heating_valve"]
+        },
+        {
+            "id": "valve_interface_settings.four_pipe_two_wire_ec.ec",
+            "name": "Valve Interface Settings (Four Pipe Two Wire EC EC)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "valve_1" },
+                { "value": 1, "name": "valve_2" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.four_pipe_two_wire_ec.cooling_valve", "valve_interface_settings.four_pipe_two_wire_ec.heating_valve"]
+        },
+        {
+            "id": "valve_interface_settings.four_pipe_two_wire_ec.ec_power",
+            "name": "Valve Interface Settings (Four Pipe Two Wire EC EC Power)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "none" },
+                { "value": 3, "name": "low" },
+                { "value": 4, "name": "medium" },
+                { "value": 5, "name": "high" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.four_pipe_two_wire_ec.cooling_valve", "valve_interface_settings.four_pipe_two_wire_ec.heating_valve"]
+        },
+        {
+            "id": "valve_interface_settings.two_pipe_two_wire_ec.control_valve",
+            "name": "Valve Interface Settings (Two Pipe Two Wire EC Control Valve)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 3, "name": "low" },
+                { "value": 4, "name": "medium" },
+                { "value": 5, "name": "high" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.two_pipe_two_wire_ec.control_valve", "valve_interface_settings.two_pipe_two_wire_ec.ec", "valve_interface_settings.two_pipe_two_wire_ec.ec_power"]
+        },
+        {
+            "id": "valve_interface_settings.two_pipe_two_wire_ec.ec",
+            "name": "Valve Interface Settings (Two Pipe Two Wire EC EC)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "valve_1" },
+                { "value": 1, "name": "valve_2" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.two_pipe_two_wire_ec.control_valve", "valve_interface_settings.two_pipe_two_wire_ec.ec", "valve_interface_settings.two_pipe_two_wire_ec.ec_power"]
+        },
+        {
+            "id": "valve_interface_settings.two_pipe_two_wire_ec.ec_power",
+            "name": "Valve Interface Settings (Two Pipe Two Wire EC EC Power)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "none" },
+                { "value": 3, "name": "low" },
+                { "value": 4, "name": "medium" },
+                { "value": 5, "name": "high" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.two_pipe_two_wire_ec.control_valve", "valve_interface_settings.two_pipe_two_wire_ec.ec", "valve_interface_settings.two_pipe_two_wire_ec.ec_power"]
+        },
+        {
+            "id": "valve_interface_settings.two_pipe_three_wire_ec.no",
+            "name": "Valve Interface Settings (Two Pipe Three Wire EC NO)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 3, "name": "low" },
+                { "value": 4, "name": "medium" },
+                { "value": 5, "name": "high" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.two_pipe_three_wire_ec.no", "valve_interface_settings.two_pipe_three_wire_ec.nc", "valve_interface_settings.two_pipe_three_wire_ec.ec", "valve_interface_settings.two_pipe_three_wire_ec.ec_power"]
+        },
+        {
+            "id": "valve_interface_settings.two_pipe_three_wire_ec.nc",
+            "name": "Valve Interface Settings (Two Pipe Three Wire EC NC)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 3, "name": "low" },
+                { "value": 4, "name": "medium" },
+                { "value": 5, "name": "high" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.two_pipe_three_wire_ec.no", "valve_interface_settings.two_pipe_three_wire_ec.nc", "valve_interface_settings.two_pipe_three_wire_ec.ec", "valve_interface_settings.two_pipe_three_wire_ec.ec_power"]
+        },
+        {
+            "id": "valve_interface_settings.two_pipe_three_wire_ec.ec",
+            "name": "Valve Interface Settings (Two Pipe Three Wire EC EC)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "valve_1" },
+                { "value": 1, "name": "valve_2" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.two_pipe_three_wire_ec.no", "valve_interface_settings.two_pipe_three_wire_ec.nc", "valve_interface_settings.two_pipe_three_wire_ec.ec", "valve_interface_settings.two_pipe_three_wire_ec.ec_power"]
+        },
+        {
+            "id": "valve_interface_settings.two_pipe_three_wire_ec.ec_power",
+            "name": "Valve Interface Settings (Two Pipe Three Wire EC EC Power)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "none" },
+                { "value": 3, "name": "low" },
+                { "value": 4, "name": "medium" },
+                { "value": 5, "name": "high" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["valve_interface_settings.mode", "valve_interface_settings.two_pipe_three_wire_ec.no", "valve_interface_settings.two_pipe_three_wire_ec.nc", "valve_interface_settings.two_pipe_three_wire_ec.ec", "valve_interface_settings.two_pipe_three_wire_ec.ec_power"]
+        },
+        {
+            "id": "valve_control_settings.temperature_control_range",
+            "name": "Valve Control Settings (Temperature Control Range)",
+            "value": "",
+            "unit": "°C",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 62,
+            "bacnet_unit_type": "UNITS_DEGREES_CELSIUS"
+        },
+        {
+            "id": "valve_control_settings.opening_range.min",
+            "name": "Valve Control Settings (Opening Range Min)",
+            "value": "",
+            "unit": "%",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 98,
+            "bacnet_unit_type": "UNITS_PERCENT"
+        },
+        {
+            "id": "valve_control_settings.opening_range.max",
+            "name": "Valve Control Settings (Opening Range Max)",
+            "value": "",
+            "unit": "%",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 98,
+            "bacnet_unit_type": "UNITS_PERCENT"
+        },
+        {
+            "id": "valve_control_settings.control_time_interval",
+            "name": "Valve Control Settings (Control Time Interval)",
+            "value": "",
+            "unit": "s",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
+        },
+        {
+            "id": "fan_control_settings.low_threshold",
+            "name": "Fan Control Settings (Low Threshold)",
+            "value": "",
+            "unit": "°C",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 62,
+            "bacnet_unit_type": "UNITS_DEGREES_CELSIUS"
+        },
+        {
+            "id": "fan_control_settings.medium_threshold",
+            "name": "Fan Control Settings (Medium Threshold)",
+            "value": "",
+            "unit": "°C",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 62,
+            "bacnet_unit_type": "UNITS_DEGREES_CELSIUS"
+        },
+        {
+            "id": "fan_control_settings.high_threshold",
+            "name": "Fan Control Settings (High Threshold)",
+            "value": "",
+            "unit": "°C",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 62,
+            "bacnet_unit_type": "UNITS_DEGREES_CELSIUS"
         },
         {
             "id": "di_settings.enable",
@@ -1227,6 +1650,99 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
+            "id": "di_settings.type",
+            "name": "DI Settings (Type)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "card_control" },
+                { "value": 1, "name": "magnet_detection" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "di_settings.card_control.mode",
+            "name": "DI Settings (Card Control Mode)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "power" },
+                { "value": 1, "name": "plan" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["di_settings.type"]
+        },
+        {
+            "id": "di_settings.card_control.system_status",
+            "name": "DI Settings (Card Control System Status)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["di_settings.card_control.mode", "di_settings.card_control.system_status"]
+        },
+        {
+            "id": "di_settings.card_control.in_plan_id",
+            "name": "DI Settings (Card Control In Plan ID)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["di_settings.card_control.mode", "di_settings.card_control.in_plan_id", "di_settings.card_control.out_plan_id"]
+        },
+        {
+            "id": "di_settings.card_control.out_plan_id",
+            "name": "DI Settings (Card Control Out Plan ID)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["di_settings.card_control.mode", "di_settings.card_control.in_plan_id", "di_settings.card_control.out_plan_id"]
+        },
+        {
+            "id": "di_settings.magnet_detection.mode",
+            "name": "DI Settings (Magnet Detection Mode)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "normally_close" },
+                { "value": 1, "name": "normally_open" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["di_settings.type"]
+        },
+        {
             "id": "window_opening_detection_settings.enable",
             "name": "Window Opening Detection Settings (Enable)",
             "value": "",
@@ -1241,6 +1757,61 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "window_opening_detection_settings.type",
+            "name": "Window Opening Detection Settings (Type)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "temperature_detection" },
+                { "value": 1, "name": "magnet_detection" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "window_opening_detection_settings.temperature_detection.delta_temperature",
+            "name": "Window Opening Detection Settings (Temperature Detection (Delta Temperature))",
+            "value": "",
+            "unit": "°C",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 62,
+            "bacnet_unit_type": "UNITS_DEGREES_CELSIUS",
+            "reference": ["window_opening_detection_settings.type", "window_opening_detection_settings.temperature_detection.delta_temperature", "window_opening_detection_settings.temperature_detection.duration"]
+        },
+        {
+            "id": "window_opening_detection_settings.temperature_detection.duration",
+            "name": "Window Opening Detection Settings (Temperature Detection (Duration))",
+            "value": "",
+            "unit": "min",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 72,
+            "bacnet_unit_type": "UNITS_MINUTES",
+            "reference": ["window_opening_detection_settings.type", "window_opening_detection_settings.temperature_detection.delta_temperature", "window_opening_detection_settings.temperature_detection.duration"]
+        },
+        {
+            "id": "window_opening_detection_settings.magnet_detection.duration",
+            "name": "Window Opening Detection Settings (Magnet Detection (Duration))",
+            "value": "",
+            "unit": "min",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 72,
+            "bacnet_unit_type": "UNITS_MINUTES",
+            "reference": ["window_opening_detection_settings.type", "window_opening_detection_settings.magnet_detection.duration"]
         },
         {
             "id": "freeze_protection_settings.enable",
@@ -1273,6 +1844,56 @@
             "reference": ["freeze_protection_settings.enable", "freeze_protection_settings.target_temperature"]
         },
         {
+            "id": "temperature_source_settings.source",
+            "name": "Temperature Source Settings (Source)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "internal" },
+                { "value": 1, "name": "ntc" },
+                { "value": 2, "name": "lorawan" },
+                { "value": 3, "name": "d2d" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["temperature_source_settings.source", "temperature_source_settings.duration", "temperature_source_settings.missing_data_action"]
+        },
+        {
+            "id": "temperature_source_settings.duration",
+            "name": "Temperature Source Settings (Duration)",
+            "value": "",
+            "unit": "min",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 72,
+            "bacnet_unit_type": "UNITS_MINUTES",
+            "reference": ["temperature_source_settings.source", "temperature_source_settings.duration", "temperature_source_settings.missing_data_action"]
+        },
+        {
+            "id": "temperature_source_settings.missing_data_action",
+            "name": "Temperature Source Settings (Missing Data Action)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "hold" },
+                { "value": 1, "name": "off_or_fan_control" },
+                { "value": 2, "name": "switch_to_internal" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["temperature_source_settings.source", "temperature_source_settings.duration", "temperature_source_settings.missing_data_action"]
+        },
+        {
             "id": "d2d_pairing_enable",
             "name": "D2D Pairing Enable",
             "value": "",
@@ -1287,6 +1908,78 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "d2d_pairing_settings._item.index",
+            "name": "D2D Pairing Settings (Index)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_pairing_settings._item.index", "d2d_pairing_settings._item.enable", "d2d_pairing_settings._item.eui", "d2d_pairing_settings._item.name_first", "d2d_pairing_settings._item.name_last"]
+        },
+        {
+            "id": "d2d_pairing_settings._item.enable",
+            "name": "D2D Pairing Settings (Enable)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_pairing_settings._item.index", "d2d_pairing_settings._item.enable"]
+        },
+        {
+            "id": "d2d_pairing_settings._item.eui",
+            "name": "D2D Pairing Settings (EUI)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "TEXT",
+            "value_type": "STRING",
+            "max_length": 8,
+            "bacnet_type": "character_string_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_pairing_settings._item.index", "d2d_pairing_settings._item.eui"]
+        },
+        {
+            "id": "d2d_pairing_settings._item.name_first",
+            "name": "D2D Pairing Settings (Name First)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "TEXT",
+            "value_type": "STRING",
+            "max_length": 8,
+            "bacnet_type": "character_string_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_pairing_settings._item.index", "d2d_pairing_settings._item.name_first"]
+        },
+        {
+            "id": "d2d_pairing_settings._item.name_last",
+            "name": "D2D Pairing Settings (Name Last)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "TEXT",
+            "value_type": "STRING",
+            "max_length": 8,
+            "bacnet_type": "character_string_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_pairing_settings._item.index", "d2d_pairing_settings._item.name_last"]
         },
         {
             "id": "d2d_master_enable",
@@ -1304,6 +1997,119 @@
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
+
+        {
+            "id": "d2d_master_settings._item.trigger_source",
+            "name": "D2D Master Settings (Trigger Source)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "plan_1" },
+                { "value": 1, "name": "plan_2" },
+                { "value": 2, "name": "plan_3" },
+                { "value": 3, "name": "plan_4" },
+                { "value": 4, "name": "plan_5" },
+                { "value": 5, "name": "plan_6" },
+                { "value": 6, "name": "plan_7" },
+                { "value": 7, "name": "plan_8" },
+                { "value": 8, "name": "plan_9" },
+                { "value": 9, "name": "plan_10" },
+                { "value": 10, "name": "plan_11" },
+                { "value": 11, "name": "plan_12" },
+                { "value": 12, "name": "plan_13" },
+                { "value": 13, "name": "plan_14" },
+                { "value": 14, "name": "plan_15" },
+                { "value": 15, "name": "plan_16" },
+                { "value": 16, "name": "system_status_off" },
+                { "value": 17, "name": "system_status_on" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_master_settings._item.trigger_source", "d2d_master_settings._item.enable", "d2d_master_settings._item.lora_uplink_enable", "d2d_master_settings._item.command", "d2d_master_settings._item.time_enable", "d2d_master_settings._item.time"]
+        },
+        {
+            "id": "d2d_master_settings._item.enable",
+            "name": "D2D Master Settings (Enable)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_master_settings._item.trigger_source", "d2d_master_settings._item.enable", "d2d_master_settings._item.lora_uplink_enable", "d2d_master_settings._item.command", "d2d_master_settings._item.time_enable", "d2d_master_settings._item.time"]
+        },
+        {
+            "id": "d2d_master_settings._item.lora_uplink_enable",
+            "name": "D2D Master Settings (Lora Uplink Enable)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_master_settings._item.trigger_source", "d2d_master_settings._item.enable", "d2d_master_settings._item.lora_uplink_enable", "d2d_master_settings._item.command", "d2d_master_settings._item.time_enable", "d2d_master_settings._item.time"]
+        },
+
+        {
+            "id": "d2d_master_settings._item.command",
+            "name": "D2D Master Settings (Command)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "TEXT",
+            "value_type": "STRING",
+            "max_length": 4,
+            "bacnet_type": "character_string_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_master_settings._item.trigger_source", "d2d_master_settings._item.enable", "d2d_master_settings._item.lora_uplink_enable", "d2d_master_settings._item.command", "d2d_master_settings._item.time_enable", "d2d_master_settings._item.time"]
+        },
+        {
+            "id": "d2d_master_settings._item.time_enable",
+            "name": "D2D Master Settings (Time Enable)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_master_settings._item.trigger_source", "d2d_master_settings._item.enable", "d2d_master_settings._item.lora_uplink_enable", "d2d_master_settings._item.command", "d2d_master_settings._item.time_enable", "d2d_master_settings._item.time"]
+        },
+        {
+            "id": "d2d_master_settings._item.time",
+            "name": "D2D Master Settings (Time)",
+            "value": "",
+            "unit": "min",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 72,
+            "bacnet_unit_type": "UNITS_MINUTES",
+            "reference": ["d2d_master_settings._item.trigger_source", "d2d_master_settings._item.enable", "d2d_master_settings._item.lora_uplink_enable", "d2d_master_settings._item.command", "d2d_master_settings._item.time_enable", "d2d_master_settings._item.time"]
+        },
         {
             "id": "d2d_slave_enable",
             "name": "D2D Slave Enable",
@@ -1319,6 +2125,426 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "d2d_slave_settings._item.index",
+            "name": "D2D Slave Settings (Index)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_slave_settings._item.index", "d2d_slave_settings._item.enable", "d2d_slave_settings._item.command", "d2d_slave_settings._item.trigger_target"]
+        },
+        {
+            "id": "d2d_slave_settings._item.enable",
+            "name": "D2D Slave Settings (Enable)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_slave_settings._item.index", "d2d_slave_settings._item.enable", "d2d_slave_settings._item.command", "d2d_slave_settings._item.trigger_target"]
+        },
+        {
+            "id": "d2d_slave_settings._item.command",
+            "name": "D2D Slave Settings (Command)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "TEXT",
+            "value_type": "STRING",
+            "max_length": 4,
+            "bacnet_type": "character_string_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_slave_settings._item.index", "d2d_slave_settings._item.enable", "d2d_slave_settings._item.command", "d2d_slave_settings._item.trigger_target"]
+        },
+        {
+            "id": "d2d_slave_settings._item.trigger_target",
+            "name": "D2D Slave Settings (Trigger Target)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "plan_1" },
+                { "value": 1, "name": "plan_2" },
+                { "value": 2, "name": "plan_3" },
+                { "value": 3, "name": "plan_4" },
+                { "value": 4, "name": "plan_5" },
+                { "value": 5, "name": "plan_6" },
+                { "value": 6, "name": "plan_7" },
+                { "value": 7, "name": "plan_8" },
+                { "value": 8, "name": "plan_9" },
+                { "value": 9, "name": "plan_10" },
+                { "value": 10, "name": "plan_11" },
+                { "value": 11, "name": "plan_12" },
+                { "value": 12, "name": "plan_13" },
+                { "value": 13, "name": "plan_14" },
+                { "value": 14, "name": "plan_15" },
+                { "value": 15, "name": "plan_16" },
+                { "value": 16, "name": "system_status_on" },
+                { "value": 17, "name": "system_status_off" },
+                { "value": 18, "name": "system_status_toggle" },
+                { "value": 19, "name": "window_open" },
+                { "value": 20, "name": "window_close" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_slave_settings._item.index", "d2d_slave_settings._item.enable", "d2d_slave_settings._item.command", "d2d_slave_settings._item.trigger_target"]
+        },
+        {
+            "id": "timed_system_control_settings.enable",
+            "name": "Timed System Control Settings (Enable)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "timed_system_control_settings.start_cycle_settings._item.index",
+            "name": "Timed System Control Settings (Start Cycle Settings (Index))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.start_cycle_settings._item.index", "timed_system_control_settings.start_cycle_settings._item.enable", "timed_system_control_settings.start_cycle_settings._item.time", "timed_system_control_settings.start_cycle_settings._item.weekday.sunday", "timed_system_control_settings.start_cycle_settings._item.weekday.monday", "timed_system_control_settings.start_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.start_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.start_cycle_settings._item.weekday.thursday", "timed_system_control_settings.start_cycle_settings._item.weekday.friday", "timed_system_control_settings.start_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.start_cycle_settings._item.enable",
+            "name": "Timed System Control Settings (Start Cycle Settings (Enable))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.start_cycle_settings._item.index", "timed_system_control_settings.start_cycle_settings._item.enable", "timed_system_control_settings.start_cycle_settings._item.time", "timed_system_control_settings.start_cycle_settings._item.weekday.sunday", "timed_system_control_settings.start_cycle_settings._item.weekday.monday", "timed_system_control_settings.start_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.start_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.start_cycle_settings._item.weekday.thursday", "timed_system_control_settings.start_cycle_settings._item.weekday.friday", "timed_system_control_settings.start_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.start_cycle_settings._item.time",
+            "name": "Timed System Control Settings (Start Cycle Settings (Time))",
+            "value": "",
+            "unit": "min",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 72,
+            "bacnet_unit_type": "UNITS_MINUTES",
+            "reference": ["timed_system_control_settings.start_cycle_settings._item.index", "timed_system_control_settings.start_cycle_settings._item.enable", "timed_system_control_settings.start_cycle_settings._item.time", "timed_system_control_settings.start_cycle_settings._item.weekday.sunday", "timed_system_control_settings.start_cycle_settings._item.weekday.monday", "timed_system_control_settings.start_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.start_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.start_cycle_settings._item.weekday.thursday", "timed_system_control_settings.start_cycle_settings._item.weekday.friday", "timed_system_control_settings.start_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.start_cycle_settings._item.weekday.sunday",
+            "name": "Timed System Control Settings (Start Cycle Settings (Weekday (Sunday)))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.start_cycle_settings._item.index", "timed_system_control_settings.start_cycle_settings._item.enable", "timed_system_control_settings.start_cycle_settings._item.time", "timed_system_control_settings.start_cycle_settings._item.weekday.sunday", "timed_system_control_settings.start_cycle_settings._item.weekday.monday", "timed_system_control_settings.start_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.start_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.start_cycle_settings._item.weekday.thursday", "timed_system_control_settings.start_cycle_settings._item.weekday.friday", "timed_system_control_settings.start_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.start_cycle_settings._item.weekday.monday",
+            "name": "Timed System Control Settings (Start Cycle Settings (Weekday (Monday)))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.start_cycle_settings._item.index", "timed_system_control_settings.start_cycle_settings._item.enable", "timed_system_control_settings.start_cycle_settings._item.time", "timed_system_control_settings.start_cycle_settings._item.weekday.sunday", "timed_system_control_settings.start_cycle_settings._item.weekday.monday", "timed_system_control_settings.start_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.start_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.start_cycle_settings._item.weekday.thursday", "timed_system_control_settings.start_cycle_settings._item.weekday.friday", "timed_system_control_settings.start_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.start_cycle_settings._item.weekday.tuesday",
+            "name": "Timed System Control Settings (Start Cycle Settings (Weekday (Tuesday)))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.start_cycle_settings._item.index", "timed_system_control_settings.start_cycle_settings._item.enable", "timed_system_control_settings.start_cycle_settings._item.time", "timed_system_control_settings.start_cycle_settings._item.weekday.sunday", "timed_system_control_settings.start_cycle_settings._item.weekday.monday", "timed_system_control_settings.start_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.start_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.start_cycle_settings._item.weekday.thursday", "timed_system_control_settings.start_cycle_settings._item.weekday.friday", "timed_system_control_settings.start_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.start_cycle_settings._item.weekday.wednesday",
+            "name": "Timed System Control Settings (Start Cycle Settings (Weekday (Wednesday)))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.start_cycle_settings._item.index", "timed_system_control_settings.start_cycle_settings._item.enable", "timed_system_control_settings.start_cycle_settings._item.time", "timed_system_control_settings.start_cycle_settings._item.weekday.sunday", "timed_system_control_settings.start_cycle_settings._item.weekday.monday", "timed_system_control_settings.start_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.start_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.start_cycle_settings._item.weekday.thursday", "timed_system_control_settings.start_cycle_settings._item.weekday.friday", "timed_system_control_settings.start_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.start_cycle_settings._item.weekday.thursday",
+            "name": "Timed System Control Settings (Start Cycle Settings (Weekday (Thursday)))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.start_cycle_settings._item.index", "timed_system_control_settings.start_cycle_settings._item.enable", "timed_system_control_settings.start_cycle_settings._item.time", "timed_system_control_settings.start_cycle_settings._item.weekday.sunday", "timed_system_control_settings.start_cycle_settings._item.weekday.monday", "timed_system_control_settings.start_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.start_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.start_cycle_settings._item.weekday.thursday", "timed_system_control_settings.start_cycle_settings._item.weekday.friday", "timed_system_control_settings.start_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.start_cycle_settings._item.weekday.friday",
+            "name": "Timed System Control Settings (Start Cycle Settings (Weekday (Friday)))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.start_cycle_settings._item.index", "timed_system_control_settings.start_cycle_settings._item.enable", "timed_system_control_settings.start_cycle_settings._item.time", "timed_system_control_settings.start_cycle_settings._item.weekday.sunday", "timed_system_control_settings.start_cycle_settings._item.weekday.monday", "timed_system_control_settings.start_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.start_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.start_cycle_settings._item.weekday.thursday", "timed_system_control_settings.start_cycle_settings._item.weekday.friday", "timed_system_control_settings.start_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.start_cycle_settings._item.weekday.saturday",
+            "name": "Timed System Control Settings (Start Cycle Settings (Weekday (Saturday)))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.start_cycle_settings._item.index", "timed_system_control_settings.start_cycle_settings._item.enable", "timed_system_control_settings.start_cycle_settings._item.time", "timed_system_control_settings.start_cycle_settings._item.weekday.sunday", "timed_system_control_settings.start_cycle_settings._item.weekday.monday", "timed_system_control_settings.start_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.start_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.start_cycle_settings._item.weekday.thursday", "timed_system_control_settings.start_cycle_settings._item.weekday.friday", "timed_system_control_settings.start_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.end_cycle_settings._item.index",
+            "name": "Timed System Control Settings (End Cycle Settings (Index))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.end_cycle_settings._item.index", "timed_system_control_settings.end_cycle_settings._item.enable", "timed_system_control_settings.end_cycle_settings._item.time", "timed_system_control_settings.end_cycle_settings._item.weekday.sunday", "timed_system_control_settings.end_cycle_settings._item.weekday.monday", "timed_system_control_settings.end_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.end_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.end_cycle_settings._item.weekday.thursday", "timed_system_control_settings.end_cycle_settings._item.weekday.friday", "timed_system_control_settings.end_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.end_cycle_settings._item.enable",
+            "name": "Timed System Control Settings (End Cycle Settings (Enable))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.end_cycle_settings._item.index", "timed_system_control_settings.end_cycle_settings._item.enable", "timed_system_control_settings.end_cycle_settings._item.time", "timed_system_control_settings.end_cycle_settings._item.weekday.sunday", "timed_system_control_settings.end_cycle_settings._item.weekday.monday", "timed_system_control_settings.end_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.end_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.end_cycle_settings._item.weekday.thursday", "timed_system_control_settings.end_cycle_settings._item.weekday.friday", "timed_system_control_settings.end_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.end_cycle_settings._item.time",
+            "name": "Timed System Control Settings (End Cycle Settings (Time))",
+            "value": "",
+            "unit": "min",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 72,
+            "bacnet_unit_type": "UNITS_MINUTES",
+            "reference": ["timed_system_control_settings.end_cycle_settings._item.index", "timed_system_control_settings.end_cycle_settings._item.enable", "timed_system_control_settings.end_cycle_settings._item.time", "timed_system_control_settings.end_cycle_settings._item.weekday.sunday", "timed_system_control_settings.end_cycle_settings._item.weekday.monday", "timed_system_control_settings.end_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.end_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.end_cycle_settings._item.weekday.thursday", "timed_system_control_settings.end_cycle_settings._item.weekday.friday", "timed_system_control_settings.end_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.end_cycle_settings._item.weekday.sunday",
+            "name": "Timed System Control Settings (End Cycle Settings (Weekday (Sunday)))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.end_cycle_settings._item.index", "timed_system_control_settings.end_cycle_settings._item.enable", "timed_system_control_settings.end_cycle_settings._item.time", "timed_system_control_settings.end_cycle_settings._item.weekday.sunday", "timed_system_control_settings.end_cycle_settings._item.weekday.monday", "timed_system_control_settings.end_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.end_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.end_cycle_settings._item.weekday.thursday", "timed_system_control_settings.end_cycle_settings._item.weekday.friday", "timed_system_control_settings.end_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.end_cycle_settings._item.weekday.monday",
+            "name": "Timed System Control Settings (End Cycle Settings (Weekday (Monday)))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.end_cycle_settings._item.index", "timed_system_control_settings.end_cycle_settings._item.enable", "timed_system_control_settings.end_cycle_settings._item.time", "timed_system_control_settings.end_cycle_settings._item.weekday.sunday", "timed_system_control_settings.end_cycle_settings._item.weekday.monday", "timed_system_control_settings.end_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.end_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.end_cycle_settings._item.weekday.thursday", "timed_system_control_settings.end_cycle_settings._item.weekday.friday", "timed_system_control_settings.end_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.end_cycle_settings._item.weekday.tuesday",
+            "name": "Timed System Control Settings (End Cycle Settings (Weekday (Tuesday)))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.end_cycle_settings._item.index", "timed_system_control_settings.end_cycle_settings._item.enable", "timed_system_control_settings.end_cycle_settings._item.time", "timed_system_control_settings.end_cycle_settings._item.weekday.sunday", "timed_system_control_settings.end_cycle_settings._item.weekday.monday", "timed_system_control_settings.end_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.end_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.end_cycle_settings._item.weekday.thursday", "timed_system_control_settings.end_cycle_settings._item.weekday.friday", "timed_system_control_settings.end_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.end_cycle_settings._item.weekday.wednesday",
+            "name": "Timed System Control Settings (End Cycle Settings (Weekday (Wednesday)))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.end_cycle_settings._item.index", "timed_system_control_settings.end_cycle_settings._item.enable", "timed_system_control_settings.end_cycle_settings._item.time", "timed_system_control_settings.end_cycle_settings._item.weekday.sunday", "timed_system_control_settings.end_cycle_settings._item.weekday.monday", "timed_system_control_settings.end_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.end_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.end_cycle_settings._item.weekday.thursday", "timed_system_control_settings.end_cycle_settings._item.weekday.friday", "timed_system_control_settings.end_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.end_cycle_settings._item.weekday.thursday",
+            "name": "Timed System Control Settings (End Cycle Settings (Weekday (Thursday)))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.end_cycle_settings._item.index", "timed_system_control_settings.end_cycle_settings._item.enable", "timed_system_control_settings.end_cycle_settings._item.time", "timed_system_control_settings.end_cycle_settings._item.weekday.sunday", "timed_system_control_settings.end_cycle_settings._item.weekday.monday", "timed_system_control_settings.end_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.end_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.end_cycle_settings._item.weekday.thursday", "timed_system_control_settings.end_cycle_settings._item.weekday.friday", "timed_system_control_settings.end_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.end_cycle_settings._item.weekday.friday",
+            "name": "Timed System Control Settings (End Cycle Settings (Weekday (Friday)))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.end_cycle_settings._item.index", "timed_system_control_settings.end_cycle_settings._item.enable", "timed_system_control_settings.end_cycle_settings._item.time", "timed_system_control_settings.end_cycle_settings._item.weekday.sunday", "timed_system_control_settings.end_cycle_settings._item.weekday.monday", "timed_system_control_settings.end_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.end_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.end_cycle_settings._item.weekday.thursday", "timed_system_control_settings.end_cycle_settings._item.weekday.friday", "timed_system_control_settings.end_cycle_settings._item.weekday.saturday"]
+        },
+        {
+            "id": "timed_system_control_settings.end_cycle_settings._item.weekday.saturday",
+            "name": "Timed System Control Settings (End Cycle Settings (Weekday (Saturday)))",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["timed_system_control_settings.end_cycle_settings._item.index", "timed_system_control_settings.end_cycle_settings._item.enable", "timed_system_control_settings.end_cycle_settings._item.time", "timed_system_control_settings.end_cycle_settings._item.weekday.sunday", "timed_system_control_settings.end_cycle_settings._item.weekday.monday", "timed_system_control_settings.end_cycle_settings._item.weekday.tuesday", "timed_system_control_settings.end_cycle_settings._item.weekday.wednesday", "timed_system_control_settings.end_cycle_settings._item.weekday.thursday", "timed_system_control_settings.end_cycle_settings._item.weekday.friday", "timed_system_control_settings.end_cycle_settings._item.weekday.saturday"]
         },
         {
             "id": "temporary_unlock_settings.system_button",
@@ -1409,7 +2635,7 @@
             "id": "temporary_unlock_settings.duration",
             "name": "Temporary Unlock Settings (Duration)",
             "value": "",
-            "unit": "min",
+            "unit": "s",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
@@ -1472,11 +2698,50 @@
             "value": "",
             "unit": "",
             "access_mode": "RW",
-            "data_type": "NUMBER",
+            "data_type": "ENUM",
             "value_type": "INT16",
-            "bacnet_type": "analog_value_object",
-            "bacnet_unit_type_id": 72,
-            "bacnet_unit_type": "UNITS_MINUTES"
+            "values": [
+                { "value": -720, "name": "UTC-12" },
+                { "value": -660, "name": "UTC-11" },
+                { "value": -600, "name": "UTC-10" },
+                { "value": -570, "name": "UTC-9:30" },
+                { "value": -540, "name": "UTC-9" },
+                { "value": -480, "name": "UTC-8" },
+                { "value": -420, "name": "UTC-7" },
+                { "value": -360, "name": "UTC-6" },
+                { "value": -300, "name": "UTC-5" },
+                { "value": -240, "name": "UTC-4" },
+                { "value": -210, "name": "UTC-3:30" },
+                { "value": -180, "name": "UTC-3" },
+                { "value": -120, "name": "UTC-2" },
+                { "value": -60, "name": "UTC-1" },
+                { "value": 0, "name": "UTC" },
+                { "value": 60, "name": "UTC+1" },
+                { "value": 120, "name": "UTC+2" },
+                { "value": 180, "name": "UTC+3" },
+                { "value": 210, "name": "UTC+3:30" },
+                { "value": 240, "name": "UTC+4" },
+                { "value": 270, "name": "UTC+4:30" },
+                { "value": 300, "name": "UTC+5" },
+                { "value": 330, "name": "UTC+5:30" },
+                { "value": 345, "name": "UTC+5:45" },
+                { "value": 360, "name": "UTC+6" },
+                { "value": 390, "name": "UTC+6:30" },
+                { "value": 420, "name": "UTC+7" },
+                { "value": 480, "name": "UTC+8" },
+                { "value": 540, "name": "UTC+9" },
+                { "value": 570, "name": "UTC+9:30" },
+                { "value": 600, "name": "UTC+10" },
+                { "value": 630, "name": "UTC+10:30" },
+                { "value": 660, "name": "UTC+11" },
+                { "value": 720, "name": "UTC+12" },
+                { "value": 765, "name": "UTC+12:45" },
+                { "value": 780, "name": "UTC+13" },
+                { "value": 840, "name": "UTC+14" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
             "id": "daylight_saving_time.enable",
@@ -1499,7 +2764,7 @@
             "id": "daylight_saving_time.offset",
             "name": "Daylight Saving Time (Offset)",
             "value": "",
-            "unit": "min",
+            "unit": "",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "INT16",
@@ -1551,7 +2816,7 @@
             "id": "daylight_saving_time.start_hour_min",
             "name": "Daylight Saving Time (Start Hour Min)",
             "value": "",
-            "unit": "",
+            "unit": "min",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
@@ -1603,7 +2868,7 @@
             "id": "daylight_saving_time.end_hour_min",
             "name": "Daylight Saving Time (End Hour Min)",
             "value": "",
-            "unit": "",
+            "unit": "min",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
@@ -1720,7 +2985,7 @@
             "id": "fetch_history.start_time",
             "name": "Fetch History (Start Time)",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "W",
             "data_type": "NUMBER",
             "value_type": "UINT32",
@@ -1732,7 +2997,7 @@
             "id": "fetch_history.end_time",
             "name": "Fetch History (End Time)",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "W",
             "data_type": "NUMBER",
             "value_type": "UINT32",

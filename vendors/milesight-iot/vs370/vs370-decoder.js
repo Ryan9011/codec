@@ -7,6 +7,8 @@
  */
 var RAW_VALUE = 0x01;
 
+/* eslint no-redeclare: "off" */
+/* eslint-disable */
 // Chirpstack v4
 function decodeUplink(input) {
     var decoded = milesightDeviceDecode(input.bytes);
@@ -22,6 +24,7 @@ function Decode(fPort, bytes) {
 function Decoder(bytes, port) {
     return milesightDeviceDecode(bytes);
 }
+/* eslint-enable */
 
 function milesightDeviceDecode(bytes) {
     var decoded = {};
@@ -87,11 +90,11 @@ function milesightDeviceDecode(bytes) {
         }
         // DOWNLINK RESPONSE
         else if (channel_id === 0xfe || channel_id === 0xff) {
-            result = handle_downlink_response(channel_type, bytes, i);
+            var result = handle_downlink_response(channel_type, bytes, i);
             decoded = Object.assign(decoded, result.data);
             i = result.offset;
         } else if (channel_id === 0xf8 || channel_id === 0xf9) {
-            result = handle_downlink_response_ext(channel_id, channel_type, bytes, i);
+            var result = handle_downlink_response_ext(channel_id, channel_type, bytes, i);
             decoded = Object.assign(decoded, result.data);
             i = result.offset;
         } else {
@@ -101,7 +104,6 @@ function milesightDeviceDecode(bytes) {
 
     return decoded;
 }
-
 
 function handle_downlink_response(channel_type, bytes, offset) {
     var decoded = {};
@@ -203,10 +205,12 @@ function handle_downlink_response_ext(code, channel_type, bytes, offset) {
         offset += 1;
 
         if (result_value !== 0) {
+            var request = decoded;
             decoded = {};
             decoded.device_response_result = {};
             decoded.device_response_result.channel_type = channel_type;
-            decoded.device_response_result.result = readResultStatus(bytes[offset]);
+            decoded.device_response_result.result = readResultStatus(result_value);
+            decoded.device_response_result.request = request;
         }
     }
 
@@ -329,12 +333,12 @@ function readDstConfig(bytes) {
     if (enable_value === 1) {
         dst_config.start_month = readMonth(bytes[offset + 2]);
         var start_week_value = bytes[offset + 3];
-        dst_config.start_week_num = (start_week_value >> 4);
+        dst_config.start_week_num = start_week_value >> 4;
         dst_config.start_week_day = readWeek(start_week_value & 0x0f);
         dst_config.start_time = readUInt16LE(bytes.slice(offset + 4, offset + 6));
         dst_config.end_month = readMonth(bytes[offset + 6]);
         var end_week_value = bytes[offset + 7];
-        dst_config.end_week_num = (end_week_value >> 4);
+        dst_config.end_week_num = end_week_value >> 4;
         dst_config.end_week_day = readWeek(end_week_value & 0x0f);
         dst_config.end_time = readUInt16LE(bytes.slice(offset + 8, offset + 10));
     }
@@ -353,9 +357,9 @@ function readWeek(week) {
     return getValue(week_map, week);
 }
 
-function readTimeZone(time) {
-    var time_zone_map = { "-720": "UTC-12", "-660": "UTC-11", "-600": "UTC-10", "-570": "UTC-9:30", "-540": "UTC-9", "-480": "UTC-8", "-420": "UTC-7", "-360": "UTC-6", "-300": "UTC-5", "-240": "UTC-4", "-210": "UTC-3:30", "-180": "UTC-3", "-120": "UTC-2", "-60": "UTC-1", 0: "UTC", 60: "UTC+1", 120: "UTC+2", 180: "UTC+3", 210: "UTC+3:30", 240: "UTC+4", 270: "UTC+4:30", 300: "UTC+5", 330: "UTC+5:30", 345: "UTC+5:45", 360: "UTC+6", 390: "UTC+6:30", 420: "UTC+7", 480: "UTC+8", 540: "UTC+9", 570: "UTC+9:30", 600: "UTC+10", 630: "UTC+10:30", 660: "UTC+11", 720: "UTC+12", 750: "UTC+12:45", 780: "UTC+13", 840: "UTC+14" };
-    return getValue(time_zone_map, time);
+function readTimeZone(time_zone) {
+    var timezone_map = { "-720": "UTC-12", "-660": "UTC-11", "-600": "UTC-10", "-570": "UTC-9:30", "-540": "UTC-9", "-480": "UTC-8", "-420": "UTC-7", "-360": "UTC-6", "-300": "UTC-5", "-240": "UTC-4", "-210": "UTC-3:30", "-180": "UTC-3", "-120": "UTC-2", "-60": "UTC-1", 0: "UTC", 60: "UTC+1", 120: "UTC+2", 180: "UTC+3", 210: "UTC+3:30", 240: "UTC+4", 270: "UTC+4:30", 300: "UTC+5", 330: "UTC+5:30", 345: "UTC+5:45", 360: "UTC+6", 390: "UTC+6:30", 420: "UTC+7", 480: "UTC+8", 540: "UTC+9", 570: "UTC+9:30", 600: "UTC+10", 630: "UTC+10:30", 660: "UTC+11", 720: "UTC+12", 765: "UTC+12:45", 780: "UTC+13", 840: "UTC+14" };
+    return getValue(timezone_map, time_zone);
 }
 
 function readD2DMasterConfig(bytes) {
@@ -388,6 +392,8 @@ function readHibernateConfig(bytes) {
     config.end_time = readUInt16LE(bytes.slice(offset + 4, offset + 6));
     return config;
 }
+
+/* eslint-disable */
 function readUInt8(bytes) {
     return bytes & 0xff;
 }

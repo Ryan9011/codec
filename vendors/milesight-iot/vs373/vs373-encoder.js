@@ -7,6 +7,8 @@
  */
 var RAW_VALUE = 0x01;
 
+/* eslint no-redeclare: "off" */
+/* eslint-disable */
 // Chirpstack v4
 function encodeDownlink(input) {
     var encoded = milesightDeviceEncode(input.data);
@@ -22,6 +24,7 @@ function Encode(fPort, obj) {
 function Encoder(obj, port) {
     return milesightDeviceEncode(obj);
 }
+/* eslint-enable */
 
 function milesightDeviceEncode(payload) {
     var encoded = [];
@@ -64,9 +67,6 @@ function milesightDeviceEncode(payload) {
     }
     if ("radar_settings" in payload) {
         encoded = encoded.concat(setRadarSettings(payload.radar_settings));
-    }
-    if ("target_detection_minimum_height" in payload) {
-        encoded = encoded.concat(setTargetDetectionMinimumHeight(payload.target_detection_minimum_height));
     }
     if ("existence_detection_settings" in payload) {
         encoded = encoded.concat(setExistenceDetectionSettings(payload.existence_detection_settings));
@@ -401,16 +401,16 @@ function setBuzzerEnable(buzzer_enable) {
  * @example { "release_alarm": 1 } }
  */
 function releaseAlarm(release_alarm) {
-    var release_alarm_map = { 0: "no", 1: "yes" };
-    var release_alarm_values = getValues(release_alarm_map);
-    if (release_alarm_values.indexOf(release_alarm) === -1) {
-        throw new Error("release_alarm must be in " + release_alarm_values.join(", "));
+    var yes_no_map = { 0: "no", 1: "yes" };
+    var yes_no_values = getValues(yes_no_map);
+    if (yes_no_values.indexOf(release_alarm) === -1) {
+        throw new Error("release_alarm must be in " + yes_no_values.join(", "));
     }
 
     var buffer = new Buffer(3);
     buffer.writeUInt8(0xf9);
     buffer.writeUInt8(0x64);
-    buffer.writeUInt8(getValue(release_alarm_map, release_alarm));
+    buffer.writeUInt8(getValue(yes_no_map, release_alarm));
     return buffer.toBytes();
 }
 
@@ -438,8 +438,6 @@ function setRadarSettings(radar_settings) {
     buffer.writeUInt8(frame_rate);
     return buffer.toBytes();
 }
-
-function setTargetDetectionMinimumHeight(target_detection_minimum_height) { }
 
 /**
  * set existence detection settings
@@ -506,7 +504,7 @@ function deleteRegion(delete_region) {
     var yes_no_values = getValues(yes_no_map);
 
     var data = [];
-    var region_offset = { "region_1": 0, "region_2": 1, "region_3": 2, "region_4": 3 };
+    var region_offset = { region_1: 0, region_2: 1, region_3: 2, region_4: 3 };
     for (var key in region_offset) {
         if (key in delete_region) {
             if (yes_no_values.indexOf(delete_region[key]) === -1) {
@@ -915,14 +913,8 @@ function setTime(timestamp) {
 
 function getValues(map) {
     var values = [];
-    if (RAW_VALUE) {
-        for (var key in map) {
-            values.push(parseInt(key));
-        }
-    } else {
-        for (var key in map) {
-            values.push(map[key]);
-        }
+    for (var key in map) {
+        values.push(RAW_VALUE ? parseInt(key) : map[key]);
     }
     return values;
 }

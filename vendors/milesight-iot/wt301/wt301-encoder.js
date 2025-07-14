@@ -5,6 +5,10 @@
  *
  * @product WT301
  */
+var RAW_VALUE = 0x01;
+
+/* eslint no-redeclare: "off" */
+/* eslint-disable */
 // Chirpstack v4
 function encodeDownlink(input) {
     var encoded = milesightDeviceEncode(input.data);
@@ -13,14 +17,14 @@ function encodeDownlink(input) {
 
 // Chirpstack v3
 function Encode(fPort, obj) {
-    var encoded = milesightDeviceEncode(obj);
-    return encoded;
+    return milesightDeviceEncode(obj);
 }
 
 // The Things Network
 function Encoder(obj, port) {
     return milesightDeviceEncode(obj);
 }
+/* eslint-enable */
 
 function milesightDeviceEncode(payload) {
     var encoded = [];
@@ -51,34 +55,34 @@ function milesightDeviceEncode(payload) {
         }
 
         if ("query_thermostat_status" in payload) {
-            encoded = encoded.concat(queryThermostatStatus());
+            encoded = encoded.concat(queryThermostatStatus(payload.query_thermostat_status));
         }
         if ("query_button_lock_status" in payload) {
-            encoded = encoded.concat(queryButtonLockEnable());
+            encoded = encoded.concat(queryButtonLockEnable(payload.query_button_lock_status));
         }
         if ("query_mode" in payload) {
-            encoded = encoded.concat(querySystemMode());
+            encoded = encoded.concat(querySystemMode(payload.query_mode));
         }
         if ("query_fan_speed" in payload) {
-            encoded = encoded.concat(queryFanSpeed());
+            encoded = encoded.concat(queryFanSpeed(payload.query_fan_speed));
         }
         if ("query_temperature" in payload) {
-            encoded = encoded.concat(queryTemperature());
+            encoded = encoded.concat(queryTemperature(payload.query_temperature));
         }
         if ("query_target_temperature" in payload) {
-            encoded = encoded.concat(queryTargetTemperature());
+            encoded = encoded.concat(queryTargetTemperature(payload.query_target_temperature));
         }
         if ("query_card_mode" in payload) {
-            encoded = encoded.concat(queryCardMode());
+            encoded = encoded.concat(queryCardMode(payload.query_card_mode));
         }
         if ("query_control_mode" in payload) {
-            encoded = encoded.concat(queryControlMode());
+            encoded = encoded.concat(queryControlMode(payload.query_control_mode));
         }
         if ("query_server_temperature" in payload) {
-            encoded = encoded.concat(queryServerTemperature());
+            encoded = encoded.concat(queryServerTemperature(payload.query_server_temperature));
         }
         if ("query_all" in payload) {
-            encoded = encoded.concat(queryAll());
+            encoded = encoded.concat(queryAll(payload.query_all));
         }
     }
 
@@ -86,13 +90,14 @@ function milesightDeviceEncode(payload) {
 }
 
 /**
- * @param {number} thermostat_status values: (0: "off", 1: "on")
+ * @param {number} thermostat_status values: (0: off, 1: on)
  * @example {"thermostat_status": 1}
  */
 function setThermostatStatus(thermostat_status) {
-    var thermostat_status_values = [0, 1];
-    if (thermostat_status_values.indexOf(thermostat_status) === -1) {
-        throw new Error("thermostat_status must be one of " + thermostat_status_values.join(", "));
+    var on_off_map = { 0: "off", 1: "on" };
+    var on_off_values = getValues(on_off_map);
+    if (on_off_values.indexOf(thermostat_status) === -1) {
+        throw new Error("thermostat_status must be one of " + on_off_values.join(", "));
     }
 
     var buffer = new Buffer(7);
@@ -100,19 +105,20 @@ function setThermostatStatus(thermostat_status) {
     buffer.writeUInt8(0x01);
     buffer.writeUInt16BE(0x0002);
     buffer.writeUInt8(0x01); // THERMOSTAT STATUS
-    buffer.writeUInt8(thermostat_status_values.indexOf(thermostat_status));
+    buffer.writeUInt8(getValue(on_off_map, thermostat_status));
     buffer.writeUInt8(buffer.checksum());
     return buffer.toBytes();
 }
 
 /**
- * @param {number} btn_lock_enable values: (0: "disable", 1: "enable")
+ * @param {number} btn_lock_enable values: (0: disable, 1: enable)
  * @example {"btn_lock_enable": 1}
  */
 function setButtonLockEnable(btn_lock_enable) {
-    var btn_lock_enable_values = [0, 1]; // values: (0: "disable", 1: "enable")
-    if (btn_lock_enable_values.indexOf(btn_lock_enable) === -1) {
-        throw new Error("btn_lock_enable must be one of " + btn_lock_enable_values.join(", "));
+    var enable_map = { 0: "disable", 1: "enable" };
+    var enable_values = getValues(enable_map);
+    if (enable_values.indexOf(btn_lock_enable) === -1) {
+        throw new Error("btn_lock_enable must be one of " + enable_values.join(", "));
     }
 
     var buffer = new Buffer(7);
@@ -120,17 +126,18 @@ function setButtonLockEnable(btn_lock_enable) {
     buffer.writeUInt8(0x01);
     buffer.writeUInt16BE(0x0002);
     buffer.writeUInt8(0x02); // BUTTON LOCK
-    buffer.writeUInt8(btn_lock_enable_values.indexOf(btn_lock_enable));
+    buffer.writeUInt8(getValue(enable_map, btn_lock_enable));
     buffer.writeUInt8(buffer.checksum());
     return buffer.toBytes();
 }
 
 /**
- * @param {number} mode values: (0: "cool", 1: "heat", 2: "fan")
+ * @param {number} mode values: (0: cool, 1: heat, 2: fan)
  * @example {"mode": 0}
  */
 function setSystemMode(mode) {
-    var mode_values = [0, 1, 2];
+    var mode_map = { 0: "cool", 1: "heat", 2: "fan" };
+    var mode_values = getValues(mode_map);
     if (mode_values.indexOf(mode) === -1) {
         throw new Error("mode must be one of " + mode_values.join(", "));
     }
@@ -140,19 +147,20 @@ function setSystemMode(mode) {
     buffer.writeUInt8(0x01);
     buffer.writeUInt16BE(0x0002);
     buffer.writeUInt8(0x03); // SYSTEM MODE
-    buffer.writeUInt8(mode_values.indexOf(mode));
+    buffer.writeUInt8(getValue(mode_map, mode));
     buffer.writeUInt8(buffer.checksum());
     return buffer.toBytes();
 }
 
 /**
- * @param {number} fan_speed values: (0: "auto", 1: "high", 2: "medium", 3: "low")
+ * @param {number} fan_speed values: (0: auto, 1: high, 2: medium, 3: low)
  * @example {"fan_speed": 0}
  */
 function setFanSpeed(fan_speed) {
-    var fan_speed_values = [0, 1, 2, 3];
-    if (fan_speed_values.indexOf(fan_speed) === -1) {
-        throw new Error("fan_speed must be one of " + fan_speed_values.join(", "));
+    var speed_map = { 0: "auto", 1: "high", 2: "medium", 3: "low" };
+    var speed_values = getValues(speed_map);
+    if (speed_values.indexOf(fan_speed) === -1) {
+        throw new Error("fan_speed must be one of " + speed_values.join(", "));
     }
 
     var buffer = new Buffer(7);
@@ -160,7 +168,7 @@ function setFanSpeed(fan_speed) {
     buffer.writeUInt8(0x01);
     buffer.writeUInt16BE(0x0002);
     buffer.writeUInt8(0x04); // FAN SPEED
-    buffer.writeUInt8(fan_speed_values.indexOf(fan_speed));
+    buffer.writeUInt8(getValue(speed_map, fan_speed));
     buffer.writeUInt8(buffer.checksum());
     return buffer.toBytes();
 }
@@ -185,13 +193,14 @@ function setTargetTemperature(temperature) {
 }
 
 /**
- * @param {number} control_mode values: (0: "auto", 1: "manual")
+ * @param {number} control_mode values: (0: auto, 1: manual)
  * @example {"control_mode": 0}
  */
 function setControlMode(control_mode) {
-    var control_mode_values = [0, 1];
-    if (control_mode_values.indexOf(control_mode) === -1) {
-        throw new Error("control_mode must be one of " + control_mode_values.join(", "));
+    var mode_map = { 0: "auto", 1: "manual" };
+    var mode_values = getValues(mode_map);
+    if (mode_values.indexOf(control_mode) === -1) {
+        throw new Error("control_mode must be one of " + mode_values.join(", "));
     }
 
     var buffer = new Buffer(7);
@@ -199,7 +208,7 @@ function setControlMode(control_mode) {
     buffer.writeUInt8(0x01);
     buffer.writeUInt16BE(0x0002);
     buffer.writeUInt8(0x06); // CONTROL MODE
-    buffer.writeUInt8(control_mode_values.indexOf(control_mode));
+    buffer.writeUInt8(getValue(mode_map, control_mode));
     buffer.writeUInt8(buffer.checksum());
     return buffer.toBytes();
 }
@@ -224,37 +233,41 @@ function setServerTemperature(server_temperature) {
 }
 
 /**
- *
- * @param {number} thermostat_status values: (0: "off", 1: "on")
- * @param {number} btn_lock_enable values: (0: "disable", 1: "enable")
- * @param {number} mode values: (0: "cool", 1: "heat", 2: "fan")
- * @param {number} fan_speed values: (0: "auto", 1: "high", 2: "medium", 3: "low")
+ * @param {number} thermostat_status values: (0: off, 1: on)
+ * @param {number} btn_lock_enable values: (0: disable, 1: enable)
+ * @param {number} mode values: (0: cool, 1: heat, 2: fan)
+ * @param {number} fan_speed values: (0: auto, 1: high, 2: medium, 3: low)
  * @param {number} target_temperature temperature * 2
- * @param {number} control_mode values: (0: "auto", 1: "manual")
+ * @param {number} control_mode values: (0: auto, 1: manual)
  * @param {number} server_temperature temperature * 2
  * @example {"thermostat_status": 1, "btn_lock_enable": 1, "mode": 0, "fan_speed": 0, "target_temperature": 20, "control_mode": 0, "server_temperature": 20}
  */
 function setAll(thermostat_status, btn_lock_enable, mode, fan_speed, target_temperature, control_mode, server_temperature) {
-    var thermostat_status_values = [0, 1];
-    var btn_lock_enable_values = [0, 1];
-    var mode_values = [0, 1, 2];
-    var fan_speed_values = [0, 1, 2, 3];
-    var control_mode_values = [0, 1];
+    var on_off_map = { 0: "off", 1: "on" };
+    var on_off_values = getValues(on_off_map);
+    var enable_map = { 0: "disable", 1: "enable" };
+    var enable_values = getValues(enable_map);
+    var mode_map = { 0: "cool", 1: "heat", 2: "fan" };
+    var mode_values = getValues(mode_map);
+    var speed_map = { 0: "auto", 1: "high", 2: "medium", 3: "low" };
+    var speed_values = getValues(speed_map);
+    var mode_map = { 0: "auto", 1: "manual" };
+    var mode_values = getValues(mode_map);
 
-    if (thermostat_status_values.indexOf(thermostat_status) === -1) {
-        throw new Error("thermostat_status must be one of " + thermostat_status_values.join(", "));
+    if (on_off_values.indexOf(thermostat_status) === -1) {
+        throw new Error("thermostat_status must be one of " + on_off_values.join(", "));
     }
-    if (btn_lock_enable_values.indexOf(btn_lock_enable) === -1) {
-        throw new Error("btn_lock_enable must be one of " + btn_lock_enable_values.join(", "));
+    if (enable_values.indexOf(btn_lock_enable) === -1) {
+        throw new Error("btn_lock_enable must be one of " + enable_values.join(", "));
     }
     if (mode_values.indexOf(mode) === -1) {
         throw new Error("mode must be one of " + mode_values.join(", "));
     }
-    if (fan_speed_values.indexOf(fan_speed) === -1) {
-        throw new Error("fan_speed must be one of " + fan_speed_values.join(", "));
+    if (speed_values.indexOf(fan_speed) === -1) {
+        throw new Error("fan_speed must be one of " + speed_values.join(", "));
     }
-    if (control_mode_values.indexOf(control_mode) === -1) {
-        throw new Error("control_mode must be one of " + control_mode_values.join(", "));
+    if (mode_values.indexOf(control_mode) === -1) {
+        throw new Error("control_mode must be one of " + mode_values.join(", "));
     }
 
     var buffer = new Buffer(13);
@@ -262,22 +275,32 @@ function setAll(thermostat_status, btn_lock_enable, mode, fan_speed, target_temp
     buffer.writeUInt8(0x01);
     buffer.writeUInt16BE(0x0008);
     buffer.writeUInt8(0x0f); // ALL
-    buffer.writeUInt8(thermostat_status_values.indexOf(thermostat_status));
-    buffer.writeUInt8(btn_lock_enable_values.indexOf(btn_lock_enable));
-    buffer.writeUInt8(mode_values.indexOf(mode));
-    buffer.writeUInt8(fan_speed_values.indexOf(fan_speed));
+    buffer.writeUInt8(getValue(on_off_map, thermostat_status));
+    buffer.writeUInt8(getValue(enable_map, btn_lock_enable));
+    buffer.writeUInt8(getValue(mode_map, mode));
+    buffer.writeUInt8(getValue(speed_map, fan_speed));
     buffer.writeUInt8(target_temperature * 2);
-    buffer.writeUInt8(control_mode_values.indexOf(control_mode));
+    buffer.writeUInt8(getValue(mode_map, control_mode));
     buffer.writeUInt8(server_temperature * 2);
     buffer.writeUInt8(buffer.checksum());
     return buffer.toBytes();
 }
 
 /**
- *
+ * @param {number} query_thermostat_status values: (0: no, 1: yes)
  * @example {"query_thermostat_status": 1}
  */
-function queryThermostatStatus() {
+function queryThermostatStatus(query_thermostat_status) {
+    var yes_no_map = { 0: "no", 1: "yes" };
+    var yes_no_values = getValues(yes_no_map);
+    if (yes_no_values.indexOf(query_thermostat_status) === -1) {
+        throw new Error("query_thermostat_status must be one of " + yes_no_values.join(", "));
+    }
+
+    if (getValue(yes_no_map, query_thermostat_status) === 0) {
+        return [];
+    }
+
     var buffer = new Buffer(6);
     buffer.writeUInt8(0x55);
     buffer.writeUInt8(0x02);
@@ -288,10 +311,19 @@ function queryThermostatStatus() {
 }
 
 /**
- *
+ * @param {number} query_button_lock_enable values: (0: no, 1: yes)
  * @example {"query_button_lock_status": 1}
  */
-function queryButtonLockEnable() {
+function queryButtonLockEnable(query_button_lock_enable) {
+    var yes_no_map = { 0: "no", 1: "yes" };
+    var yes_no_values = getValues(yes_no_map);
+    if (yes_no_values.indexOf(query_button_lock_enable) === -1) {
+        throw new Error("query_button_lock_enable must be one of " + yes_no_values.join(", "));
+    }
+
+    if (getValue(yes_no_map, query_button_lock_enable) === 0) {
+        return [];
+    }
     var buffer = new Buffer(6);
     buffer.writeUInt8(0x55);
     buffer.writeUInt8(0x02);
@@ -302,10 +334,19 @@ function queryButtonLockEnable() {
 }
 
 /**
- *
+ * @param {number} query_system_mode values: (0: no, 1: yes)
  * @example {"query_mode": 1}
  */
-function querySystemMode() {
+function querySystemMode(query_system_mode) {
+    var yes_no_map = { 0: "no", 1: "yes" };
+    var yes_no_values = getValues(yes_no_map);
+    if (yes_no_values.indexOf(query_system_mode) === -1) {
+        throw new Error("query_system_mode must be one of " + yes_no_values.join(", "));
+    }
+
+    if (getValue(yes_no_map, query_system_mode) === 0) {
+        return [];
+    }
     var buffer = new Buffer(6);
     buffer.writeUInt8(0x55);
     buffer.writeUInt8(0x02);
@@ -316,10 +357,19 @@ function querySystemMode() {
 }
 
 /**
- *
+ * @param {number} query_fan_speed values: (0: no, 1: yes)
  * @example {"query_fan_speed": 1}
  */
-function queryFanSpeed() {
+function queryFanSpeed(query_fan_speed) {
+    var yes_no_map = { 0: "no", 1: "yes" };
+    var yes_no_values = getValues(yes_no_map);
+    if (yes_no_values.indexOf(query_fan_speed) === -1) {
+        throw new Error("query_fan_speed must be one of " + yes_no_values.join(", "));
+    }
+
+    if (getValue(yes_no_map, query_fan_speed) === 0) {
+        return [];
+    }
     var buffer = new Buffer(6);
     buffer.writeUInt8(0x55);
     buffer.writeUInt8(0x02);
@@ -330,10 +380,19 @@ function queryFanSpeed() {
 }
 
 /**
- *
+ * @param {number} query_temperature values: (0: no, 1: yes)
  * @example {"query_temperature": 1}
  */
-function queryTemperature() {
+function queryTemperature(query_temperature) {
+    var yes_no_map = { 0: "no", 1: "yes" };
+    var yes_no_values = getValues(yes_no_map);
+    if (yes_no_values.indexOf(query_temperature) === -1) {
+        throw new Error("query_temperature must be one of " + yes_no_values.join(", "));
+    }
+
+    if (getValue(yes_no_map, query_temperature) === 0) {
+        return [];
+    }
     var buffer = new Buffer(6);
     buffer.writeUInt8(0x55);
     buffer.writeUInt8(0x02);
@@ -344,10 +403,19 @@ function queryTemperature() {
 }
 
 /**
- *
+ * @param {number} query_target_temperature values: (0: no, 1: yes)
  * @example {"query_target_temperature": 1}
  */
-function queryTargetTemperature() {
+function queryTargetTemperature(query_target_temperature) {
+    var yes_no_map = { 0: "no", 1: "yes" };
+    var yes_no_values = getValues(yes_no_map);
+    if (yes_no_values.indexOf(query_target_temperature) === -1) {
+        throw new Error("query_target_temperature must be one of " + yes_no_values.join(", "));
+    }
+
+    if (getValue(yes_no_map, query_target_temperature) === 0) {
+        return [];
+    }
     var buffer = new Buffer(6);
     buffer.writeUInt8(0x55);
     buffer.writeUInt8(0x02);
@@ -358,10 +426,19 @@ function queryTargetTemperature() {
 }
 
 /**
- *
+ * @param {number} query_card_mode values: (0: no, 1: yes)
  * @example {"query_card_mode": 1}
  */
-function queryCardMode() {
+function queryCardMode(query_card_mode) {
+    var yes_no_map = { 0: "no", 1: "yes" };
+    var yes_no_values = getValues(yes_no_map);
+    if (yes_no_values.indexOf(query_card_mode) === -1) {
+        throw new Error("query_card_mode must be one of " + yes_no_values.join(", "));
+    }
+
+    if (getValue(yes_no_map, query_card_mode) === 0) {
+        return [];
+    }
     var buffer = new Buffer(6);
     buffer.writeUInt8(0x55);
     buffer.writeUInt8(0x02);
@@ -372,10 +449,19 @@ function queryCardMode() {
 }
 
 /**
- *
+ * @param {number} query_control_mode values: (0: no, 1: yes)
  * @example {"query_control_mode": 1}
  */
-function queryControlMode() {
+function queryControlMode(query_control_mode) {
+    var yes_no_map = { 0: "no", 1: "yes" };
+    var yes_no_values = getValues(yes_no_map);
+    if (yes_no_values.indexOf(query_control_mode) === -1) {
+        throw new Error("query_control_mode must be one of " + yes_no_values.join(", "));
+    }
+
+    if (getValue(yes_no_map, query_control_mode) === 0) {
+        return [];
+    }
     var buffer = new Buffer(6);
     buffer.writeUInt8(0x55);
     buffer.writeUInt8(0x02);
@@ -386,10 +472,19 @@ function queryControlMode() {
 }
 
 /**
- *
+ * @param {number} query_server_temperature values: (0: no, 1: yes)
  * @example {"query_server_temperature": 1}
  */
-function queryServerTemperature() {
+function queryServerTemperature(query_server_temperature) {
+    var yes_no_map = { 0: "no", 1: "yes" };
+    var yes_no_values = getValues(yes_no_map);
+    if (yes_no_values.indexOf(query_server_temperature) === -1) {
+        throw new Error("query_server_temperature must be one of " + yes_no_values.join(", "));
+    }
+
+    if (getValue(yes_no_map, query_server_temperature) === 0) {
+        return [];
+    }
     var buffer = new Buffer(6);
     buffer.writeUInt8(0x55);
     buffer.writeUInt8(0x02);
@@ -400,10 +495,19 @@ function queryServerTemperature() {
 }
 
 /**
- *
+ * @param {number} query_all values: (0: no, 1: yes)
  * @example {"query_all": 1}
  */
-function queryAll() {
+function queryAll(query_all) {
+    var yes_no_map = { 0: "no", 1: "yes" };
+    var yes_no_values = getValues(yes_no_map);
+    if (yes_no_values.indexOf(query_all) === -1) {
+        throw new Error("query_all must be one of " + yes_no_values.join(", "));
+    }
+
+    if (getValue(yes_no_map, query_all) === 0) {
+        return [];
+    }
     var buffer = new Buffer(6);
     buffer.writeUInt8(0x55);
     buffer.writeUInt8(0x02);
@@ -411,6 +515,26 @@ function queryAll() {
     buffer.writeUInt8(0x0f); // ALL
     buffer.writeUInt8(buffer.checksum());
     return buffer.toBytes();
+}
+
+function getValues(map) {
+    var values = [];
+    for (var key in map) {
+        values.push(RAW_VALUE ? parseInt(key) : map[key]);
+    }
+    return values;
+}
+
+function getValue(map, value) {
+    if (RAW_VALUE) return value;
+
+    for (var key in map) {
+        if (map[key] === value) {
+            return parseInt(key);
+        }
+    }
+
+    throw new Error("not match in " + JSON.stringify(map));
 }
 
 function Buffer(size) {

@@ -62,7 +62,7 @@
             "access_mode": "R",
             "data_type": "TEXT",
             "value_type": "STRING",
-            "max_length": 12,
+            "max_length": 16,
             "bacnet_type": "character_string_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
@@ -302,8 +302,8 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "events._item.event_type",
-            "name": "Events (Event Type)",
+            "id": "events._item.alarm_type",
+            "name": "Events (Alarm Type)",
             "value": "",
             "unit": "",
             "access_mode": "R",
@@ -322,8 +322,8 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "events._item.event_status",
-            "name": "Events (Event Status)",
+            "id": "events._item.alarm_status",
+            "name": "Events (Alarm Status)",
             "value": "",
             "unit": "",
             "access_mode": "R",
@@ -350,6 +350,80 @@
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
+        {
+            "id": "history._item.timestamp",
+            "name": "History (Timestamp)",
+            "value": "",
+            "unit": "s",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "UINT32",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
+        },
+        {
+            "id": "history._item.alarm_id",
+            "name": "History (Alarm ID)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.alarm_type",
+            "name": "History (Alarm Type)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "fall" },
+                { "value": 1, "name": "motionless" },
+                { "value": 2, "name": "dwell" },
+                { "value": 3, "name": "out_of_bed" },
+                { "value": 4, "name": "occupied" },
+                { "value": 5, "name": "vacant" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.alarm_status",
+            "name": "History (Alarm Status)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 1, "name": "alarm_triggered" },
+                { "value": 2, "name": "alarm_deactivated" },
+                { "value": 3, "name": "alarm_ignored" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.region_id",
+            "name": "History (Region ID)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+
         {
             "id": "reboot",
             "name": "Reboot",
@@ -383,6 +457,18 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
+            "id": "report_interval",
+            "name": "Report Interval",
+            "value": "60",
+            "unit": "min",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 72,
+            "bacnet_unit_type": "UNITS_MINUTES"
+        },
+        {
             "id": "digital_output",
             "name": "Digital Output",
             "value": "",
@@ -409,7 +495,7 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["detection_region_settings.x_max", "detection_region_settings.y_min", "detection_region_settings.y_max", "detection_region_settings.z_max"]
+            "reference": ["detection_region_settings.x_min", "detection_region_settings.x_max", "detection_region_settings.y_min", "detection_region_settings.y_max", "detection_region_settings.z_max", "detection_region_settings.install_height"]
         },
         {
             "id": "detection_region_settings.x_max",
@@ -422,7 +508,7 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["detection_region_settings.x_min", "detection_region_settings.y_min", "detection_region_settings.y_max", "detection_region_settings.z_max"]
+            "reference": ["detection_region_settings.x_min", "detection_region_settings.x_max", "detection_region_settings.y_min", "detection_region_settings.y_max", "detection_region_settings.z_max", "detection_region_settings.install_height"]
         },
         {
             "id": "detection_region_settings.y_min",
@@ -435,7 +521,7 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["detection_region_settings.x_min", "detection_region_settings.x_max", "detection_region_settings.y_max", "detection_region_settings.z_max"]
+            "reference": ["detection_region_settings.x_min", "detection_region_settings.x_max", "detection_region_settings.y_min", "detection_region_settings.y_max", "detection_region_settings.z_max", "detection_region_settings.install_height"]
         },
         {
             "id": "detection_region_settings.y_max",
@@ -448,9 +534,8 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["detection_region_settings.x_min", "detection_region_settings.x_max", "detection_region_settings.y_min", "detection_region_settings.z_max"]
+            "reference": ["detection_region_settings.x_min", "detection_region_settings.x_max", "detection_region_settings.y_min", "detection_region_settings.y_max", "detection_region_settings.z_max", "detection_region_settings.install_height"]
         },
-
         {
             "id": "detection_region_settings.z_max",
             "name": "Detection Region (Z Max)",
@@ -462,7 +547,20 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["detection_region_settings.x_min", "detection_region_settings.x_max", "detection_region_settings.y_min", "detection_region_settings.y_max"]
+            "reference": ["detection_region_settings.x_min", "detection_region_settings.x_max", "detection_region_settings.y_min", "detection_region_settings.y_max", "detection_region_settings.z_max", "detection_region_settings.install_height"]
+        },
+        {
+            "id": "detection_region_settings.install_height",
+            "name": "Detection Region (Install Height)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["detection_region_settings.x_min", "detection_region_settings.x_max", "detection_region_settings.y_min", "detection_region_settings.y_max", "detection_region_settings.z_max", "detection_region_settings.install_height"]
         },
         {
             "id": "detection_settings.mode",
@@ -560,7 +658,7 @@
             "id": "dwell_detection_settings.dwell_time",
             "name": "Dwell Detection (Dwell Time)",
             "value": "",
-            "unit": "",
+            "unit": "min",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
@@ -590,7 +688,7 @@
             "id": "motion_detection_settings.motionless_time",
             "name": "Motion Detection (Motionless Time)",
             "value": "",
-            "unit": "",
+            "unit": "min",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
@@ -948,7 +1046,7 @@
             "id": "bed_detection_settings._item.start_time",
             "name": "Bed Detection Settings (Start Time)",
             "value": "",
-            "unit": "",
+            "unit": "min",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT8",
@@ -961,7 +1059,7 @@
             "id": "bed_detection_settings._item.end_time",
             "name": "Bed Detection Settings (End Time)",
             "value": "",
-            "unit": "",
+            "unit": "min",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT8",
@@ -987,7 +1085,7 @@
             "id": "bed_detection_settings._item.out_of_bed_time",
             "name": "Bed Detection Settings (Out of Bed Time)",
             "value": "",
-            "unit": "",
+            "unit": "min",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT8",
@@ -1016,7 +1114,7 @@
             "id": "retransmit_interval",
             "name": "Retransmit Interval",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT8",
@@ -1026,29 +1124,28 @@
         },
         {
             "id": "fetch_history.start_time",
-            "name": "Fetch History Data (Start Time)",
+            "name": "Fetch History (Start Time)",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "W",
             "data_type": "NUMBER",
-            "value_type": "UINT8",
+            "value_type": "UINT32",
             "bacnet_type": "analog_output_object",
             "bacnet_unit_type_id": 73,
-            "bacnet_unit_type": "UNITS_SECONDS",
-            "reference": ["fetch_history.end_time"]
+            "bacnet_unit_type": "UNITS_SECONDS"
         },
         {
             "id": "fetch_history.end_time",
-            "name": "Fetch History Data (End Time)",
+            "name": "Fetch History (End Time)",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "W",
             "data_type": "NUMBER",
-            "value_type": "UINT8",
+            "value_type": "UINT32",
             "bacnet_type": "analog_output_object",
             "bacnet_unit_type_id": 73,
             "bacnet_unit_type": "UNITS_SECONDS",
-            "reference": ["fetch_history.start_time"]
+            "reference": ["fetch_history.start_time", "fetch_history.end_time"]
         },
         {
             "id": "stop_transmit",
@@ -1075,8 +1172,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "no" },
-                { "value": 1, "name": "yes" }
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
             ],
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
@@ -1216,7 +1313,7 @@
             "id": "d2d_master_config._item.time",
             "name": "D2D Master Config (Time)",
             "value": "",
-            "unit": "",
+            "unit": "min",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT8",
@@ -1328,7 +1425,7 @@
             "id": "timestamp",
             "name": "Timestamp",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "W",
             "data_type": "NUMBER",
             "value_type": "UINT32",

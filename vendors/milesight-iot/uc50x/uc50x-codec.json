@@ -42,36 +42,15 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "device_status",
-            "name": "Device Status",
-            "value": "1",
-            "unit": "",
-            "access_mode": "R",
-            "data_type": "BOOL",
-            "value_type": "UINT8",
-            "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
-            ],
-            "bacnet_type": "binary_input_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
-        },
-        {
-            "id": "lorawan_class",
-            "name": "LoRaWAN Class Type",
+            "id": "tsl_version",
+            "name": "TSL Version",
             "value": "",
             "unit": "",
             "access_mode": "R",
-            "data_type": "ENUM",
-            "value_type": "UINT8",
-            "values": [
-                { "value": 0, "name": "ClassA" },
-                { "value": 1, "name": "ClassB" },
-                { "value": 2, "name": "ClassC" },
-                { "value": 3, "name": "ClassCtoB" }
-            ],
-            "bacnet_type": "multistate_value_object",
+            "data_type": "TEXT",
+            "value_type": "STRING",
+            "max_length": 6,
+            "bacnet_type": "character_string_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
@@ -88,6 +67,57 @@
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
+        {
+            "id": "lorawan_class",
+            "name": "LoRaWAN Class Type",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "Class A" },
+                { "value": 1, "name": "Class B" },
+                { "value": 2, "name": "Class C" },
+                { "value": 3, "name": "Class CtoB" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "reset_event",
+            "name": "Reset Event",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "normal" },
+                { "value": 1, "name": "reset" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "device_status",
+            "name": "Device Status",
+            "value": "1",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+
         {
             "id": "battery",
             "name": "Battery",
@@ -109,8 +139,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Low" },
-                { "value": 1, "name": "High" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -125,8 +155,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Low" },
-                { "value": 1, "name": "High" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
             "bacnet_type": "binary_input_object",
             "bacnet_unit_type_id": 95,
@@ -161,14 +191,14 @@
             "name": "GPIO Output (Channel 1)",
             "value": "0",
             "unit": "",
-            "access_mode": "R",
+            "access_mode": "RW",
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Low" },
-                { "value": 1, "name": "High" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
-            "bacnet_type": "binary_input_object",
+            "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
@@ -177,84 +207,36 @@
             "name": "GPIO Output (Channel 2)",
             "value": "0",
             "unit": "",
-            "access_mode": "R",
+            "access_mode": "RW",
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Low" },
-                { "value": 1, "name": "High" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
-            "bacnet_type": "binary_input_object",
+            "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "adc_1",
-            "name": "ADC (Channel 1)",
-            "value": "",
-            "unit": "",
-            "access_mode": "R",
-            "data_type": "NUMBER",
-            "value_type": "FLOAT",
-            "bacnet_type": "analog_input_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
-        },
-        {
-            "id": "adc_1_max",
-            "name": "ADC Max (Channel 1)",
-            "value": "",
-            "unit": "",
-            "access_mode": "R",
-            "data_type": "NUMBER",
-            "value_type": "FLOAT",
-            "bacnet_type": "analog_input_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
-        },
-        {
-            "id": "adc_1_min",
-            "name": "ADC Min (Channel 1)",
-            "value": "",
-            "unit": "",
-            "access_mode": "R",
-            "data_type": "NUMBER",
-            "value_type": "FLOAT",
-            "bacnet_type": "analog_input_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
-        },
-        {
-            "id": "adc_1_avg",
-            "name": "ADC Avg (Channel 1)",
-            "value": "",
-            "unit": "",
-            "access_mode": "R",
-            "data_type": "NUMBER",
-            "value_type": "FLOAT",
-            "bacnet_type": "analog_input_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
-        },
-        {
-            "id": "adc_1_alarm",
-            "name": "ADC Alarm (Channel 1)",
+            "id": "analog_input_1_type",
+            "name": "Analog Input Type (Channel 1)",
             "value": "",
             "unit": "",
             "access_mode": "R",
             "data_type": "ENUM",
             "value_type": "UINT8",
             "values": [
-                { "value": 1, "name": "Threshold Alarm" },
-                { "value": 2, "name": "Value Change Alarm" }
+                { "value": 0, "name": "current" },
+                { "value": 1, "name": "voltage" }
             ],
             "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "adc_2",
-            "name": "ADC (Channel 2)",
+            "id": "analog_input_1",
+            "name": "Analog Input (Channel 1)",
             "value": "",
             "unit": "",
             "access_mode": "R",
@@ -265,8 +247,8 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "adc_2_max",
-            "name": "ADC Max (Channel 2)",
+            "id": "analog_input_1_max",
+            "name": "Analog Input Max (Channel 1)",
             "value": "",
             "unit": "",
             "access_mode": "R",
@@ -277,8 +259,8 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "adc_2_min",
-            "name": "ADC Min (Channel 2)",
+            "id": "analog_input_1_min",
+            "name": "Analog Input Min (Channel 1)",
             "value": "",
             "unit": "",
             "access_mode": "R",
@@ -289,8 +271,8 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "adc_2_avg",
-            "name": "ADC Avg (Channel 2)",
+            "id": "analog_input_1_avg",
+            "name": "Analog Input Avg (Channel 1)",
             "value": "",
             "unit": "",
             "access_mode": "R",
@@ -301,16 +283,96 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "adc_2_alarm",
-            "name": "ADC Alarm (Channel 2)",
+            "id": "analog_input_1_alarm",
+            "name": "Analog Input Alarm (Channel 1)",
             "value": "",
             "unit": "",
             "access_mode": "R",
             "data_type": "ENUM",
             "value_type": "UINT8",
             "values": [
-                { "value": 1, "name": "Threshold Alarm" },
-                { "value": 2, "name": "Value Change Alarm" }
+                { "value": 1, "name": "threshold alarm" },
+                { "value": 2, "name": "value change alarm" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "analog_input_2_type",
+            "name": "Analog Input Type (Channel 2)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "current" },
+                { "value": 1, "name": "voltage" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "analog_input_2",
+            "name": "Analog Input (Channel 2)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "analog_input_2_max",
+            "name": "Analog Input Max (Channel 2)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "analog_input_2_min",
+            "name": "Analog Input Min (Channel 2)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "analog_input_2_avg",
+            "name": "Analog Input Avg (Channel 2)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "analog_input_2_alarm",
+            "name": "Analog Input Alarm (Channel 2)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 1, "name": "threshold alarm" },
+                { "value": 2, "name": "value change alarm" }
             ],
             "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
@@ -518,6 +580,383 @@
             "data_type": "NUMBER",
             "value_type": "FLOAT",
             "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.gpio_input_1",
+            "name": "History (GPIO Input 1)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.gpio_output_1",
+            "name": "History (GPIO Output 1)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.gpio_counter_1",
+            "name": "History (GPIO Counter 1)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "UINT32",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.gpio_input_2",
+            "name": "History (GPIO Input 2)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.gpio_output_2",
+            "name": "History (GPIO Output 2)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.gpio_counter_2",
+            "name": "History (GPIO Counter 2)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "UINT32",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.analog_input_1",
+            "name": "History (Analog Input 1)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.analog_input_2",
+            "name": "History (Analog Input 2)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+
+        {
+            "id": "reboot",
+            "name": "Reboot",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "collection_interval",
+            "name": "Collection Interval",
+            "value": "60",
+            "unit": "s",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
+        },
+        {
+            "id": "report_interval",
+            "name": "Report Interval",
+            "value": "10",
+            "unit": "s",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
+        },
+        {
+            "id": "sync_time",
+            "name": "Sync Time",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "timestamp",
+            "name": "History (Timestamp)",
+            "value": "",
+            "unit": "s",
+            "access_mode": "W",
+            "data_type": "NUMBER",
+            "value_type": "UINT32",
+            "bacnet_type": "analog_output_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
+        },
+        {
+            "id": "time_zone",
+            "name": "Time Zone",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "INT16",
+            "values": [
+                { "value": -120, "name": "UTC-12" },
+                { "value": -110, "name": "UTC-11" },
+                { "value": -100, "name": "UTC-10" },
+                { "value": -95, "name": "UTC-9:30" },
+                { "value": -90, "name": "UTC-9" },
+                { "value": -80, "name": "UTC-8" },
+                { "value": -70, "name": "UTC-7" },
+                { "value": -60, "name": "UTC-6" },
+                { "value": -50, "name": "UTC-5" },
+                { "value": -40, "name": "UTC-4" },
+                { "value": -35, "name": "UTC-3:30" },
+                { "value": -30, "name": "UTC-3" },
+                { "value": -20, "name": "UTC-2" },
+                { "value": -10, "name": "UTC-1" },
+                { "value": 0, "name": "UTC" },
+                { "value": 10, "name": "UTC+1" },
+                { "value": 20, "name": "UTC+2" },
+                { "value": 30, "name": "UTC+3" },
+                { "value": 35, "name": "UTC+3:30" },
+                { "value": 40, "name": "UTC+4" },
+                { "value": 45, "name": "UTC+4:30" },
+                { "value": 50, "name": "UTC+5" },
+                { "value": 55, "name": "UTC+5:30" },
+                { "value": 57, "name": "UTC+5:45" },
+                { "value": 60, "name": "UTC+6" },
+                { "value": 65, "name": "UTC+6:30" },
+                { "value": 70, "name": "UTC+7" },
+                { "value": 80, "name": "UTC+8" },
+                { "value": 90, "name": "UTC+9" },
+                { "value": 95, "name": "UTC+9:30" },
+                { "value": 100, "name": "UTC+10" },
+                { "value": 105, "name": "UTC+10:30" },
+                { "value": 110, "name": "UTC+11" },
+                { "value": 120, "name": "UTC+12" },
+                { "value": 127, "name": "UTC+12:45" },
+                { "value": 130, "name": "UTC+13" },
+                { "value": 140, "name": "UTC+14" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "report_status",
+            "name": "Report Status",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "clear_history",
+            "name": "Clear History",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history_enable",
+            "name": "History Enable",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "retransmit_enable",
+            "name": "Retransmit Enable",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "retransmit_interval",
+            "name": "Retransmit Interval",
+            "value": "",
+            "unit": "s",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
+        },
+        {
+            "id": "resend_interval",
+            "name": "Resend Interval",
+            "value": "",
+            "unit": "s",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
+        },
+        {
+            "id": "fetch_history.start_time",
+            "name": "Fetch History (Start Time)",
+            "value": "",
+            "unit": "s",
+            "access_mode": "W",
+            "data_type": "NUMBER",
+            "value_type": "UINT32",
+            "bacnet_type": "analog_output_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
+        },
+        {
+            "id": "fetch_history.end_time",
+            "name": "Fetch History (End Time)",
+            "value": "",
+            "unit": "s",
+            "access_mode": "W",
+            "data_type": "NUMBER",
+            "value_type": "UINT32",
+            "bacnet_type": "analog_output_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS",
+            "reference": ["fetch_history.start_time", "fetch_history.end_time"]
+        },
+        {
+            "id": "clear_history",
+            "name": "Clear History",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "stop_transmit",
+            "name": "Stop Transmit",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         }

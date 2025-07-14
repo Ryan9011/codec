@@ -3,10 +3,12 @@
  *
  * Copyright 2025 Milesight IoT
  *
- * @product WS501
+ * @product WS501_US / WS501_EU
  */
 var RAW_VALUE = 0x01;
 
+/* eslint no-redeclare: "off" */
+/* eslint-disable */
 // Chirpstack v4
 function decodeUplink(input) {
     var decoded = milesightDeviceDecode(input.bytes);
@@ -22,6 +24,7 @@ function Decode(fPort, bytes) {
 function Decoder(bytes, port) {
     return milesightDeviceDecode(bytes);
 }
+/* eslint-enable */
 
 function milesightDeviceDecode(bytes) {
     var decoded = {};
@@ -244,21 +247,17 @@ function readYesNoStatus(status) {
     return getValue(status_map, status);
 }
 
-function readChildLockStatus(status) {
-    var child_lock_status_map = { 0: "keep", 1: "enable", 2: "disable" };
-    return getValue(child_lock_status_map, status);
-}
-
 function readLedMode(bytes) {
     var led_mode_map = { 0: "off", 1: "on_inverted", 2: "on_synced" };
     return getValue(led_mode_map, bytes);
 }
 
-function readEnableStatus(bytes) {
-    var enable_map = { 0: "disable", 1: "enable" };
-    return getValue(enable_map, bytes);
+function readEnableStatus(status) {
+    var status_map = { 0: "disable", 1: "enable" };
+    return getValue(status_map, status);
 }
 
+/* eslint-disable */
 function readUInt8(bytes) {
     return bytes & 0xff;
 }

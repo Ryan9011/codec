@@ -7,6 +7,8 @@
  */
 var RAW_VALUE = 0x01;
 
+/* eslint no-redeclare: "off" */
+/* eslint-disable */
 // Chirpstack v4
 function encodeDownlink(input) {
     var encoded = milesightDeviceEncode(input.data);
@@ -22,6 +24,7 @@ function Encode(fPort, obj) {
 function Encoder(obj, port) {
     return milesightDeviceEncode(obj);
 }
+/* eslint-enable */
 
 function milesightDeviceEncode(payload) {
     var encoded = [];
@@ -50,8 +53,8 @@ function milesightDeviceEncode(payload) {
     if ("resend_interval" in payload) {
         encoded = encoded.concat(setResendInterval(payload.resend_interval));
     }
-    if ("timezone" in payload) {
-        encoded = encoded.concat(setTimezone(payload.timezone));
+    if ("time_zone" in payload) {
+        encoded = encoded.concat(setTimeZone(payload.time_zone));
     }
     if ("sync_time_type" in payload) {
         encoded = encoded.concat(setSyncTimeType(payload.sync_time_type));
@@ -89,6 +92,9 @@ function milesightDeviceEncode(payload) {
     if ("batch_remove_rules" in payload) {
         encoded = encoded.concat(batchRemoveRules(payload.batch_remove_rules));
     }
+    if ("query_rule_config" in payload) {
+        encoded = encoded.concat(queryRuleConfig(payload.query_rule_config));
+    }
     var rule_x_enable_map = { rule_1_enable: 1, rule_2_enable: 2, rule_3_enable: 3, rule_4_enable: 4, rule_5_enable: 5, rule_6_enable: 6, rule_7_enable: 7, rule_8_enable: 8, rule_9_enable: 9, rule_10_enable: 10, rule_11_enable: 11, rule_12_enable: 12, rule_13_enable: 13, rule_14_enable: 14, rule_15_enable: 15, rule_16_enable: 16 };
     for (var key in rule_x_enable_map) {
         if (key in payload) {
@@ -101,19 +107,23 @@ function milesightDeviceEncode(payload) {
             encoded = encoded.concat(removeRule(rule_x_remove_map[key], payload[key]));
         }
     }
-    /*
     // hardware_version>=v2.0, firmware_version>=v2.1
-    if ("rules_config" in payload) {
-        for (var i = 0; i < payload.rules_config.length; i++) {
-            encoded = encoded.concat(setRuleConfig(payload.rules_config[i]));
+    if ("rule_config" in payload) {
+        for (var i = 0; i < payload.rule_config.length; i++) {
+            encoded = encoded.concat(setRuleConfig(payload.rule_config[i]));
         }
     }
-    */
     // hardware_version>=v4.0, firmware_version>=v1.1
     if ("rules_config" in payload) {
         for (var i = 0; i < payload.rules_config.length; i++) {
             encoded = encoded.concat(setNewRuleConfig(payload.rules_config[i]));
         }
+    }
+    if ("clear_valve_1_pulse" in payload) {
+        encoded = encoded.concat(clearValvePulse(1, payload.clear_valve_1_pulse));
+    }
+    if ("clear_valve_2_pulse" in payload) {
+        encoded = encoded.concat(clearValvePulse(2, payload.clear_valve_2_pulse));
     }
     if ("pulse_filter_config" in payload) {
         encoded = encoded.concat(setPulseFilterConfig(payload.pulse_filter_config));
@@ -124,8 +134,8 @@ function milesightDeviceEncode(payload) {
     if ("valve_power_supply_config" in payload) {
         encoded = encoded.concat(setValvePowerSupplyConfig(payload.valve_power_supply_config));
     }
-    if ("pressure_calibration" in payload) {
-        encoded = encoded.concat(setPressureCalibration(payload.pressure_calibration));
+    if ("pressure_calibration_settings" in payload) {
+        encoded = encoded.concat(setPressureCalibration(payload.pressure_calibration_settings));
     }
     if ("history_enable" in payload) {
         encoded = encoded.concat(setHistoryEnable(payload.history_enable));
@@ -150,32 +160,32 @@ function milesightDeviceEncode(payload) {
  * @example { "reboot": 1 }
  */
 function reboot(reboot) {
-    var reboot_map = { 0: "no", 1: "yes" };
-    var reboot_values = getValues(reboot_map);
+    var yes_no_map = { 0: "no", 1: "yes" };
+    var reboot_values = getValues(yes_no_map);
     if (reboot_values.indexOf(reboot) === -1) {
         throw new Error("reboot must be one of " + reboot_values.join(", "));
     }
 
-    if (getValue(reboot_map, reboot) === 0) {
+    if (getValue(yes_no_map, reboot) === 0) {
         return [];
     }
     return [0xff, 0x10, 0xff];
 }
 
 /**
- * Report status
+ * report status
  * @since hardware_version>=v3.0, firmware_version>=v3.1
  * @param {number} report_status values:(0: no, 1: yes)
  * @example { "report_status": 1 }
  */
 function reportStatus(report_status) {
-    var report_status_map = { 0: "no", 1: "yes" };
-    var report_status_values = getValues(report_status_map);
-    if (report_status_values.indexOf(report_status) === -1) {
-        throw new Error("report_status must be one of " + report_status_values.join(", "));
+    var yes_no_map = { 0: "no", 1: "yes" };
+    var yes_no_values = getValues(yes_no_map);
+    if (yes_no_values.indexOf(report_status) === -1) {
+        throw new Error("report_status must be one of " + yes_no_values.join(", "));
     }
 
-    if (getValue(report_status_map, report_status) === 0) {
+    if (getValue(yes_no_map, report_status) === 0) {
         return [];
     }
     return [0xff, 0x28, 0xff];
@@ -292,20 +302,21 @@ function setResendInterval(resend_interval) {
 }
 
 /**
- * Set timezone
- * @since hardware_version>=v2.0, firmware_version>=v2.1
- * @param {number} timezone unit: minute, range: [-12, 14]
- * @example { "timezone": 8 }
+ * set time zone
+ * @param {number} time_zone unit: minute, UTC+8 -> 8 * 10 = 80
+ * @example { "time_zone": 80 }
  */
-function setTimezone(timezone) {
-    if (timezone < -12 || timezone > 14) {
-        throw new Error("timezone must be in the range of -12 to 14");
+function setTimeZone(time_zone) {
+    var timezone_map = { "-120": "UTC-12", "-110": "UTC-11", "-100": "UTC-10", "-95": "UTC-9:30", "-90": "UTC-9", "-80": "UTC-8", "-70": "UTC-7", "-60": "UTC-6", "-50": "UTC-5", "-40": "UTC-4", "-35": "UTC-3:30", "-30": "UTC-3", "-20": "UTC-2", "-10": "UTC-1", 0: "UTC", 10: "UTC+1", 20: "UTC+2", 30: "UTC+3", 35: "UTC+3:30", 40: "UTC+4", 45: "UTC+4:30", 50: "UTC+5", 55: "UTC+5:30", 57: "UTC+5:45", 60: "UTC+6", 65: "UTC+6:30", 70: "UTC+7", 80: "UTC+8", 90: "UTC+9", 95: "UTC+9:30", 100: "UTC+10", 105: "UTC+10:30", 110: "UTC+11", 120: "UTC+12", 127: "UTC+12:45", 130: "UTC+13", 140: "UTC+14" };
+    var timezone_values = getValues(timezone_map);
+    if (timezone_values.indexOf(time_zone) === -1) {
+        throw new Error("time_zone must be one of " + timezone_values.join(", "));
     }
 
     var buffer = new Buffer(4);
     buffer.writeUInt8(0xff);
     buffer.writeUInt8(0x17);
-    buffer.writeInt16LE(timezone * 10);
+    buffer.writeInt16LE(getValue(timezone_map, time_zone));
     return buffer.toBytes();
 }
 
@@ -719,7 +730,7 @@ function queryRuleConfig(query_rule_config) {
  * @param {number} rule_config.end_hour range: [0, 24]
  * @param {number} rule_config.end_min range: [0, 59]
  * @param {number} rule_config.valve_pulse range: [0, 65535]
- * @example { "rules_config": { "id": 1, "enable": 1, "valve_status": 0, "valve_1_enable": 1, "valve_2_enable": 1, "week_cycle": { "monday": 1, "tuesday": 1, "wednesday": 1, "thursday": 1, "friday": 1, "saturday": 1, "sunday": 1 }, "start_hour": 10, "start_min": 0, "end_hour": 18, "end_min": 0, "valve_pulse": 100 } }
+ * @example { "rule_config": { "id": 1, "enable": 1, "valve_status": 0, "valve_1_enable": 1, "valve_2_enable": 1, "week_cycle": { "monday": 1, "tuesday": 1, "wednesday": 1, "thursday": 1, "friday": 1, "saturday": 1, "sunday": 1 }, "start_hour": 10, "start_min": 0, "end_hour": 18, "end_min": 0, "valve_pulse": 100 } }
  */
 function setRuleConfig(rule_config) {
     var id = rule_config.id;
@@ -855,11 +866,6 @@ function encodedRuleCondition(condition) {
     var repeat_mode_map = { 0: "monthly", 1: "daily", 2: "weekly" };
     var repeat_mode_values = getValues(repeat_mode_map);
     var weekday_bit_offset = { monday: 0, tuesday: 1, wednesday: 2, thursday: 3, friday: 4, saturday: 5, sunday: 6 };
-    var weekday_values = getValues(weekday_bit_offset);
-    var valve_strategy_map = { 0: "always", 1: "valve_1_open", 2: "valve_2_open", 3: "valve_1_open_or_valve_2_open" };
-    var valve_strategy_values = getValues(valve_strategy_map);
-    var threshold_condition_type_map = { 0: "none", 1: "below", 2: "above", 3: "between", 4: "outside" };
-    var threshold_condition_type_values = getValues(threshold_condition_type_map);
 
     if (condition_type_values.indexOf(condition.type) === -1) {
         throw new Error("rules_config._item.condition.type must be one of " + condition_type_values.join(", "));
@@ -942,6 +948,9 @@ function encodedAction(action) {
     var report_type_values = getValues(report_type_map);
 
     var buffer = new Buffer(13);
+    if (action_type_values.indexOf(action.type) === -1) {
+        throw new Error("rules_config._item.action.type must be one of " + action_type_values.join(", "));
+    }
     var action_type_value = getValue(action_type_map, action.type);
     buffer.writeUInt8(action_type_value);
     switch (action_type_value) {
@@ -1087,19 +1096,19 @@ function setValvePowerSupplyConfig(valve_power_supply_config) {
 /**
  * set pressure calibration
  * @since hardware_version>=v4.0, firmware_version>=v1.1
- * @param {object} pressure_calibration
- * @param {number} pressure_calibration.enable values: (0: disable, 1: enable)
- * @param {number} pressure_calibration.calibration_value unit: kPa
- * @example { "pressure_calibration": { "enable": 1, "calibration_value": 1 } }
+ * @param {object} pressure_calibration_settings
+ * @param {number} pressure_calibration_settings.enable values: (0: disable, 1: enable)
+ * @param {number} pressure_calibration_settings.calibration_value unit: kPa
+ * @example { "pressure_calibration_settings": { "enable": 1, "calibration_value": 1 } }
  */
-function setPressureCalibration(pressure_calibration) {
-    var enable = pressure_calibration.enable;
-    var calibration_value = pressure_calibration.calibration_value;
+function setPressureCalibration(pressure_calibration_settings) {
+    var enable = pressure_calibration_settings.enable;
+    var calibration_value = pressure_calibration_settings.calibration_value;
 
     var enable_map = { 0: "disable", 1: "enable" };
     var enable_values = getValues(enable_map);
     if (enable_values.indexOf(enable) === -1) {
-        throw new Error("pressure_calibration.enable must be one of " + enable_values.join(", "));
+        throw new Error("pressure_calibration_settings.enable must be one of " + enable_values.join(", "));
     }
 
     var buffer = new Buffer(5);
@@ -1149,7 +1158,6 @@ function clearHistory(clear_history) {
     return [0xff, 0x27, 0xff];
 }
 
-
 /**
  * fetch history
  * @param {object} fetch_history
@@ -1195,9 +1203,9 @@ function fetchHistory(fetch_history) {
  */
 function stopTransmit(stop_transmit) {
     var yes_no_map = { 0: "no", 1: "yes" };
-    var stop_transmit_values = getValues(yes_no_map);
-    if (stop_transmit_values.indexOf(stop_transmit) === -1) {
-        throw new Error("stop_transmit must be one of " + stop_transmit_values.join(", "));
+    var yes_no_values = getValues(yes_no_map);
+    if (yes_no_values.indexOf(stop_transmit) === -1) {
+        throw new Error("stop_transmit must be one of " + yes_no_values.join(", "));
     }
 
     if (getValue(yes_no_map, stop_transmit) === 0) {
@@ -1208,14 +1216,8 @@ function stopTransmit(stop_transmit) {
 
 function getValues(map) {
     var values = [];
-    if (RAW_VALUE) {
-        for (var key in map) {
-            values.push(parseInt(key));
-        }
-    } else {
-        for (var key in map) {
-            values.push(map[key]);
-        }
+    for (var key in map) {
+        values.push(RAW_VALUE ? parseInt(key) : map[key]);
     }
     return values;
 }
@@ -1297,7 +1299,7 @@ Buffer.prototype.writeBytes = function (bytes) {
 };
 
 Buffer.prototype.writeAscii = function (value, maxLength) {
-    for (var i = 0; i < maxLength; i++) {
+    for (let i = 0; i < maxLength; i++) {
         if (i < value.length) {
             this.buffer[this.offset + i] = value.charCodeAt(i);
         } else {

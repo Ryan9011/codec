@@ -1,50 +1,57 @@
 /**
- * Payload Decoder for and Milesight Network Server
+ * Payload Decoder
  *
- * Copyright 2025 Milesight IoT
+ * Copyright 2024 Milesight IoT
  *
  * @product VS132
  */
-function Decode(fPort, bytes) {
-    return milesight(bytes);
+var RAW_VALUE = 0x01;
+
+/* eslint no-redeclare: "off" */
+/* eslint-disable */
+// Chirpstack v4
+function decodeUplink(input) {
+    var decoded = milesightDeviceDecode(input.bytes);
+    return { data: decoded };
 }
 
-function milesight(bytes) {
+// Chirpstack v3
+function Decode(fPort, bytes) {
+    return milesightDeviceDecode(bytes);
+}
+
+// The Things Network
+function Decoder(bytes, port) {
+    return milesightDeviceDecode(bytes);
+}
+/* eslint-enable */
+
+function milesightDeviceDecode(bytes) {
     var decoded = {};
 
-    for (i = 0; i < bytes.length; ) {
+    for (var i = 0; i < bytes.length;) {
         var channel_id = bytes[i++];
         var channel_type = bytes[i++];
 
-        // IPSO VERSION
+        // PROTOCOL VERSION
         if (channel_id === 0xff && channel_type === 0x01) {
-            decoded.ipso_version = readProtocolVersion(bytes[i]);
-            i += 1;
-        }
-        // HARDWARE VERSION
-        else if (channel_id === 0xff && channel_type === 0x09) {
-            decoded.hardware_version = readHardwareVersion(bytes.slice(i, i + 2));
-            i += 2;
-        }
-        // FIRMWARE VERSION
-        else if (channel_id === 0xff && channel_type === 0x1f) {
-            decoded.firmware_version = readFirmwareVersion(bytes.slice(i, i + 4));
-            i += 4;
-        }
-        // DEVICE STATUS
-        else if (channel_id === 0xff && channel_type === 0x0b) {
-            decoded.device_status = 1;
-            i += 1;
-        }
-        // LORAWAN CLASS TYPE
-        else if (channel_id === 0xff && channel_type === 0x0f) {
-            decoded.lorawan_class = bytes[i];
+            decoded.protocol_version = bytes[i];
             i += 1;
         }
         // SERIAL NUMBER
         else if (channel_id === 0xff && channel_type === 0x16) {
             decoded.sn = readSerialNumber(bytes.slice(i, i + 8));
             i += 8;
+        }
+        // HARDWARE VERSION
+        else if (channel_id === 0xff && channel_type === 0x09) {
+            decoded.hardware_version = readVersion(bytes.slice(i, i + 2));
+            i += 2;
+        }
+        // FIRMWARE VERSION
+        else if (channel_id === 0xff && channel_type === 0x1f) {
+            decoded.firmware_version = readVersion(bytes.slice(i, i + 4));
+            i += 4;
         }
         // TOTAL COUNTER IN
         else if (channel_id === 0x03 && channel_type === 0xd2) {
@@ -61,6 +68,12 @@ function milesight(bytes) {
             decoded.periodic_counter_in = readUInt16LE(bytes.slice(i, i + 2));
             decoded.periodic_counter_out = readUInt16LE(bytes.slice(i + 2, i + 4));
             i += 4;
+        }
+        // DOWNLINK RESPONSE
+        else if (channel_id === 0xfe || channel_id === 0xff) {
+            var result = handle_downlink_response(channel_type, bytes, i);
+            decoded = Object.assign(decoded, result.data);
+            i = result.offset;
         } else {
             break;
         }
@@ -69,29 +82,46 @@ function milesight(bytes) {
     return decoded;
 }
 
-function readUInt16LE(bytes) {
-    var value = (bytes[1] << 8) + bytes[0];
-    return value & 0xffff;
+function handle_downlink_response(channel_type, bytes, offset) {
+    var decoded = {};
+
+    switch (channel_type) {
+        case 0x03:
+            decoded.report_interval = readUInt16LE(bytes.slice(offset, offset + 2));
+            offset += 2;
+            break;
+        case 0x04:
+            decoded.confirm_mode_enable = readEnableStatus(bytes[offset]);
+            offset += 1;
+            break;
+        case 0x10:
+            decoded.reboot = readYesNoStatus(1);
+            offset += 1;
+            break;
+        case 0x40:
+            decoded.adr_enable = readEnableStatus(bytes[offset]);
+            offset += 1;
+            break;
+        case 0x42:
+            decoded.wifi_enable = readEnableStatus(bytes[offset]);
+            offset += 1;
+            break;
+        case 0x43:
+            decoded.periodic_report_enable = readEnableStatus(bytes[offset]);
+            offset += 1;
+            break;
+        case 0x51:
+            decoded.clear_total_count = readYesNoStatus(1);
+            offset += 1;
+            break;
+        default:
+            throw new Error("unknown downlink response");
+    }
+
+    return { data: decoded, offset: offset };
 }
 
-function readUInt32LE(bytes) {
-    var value = (bytes[3] << 24) + (bytes[2] << 16) + (bytes[1] << 8) + bytes[0];
-    return (value & 0xffffffff) >>> 0;
-}
-
-function readProtocolVersion(bytes) {
-    var major = (bytes & 0xf0) >> 4;
-    var minor = bytes & 0x0f;
-    return "v" + major + "." + minor;
-}
-
-function readHardwareVersion(bytes) {
-    var major = bytes[0] & 0xff;
-    var minor = (bytes[1] & 0xff) >> 4;
-    return "v" + major + "." + minor;
-}
-
-function readFirmwareVersion(bytes) {
+function readVersion(bytes) {
     var temp = [];
     for (var idx = 0; idx < bytes.length; idx++) {
         temp.push((bytes[idx] & 0xff).toString(10));
@@ -105,4 +135,70 @@ function readSerialNumber(bytes) {
         temp.push(("0" + (bytes[idx] & 0xff).toString(16)).slice(-2));
     }
     return temp.join("");
+}
+
+function readEnableStatus(status) {
+    var status_map = { 0: "disable", 1: "enable" };
+    return getValue(status_map, status);
+}
+
+function readYesNoStatus(status) {
+    var status_map = { 0: "no", 1: "yes" };
+    return getValue(status_map, status);
+}
+
+function readUInt16LE(bytes) {
+    var value = (bytes[1] << 8) + bytes[0];
+    return value & 0xffff;
+}
+
+function readUInt32LE(bytes) {
+    var value = (bytes[3] << 24) + (bytes[2] << 16) + (bytes[1] << 8) + bytes[0];
+    return (value & 0xffffffff) >>> 0;
+}
+
+function getValue(map, key) {
+    if (RAW_VALUE) return key;
+
+    var value = map[key];
+    if (!value) value = "unknown";
+    return value;
+}
+
+if (!Object.assign) {
+    Object.defineProperty(Object, "assign", {
+        enumerable: false,
+        configurable: true,
+        writable: true,
+        value: function (target) {
+            "use strict";
+            if (target == null) {
+                throw new TypeError("Cannot convert first argument to object");
+            }
+
+            var to = Object(target);
+            for (var i = 1; i < arguments.length; i++) {
+                var nextSource = arguments[i];
+                if (nextSource == null) {
+                    continue;
+                }
+                nextSource = Object(nextSource);
+
+                var keysArray = Object.keys(Object(nextSource));
+                for (var nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex++) {
+                    var nextKey = keysArray[nextIndex];
+                    var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
+                    if (desc !== undefined && desc.enumerable) {
+                        // concat array
+                        if (Array.isArray(to[nextKey]) && Array.isArray(nextSource[nextKey])) {
+                            to[nextKey] = to[nextKey].concat(nextSource[nextKey]);
+                        } else {
+                            to[nextKey] = nextSource[nextKey];
+                        }
+                    }
+                }
+            }
+            return to;
+        },
+    });
 }

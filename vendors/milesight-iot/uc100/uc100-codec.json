@@ -42,36 +42,15 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "device_status",
-            "name": "Device Status",
-            "value": "1",
-            "unit": "",
-            "access_mode": "R",
-            "data_type": "BOOL",
-            "value_type": "UINT8",
-            "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
-            ],
-            "bacnet_type": "binary_input_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
-        },
-        {
-            "id": "lorawan_class",
-            "name": "LoRaWAN Class Type",
+            "id": "tsl_version",
+            "name": "TSL Version",
             "value": "",
             "unit": "",
             "access_mode": "R",
-            "data_type": "ENUM",
-            "value_type": "UINT8",
-            "values": [
-                { "value": 0, "name": "ClassA" },
-                { "value": 1, "name": "ClassB" },
-                { "value": 2, "name": "ClassC" },
-                { "value": 3, "name": "ClassCtoB" }
-            ],
-            "bacnet_type": "multistate_value_object",
+            "data_type": "TEXT",
+            "value_type": "STRING",
+            "max_length": 6,
+            "bacnet_type": "character_string_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
@@ -88,6 +67,57 @@
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
+        {
+            "id": "lorawan_class",
+            "name": "LoRaWAN Class Type",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "Class A" },
+                { "value": 1, "name": "Class B" },
+                { "value": 2, "name": "Class C" },
+                { "value": 3, "name": "Class CtoB" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "reset_event",
+            "name": "Reset Event",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "normal" },
+                { "value": 1, "name": "reset" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "device_status",
+            "name": "Device Status",
+            "value": "1",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+
         {
             "id": "modbus_chn_1",
             "name": "Modbus Channel 1",
@@ -482,6 +512,285 @@
             "value_type": "STRING",
             "max_length": 255,
             "bacnet_type": "character_string_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+
+        {
+            "id": "reboot",
+            "name": "Reboot",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "report_interval",
+            "name": "Report Interval",
+            "value": "10",
+            "unit": "s",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
+        },
+        {
+            "id": "confirm_mode_enable",
+            "name": "Confirm Mode Enable",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "modbus_channels._item.channel_id",
+            "name": "Modbus Channel (ID)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["modbus_channels._item.channel_id", "modbus_channels._item.slave_id", "modbus_channels._item.register_address", "modbus_channels._item.register_type", "modbus_channels._item.quantity", "modbus_channels._item.sign"]
+        },
+        {
+            "id": "modbus_channels._item.slave_id",
+            "name": "Modbus Channel (Slave ID)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["modbus_channels._item.channel_id", "modbus_channels._item.slave_id", "modbus_channels._item.register_address", "modbus_channels._item.register_type", "modbus_channels._item.quantity", "modbus_channels._item.sign"]
+        },
+        {
+            "id": "modbus_channels._item.register_address",
+            "name": "Modbus Channel (Register Address)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["modbus_channels._item.channel_id", "modbus_channels._item.slave_id", "modbus_channels._item.register_address", "modbus_channels._item.register_type", "modbus_channels._item.quantity", "modbus_channels._item.sign"]
+        },
+        {
+            "id": "modbus_channels._item.register_type",
+            "name": "Modbus Channel (Register Type)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["modbus_channels._item.channel_id", "modbus_channels._item.slave_id", "modbus_channels._item.register_address", "modbus_channels._item.register_type", "modbus_channels._item.quantity", "modbus_channels._item.sign"]
+        },
+        {
+            "id": "modbus_channels._item.quantity",
+            "name": "Modbus Channel (Quantity)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["modbus_channels._item.channel_id", "modbus_channels._item.slave_id", "modbus_channels._item.register_address", "modbus_channels._item.register_type", "modbus_channels._item.quantity", "modbus_channels._item.sign"]
+        },
+        {
+            "id": "modbus_channels._item.sign",
+            "name": "Modbus Channel (Sign)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "unsigned" },
+                { "value": 1, "name": "signed" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["modbus_channels._item.channel_id", "modbus_channels._item.slave_id", "modbus_channels._item.register_address", "modbus_channels._item.register_type", "modbus_channels._item.quantity", "modbus_channels._item.sign"]
+        },
+        {
+            "id": "modbus_channels_name._item.channel_id",
+            "name": "Modbus Channel Name (ID)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["modbus_channels_name._item.channel_id", "modbus_channels_name._item.name"]
+        },
+        {
+            "id": "modbus_channels_name._item.name",
+            "name": "Modbus Channel Name (Name)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "TEXT",
+            "value_type": "STRING",
+            "max_length": 255,
+            "bacnet_type": "character_string_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["modbus_channels_name._item.channel_id", "modbus_channels_name._item.name"]
+        },
+        {
+            "id": "remove_modbus_channels._item.channel_id",
+            "name": "Remove Modbus Channel (ID)",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "NUMBER",
+            "value_type": "UINT8",
+            "bacnet_type": "analog_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history_enable",
+            "name": "History Enable",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "retransmit_enable",
+            "name": "Retransmit Enable",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "retransmit_interval",
+            "name": "Retransmit Interval",
+            "value": "",
+            "unit": "s",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
+        },
+        {
+            "id": "resend_interval",
+            "name": "Resend Interval",
+            "value": "",
+            "unit": "s",
+            "access_mode": "RW",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_value_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
+        },
+        {
+            "id": "fetch_history.start_time",
+            "name": "Fetch History (Start Time)",
+            "value": "",
+            "unit": "s",
+            "access_mode": "W",
+            "data_type": "NUMBER",
+            "value_type": "UINT32",
+            "bacnet_type": "analog_output_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
+        },
+        {
+            "id": "fetch_history.end_time",
+            "name": "Fetch History (End Time)",
+            "value": "",
+            "unit": "s",
+            "access_mode": "W",
+            "data_type": "NUMBER",
+            "value_type": "UINT32",
+            "bacnet_type": "analog_output_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS",
+            "reference": ["fetch_history.start_time", "fetch_history.end_time"]
+        },
+        {
+            "id": "clear_history",
+            "name": "Clear History",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "stop_transmit",
+            "name": "Stop Transmit",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         }

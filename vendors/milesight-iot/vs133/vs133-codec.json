@@ -786,7 +786,7 @@
             "id": "report_interval",
             "name": "Report Interval",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",

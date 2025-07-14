@@ -117,6 +117,7 @@
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
+
         {
             "id": "battery",
             "name": "Battery",
@@ -288,6 +289,135 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
+            "id": "history._item.timestamp",
+            "name": "History (Timestamp)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "UINT32",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.mode",
+            "name": "History (Mode)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "counter" },
+                { "value": 1, "name": "gpio" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.valve_1",
+            "name": "History (Valve 1 Status)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "close" },
+                { "value": 1, "name": "open" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.valve_1_pulse",
+            "name": "History (Valve 1 Pulse)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "UINT32",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.valve_2",
+            "name": "History (Valve 2 Status)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "close" },
+                { "value": 1, "name": "open" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.valve_2_pulse",
+            "name": "History (Valve 2 Pulse)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "UINT32",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.gpio_1",
+            "name": "History (GPIO 1)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.gpio_2",
+            "name": "History (GPIO 2)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.pressure",
+            "name": "History (Pressure)",
+            "value": "",
+            "unit": "kPa",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "UINT32",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 54,
+            "bacnet_unit_type": "UNITS_KILOPASCALS"
+        },
+
+        {
             "id": "reboot",
             "name": "Reboot",
             "value": "",
@@ -379,7 +509,7 @@
             "id": "retransmit_interval",
             "name": "Retransmit Interval",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
@@ -391,7 +521,7 @@
             "id": "resend_interval",
             "name": "Resend Interval",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
@@ -400,14 +530,53 @@
             "bacnet_unit_type": "UNITS_SECONDS"
         },
         {
-            "id": "timezone",
-            "name": "Timezone",
+            "id": "time_zone",
+            "name": "Time Zone",
             "value": "",
             "unit": "",
             "access_mode": "RW",
-            "data_type": "NUMBER",
-            "value_type": "FLOAT",
-            "bacnet_type": "analog_value_object",
+            "data_type": "ENUM",
+            "value_type": "INT16",
+            "values": [
+                { "value": -120, "name": "UTC-12" },
+                { "value": -110, "name": "UTC-11" },
+                { "value": -100, "name": "UTC-10" },
+                { "value": -95, "name": "UTC-9:30" },
+                { "value": -90, "name": "UTC-9" },
+                { "value": -80, "name": "UTC-8" },
+                { "value": -70, "name": "UTC-7" },
+                { "value": -60, "name": "UTC-6" },
+                { "value": -50, "name": "UTC-5" },
+                { "value": -40, "name": "UTC-4" },
+                { "value": -35, "name": "UTC-3:30" },
+                { "value": -30, "name": "UTC-3" },
+                { "value": -20, "name": "UTC-2" },
+                { "value": -10, "name": "UTC-1" },
+                { "value": 0, "name": "UTC" },
+                { "value": 10, "name": "UTC+1" },
+                { "value": 20, "name": "UTC+2" },
+                { "value": 30, "name": "UTC+3" },
+                { "value": 35, "name": "UTC+3:30" },
+                { "value": 40, "name": "UTC+4" },
+                { "value": 45, "name": "UTC+4:30" },
+                { "value": 50, "name": "UTC+5" },
+                { "value": 55, "name": "UTC+5:30" },
+                { "value": 57, "name": "UTC+5:45" },
+                { "value": 60, "name": "UTC+6" },
+                { "value": 65, "name": "UTC+6:30" },
+                { "value": 70, "name": "UTC+7" },
+                { "value": 80, "name": "UTC+8" },
+                { "value": 90, "name": "UTC+9" },
+                { "value": 95, "name": "UTC+9:30" },
+                { "value": 100, "name": "UTC+10" },
+                { "value": 105, "name": "UTC+10:30" },
+                { "value": 110, "name": "UTC+11" },
+                { "value": 120, "name": "UTC+12" },
+                { "value": 127, "name": "UTC+12:45" },
+                { "value": 130, "name": "UTC+13" },
+                { "value": 140, "name": "UTC+14" }
+            ],
+            "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
@@ -477,7 +646,7 @@
             "id": "class_a_response_time",
             "name": "Class A Response Time",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT32",
@@ -536,7 +705,7 @@
             "id": "valve_1_task.duration",
             "name": "Valve 1 Task (Duration)",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT32",
@@ -571,8 +740,8 @@
             "data_type": "NUMBER",
             "value_type": "UINT32",
             "bacnet_type": "analog_value_object",
-            "bacnet_unit_type_id": 73,
-            "bacnet_unit_type": "UNITS_SECONDS",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
             "reference": ["valve_1_task.time_rule_enable", "valve_1_task.pulse_rule_enable", "valve_1_task.valve_status", "valve_1_task.duration"]
         },
         {
@@ -626,7 +795,7 @@
             "id": "valve_2_task.duration",
             "name": "Valve 2 Task (Duration)",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT32",
@@ -661,8 +830,8 @@
             "data_type": "NUMBER",
             "value_type": "UINT32",
             "bacnet_type": "analog_value_object",
-            "bacnet_unit_type_id": 73,
-            "bacnet_unit_type": "UNITS_SECONDS",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
             "reference": ["valve_2_task.time_rule_enable", "valve_2_task.pulse_rule_enable", "valve_2_task.valve_status", "valve_2_task.duration"]
         },
         {
@@ -718,7 +887,7 @@
             "id": "pulse_filter_config.time",
             "name": "Pulse Filter Config (Time)",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
@@ -756,7 +925,7 @@
             "id": "valve_power_supply_config.control_pulse_time",
             "name": "Valve Power Supply Config (Control Pulse Time)",
             "value": "",
-            "unit": "",
+            "unit": "ms",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
@@ -769,7 +938,7 @@
             "id": "valve_power_supply_config.power_time",
             "name": "Valve Power Supply Config (Power Time)",
             "value": "",
-            "unit": "",
+            "unit": "ms",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
@@ -779,7 +948,7 @@
             "reference": ["valve_power_supply_config.counts", "valve_power_supply_config.control_pulse_time"]
         },
         {
-            "id": "pressure_calibration.enable",
+            "id": "pressure_calibration_settings.enable",
             "name": "Pressure Calibration (Enable)",
             "value": "",
             "unit": "",
@@ -793,20 +962,20 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["pressure_calibration.calibration_value"]
+            "reference": ["pressure_calibration_settings.calibration_value"]
         },
         {
-            "id": "pressure_calibration.calibration_value",
+            "id": "pressure_calibration_settings.calibration_value",
             "name": "Pressure Calibration (Calibration Value)",
             "value": "",
-            "unit": "",
+            "unit": "kPa",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "UINT16",
             "bacnet_type": "analog_value_object",
-            "bacnet_unit_type_id": 159,
-            "bacnet_unit_type": "UNITS_MILLISECONDS",
-            "reference": ["pressure_calibration.enable"]
+            "bacnet_unit_type_id": 54,
+            "bacnet_unit_type": "UNITS_KILOPASCALS",
+            "reference": ["pressure_calibration_settings.enable"]
         },
         {
             "id": "history_enable",
@@ -844,7 +1013,7 @@
             "id": "fetch_history.start_time",
             "name": "Fetch History (Start Time)",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "W",
             "data_type": "NUMBER",
             "value_type": "UINT32",
@@ -856,13 +1025,14 @@
             "id": "fetch_history.end_time",
             "name": "Fetch History (End Time)",
             "value": "",
-            "unit": "",
+            "unit": "s",
             "access_mode": "W",
             "data_type": "NUMBER",
             "value_type": "UINT32",
             "bacnet_type": "analog_output_object",
             "bacnet_unit_type_id": 73,
-            "bacnet_unit_type": "UNITS_SECONDS"
+            "bacnet_unit_type": "UNITS_SECONDS",
+            "reference": ["fetch_history.start_time", "fetch_history.end_time"]
         },
         {
             "id": "stop_transmit",

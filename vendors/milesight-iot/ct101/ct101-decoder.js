@@ -7,6 +7,8 @@
  */
 var RAW_VALUE = 0x01;
 
+/* eslint no-redeclare: "off" */
+/* eslint-disable */
 // Chirpstack v4
 function decodeUplink(input) {
     var decoded = milesightDeviceDecode(input.bytes);
@@ -22,10 +24,11 @@ function Decode(fPort, bytes) {
 function Decoder(bytes, port) {
     return milesightDeviceDecode(bytes);
 }
+/* eslint-enable */
 
 function milesightDeviceDecode(bytes) {
     var decoded = {};
-    for (var i = 0; i < bytes.length;) {
+    for (var i = 0; i < bytes.length; ) {
         var channel_id = bytes[i++];
         var channel_type = bytes[i++];
 
@@ -111,12 +114,11 @@ function milesightDeviceDecode(bytes) {
             i += 3;
         }
         // DOWNLINK RESPONSE
-        else if (channel_id === 0xfe) {
-            result = handle_downlink_response(channel_type, bytes, i);
+        else if (channel_id === 0xfe || channel_id === 0xff) {
+            var result = handle_downlink_response(channel_type, bytes, i);
             decoded = Object.assign(decoded, result.data);
             i = result.offset;
-        }
-        else {
+        } else {
             break;
         }
     }
@@ -136,22 +138,30 @@ function handle_downlink_response(channel_type, bytes, offset) {
             var value = readUInt8(bytes[offset]);
             var channel_value = (value >>> 3) & 0x07;
             if (channel_value === 0x01) {
-                decoded.current_threshold_alarm_config = {};
-                decoded.current_threshold_alarm_config.condition = readConditionType(value & 0x07);
-                decoded.current_threshold_alarm_config.min_threshold = readUInt16LE(bytes.slice(offset + 1, offset + 3));
-                decoded.current_threshold_alarm_config.max_threshold = readUInt16LE(bytes.slice(offset + 3, offset + 5));
-                decoded.current_threshold_alarm_config.alarm_interval = readUInt16LE(bytes.slice(offset + 5, offset + 7));
-                decoded.current_threshold_alarm_config.alarm_counts = readUInt16LE(bytes.slice(offset + 7, offset + 9));
+                decoded.current_alarm_config = {};
+                decoded.current_alarm_config.condition = readConditionType(value & 0x07);
+                decoded.current_alarm_config.threshold_min = readUInt16LE(bytes.slice(offset + 1, offset + 3));
+                decoded.current_alarm_config.threshold_max = readUInt16LE(bytes.slice(offset + 3, offset + 5));
+                decoded.current_alarm_config.alarm_interval = readUInt16LE(bytes.slice(offset + 5, offset + 7));
+                decoded.current_alarm_config.alarm_counts = readUInt16LE(bytes.slice(offset + 7, offset + 9));
             } else if (channel_value === 0x04) {
-                decoded.temperature_threshold_alarm_config = {};
-                decoded.temperature_threshold_alarm_config.condition = readConditionType(value & 0x07);
-                decoded.temperature_threshold_alarm_config.min_threshold = readInt16LE(bytes.slice(offset + 1, offset + 3)) / 10;
-                decoded.temperature_threshold_alarm_config.max_threshold = readInt16LE(bytes.slice(offset + 3, offset + 5)) / 10;
+                decoded.temperature_alarm_config = {};
+                decoded.temperature_alarm_config.condition = readConditionType(value & 0x07);
+                decoded.temperature_alarm_config.threshold_min = readInt16LE(bytes.slice(offset + 1, offset + 3)) / 10;
+                decoded.temperature_alarm_config.threshold_max = readInt16LE(bytes.slice(offset + 3, offset + 5)) / 10;
             }
             offset += 9;
             break;
+        case 0x10:
+            decoded.reboot = readYesNoStatus(1);
+            offset += 1;
+            break;
         case 0x27:
             decoded.clear_current_cumulative = readYesNoStatus(1);
+            offset += 1;
+            break;
+        case 0x28:
+            decoded.report_status = readYesNoStatus(1);
             offset += 1;
             break;
         case 0x8e:
@@ -233,7 +243,7 @@ function readSensorStatus(status) {
 }
 
 function readCurrentAlarm(value) {
-    var alarm_bit_offset = { "current_threshold_alarm": 0, "current_threshold_alarm_release": 1, "current_over_range_alarm": 2, "current_over_range_alarm_release": 3 };
+    var alarm_bit_offset = { current_threshold_alarm: 0, current_threshold_alarm_release: 1, current_over_range_alarm: 2, current_over_range_alarm_release: 3 };
 
     var event = {};
     for (var key in alarm_bit_offset) {
@@ -252,6 +262,7 @@ function readConditionType(type) {
     return getValue(condition_map, type);
 }
 
+/* eslint-disable */
 function readUInt8(bytes) {
     return bytes & 0xff;
 }

@@ -98,7 +98,8 @@
                 { "value": 1, "name": "reset" }
             ],
             "bacnet_type": "binary_input_object",
-            "bacnet_unit_type_id": 95
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
             "id": "device_status",
@@ -116,6 +117,7 @@
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
+
         {
             "id": "battery",
             "name": "Battery",
@@ -180,6 +182,114 @@
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
+        {
+            "id": "event._item.distance",
+            "name": "Event (Distance)",
+            "value": "",
+            "unit": "mm",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 30,
+            "bacnet_unit_type": "UNITS_MILLIMETERS"
+        },
+        {
+            "id": "event._item.distance_mutation",
+            "name": "Event (Distance Mutation)",
+            "value": "",
+            "unit": "mm",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 30,
+            "bacnet_unit_type": "UNITS_MILLIMETERS"
+        },
+        {
+            "id": "event._item.distance_alarm",
+            "name": "Event (Distance Alarm)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "threshold alarm release" },
+                { "value": 1, "name": "threshold alarm" },
+                { "value": 2, "name": "mutation alarm" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "event._item.distance_exception",
+            "name": "Event (Distance Exception)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "blind spot alarm release" },
+                { "value": 1, "name": "blind spot alarm" },
+                { "value": 2, "name": "no target" },
+                { "value": 3, "name": "sensor exception" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.timestamp",
+            "name": "History (Timestamp)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "UINT32",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.distance",
+            "name": "History (Distance)",
+            "value": "",
+            "unit": "mm",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 30,
+            "bacnet_unit_type": "UNITS_MILLIMETERS"
+        },
+        {
+            "id": "history._item.temperature",
+            "name": "History (Temperature)",
+            "value": "",
+            "unit": "°C",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 62,
+            "bacnet_unit_type": "UNITS_DEGREES_CELSIUS"
+        },
+        {
+            "id": "history._item.distance_mutation",
+            "name": "History (Distance Mutation)",
+            "value": "",
+            "unit": "mm",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 30,
+            "bacnet_unit_type": "UNITS_MILLIMETERS"
+        },
+
         {
             "id": "reboot",
             "name": "Reboot",
@@ -253,8 +363,8 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "timezone",
-            "name": "Timezone",
+            "id": "time_zone",
+            "name": "Time Zone",
             "value": "",
             "unit": "",
             "access_mode": "RW",
@@ -350,7 +460,7 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["distance_alarm_config.enable", "distance_alarm_config.condition", "distance_alarm_config.alarm_release_enable", "distance_alarm_config.min_threshold", "distance_alarm_config.max_threshold"]
+            "reference": ["distance_alarm_config.enable", "distance_alarm_config.condition", "distance_alarm_config.alarm_release_enable", "distance_alarm_config.threshold_min", "distance_alarm_config.threshold_max"]
         },
         {
             "id": "distance_alarm_config.condition",
@@ -371,7 +481,7 @@
             "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["distance_alarm_config.enable", "distance_alarm_config.condition", "distance_alarm_config.alarm_release_enable", "distance_alarm_config.min_threshold", "distance_alarm_config.max_threshold"]
+            "reference": ["distance_alarm_config.enable", "distance_alarm_config.condition", "distance_alarm_config.alarm_release_enable", "distance_alarm_config.threshold_min", "distance_alarm_config.threshold_max"]
         },
         {
             "id": "distance_alarm_config.alarm_release_enable",
@@ -388,10 +498,10 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["distance_alarm_config.enable", "distance_alarm_config.condition", "distance_alarm_config.alarm_release_enable", "distance_alarm_config.min_threshold", "distance_alarm_config.max_threshold"]
+            "reference": ["distance_alarm_config.enable", "distance_alarm_config.condition", "distance_alarm_config.alarm_release_enable", "distance_alarm_config.threshold_min", "distance_alarm_config.threshold_max"]
         },
         {
-            "id": "distance_alarm_config.min_threshold",
+            "id": "distance_alarm_config.threshold_min",
             "name": "Distance Alarm Config (Min Threshold)",
             "value": "",
             "unit": "mm",
@@ -401,10 +511,10 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 30,
             "bacnet_unit_type": "UNITS_MILLIMETERS",
-            "reference": ["distance_alarm_config.enable", "distance_alarm_config.condition", "distance_alarm_config.alarm_release_enable", "distance_alarm_config.min_threshold", "distance_alarm_config.max_threshold"]
+            "reference": ["distance_alarm_config.enable", "distance_alarm_config.condition", "distance_alarm_config.alarm_release_enable", "distance_alarm_config.threshold_min", "distance_alarm_config.threshold_max"]
         },
         {
-            "id": "distance_alarm_config.max_threshold",
+            "id": "distance_alarm_config.threshold_max",
             "name": "Distance Alarm Config (Max Threshold)",
             "value": "",
             "unit": "mm",
@@ -414,7 +524,7 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 30,
             "bacnet_unit_type": "UNITS_MILLIMETERS",
-            "reference": ["distance_alarm_config.enable", "distance_alarm_config.condition", "distance_alarm_config.alarm_release_enable", "distance_alarm_config.min_threshold", "distance_alarm_config.max_threshold"]
+            "reference": ["distance_alarm_config.enable", "distance_alarm_config.condition", "distance_alarm_config.alarm_release_enable", "distance_alarm_config.threshold_min", "distance_alarm_config.threshold_max"]
         },
         {
             "id": "tank_mode_distance_alarm_config.enable",
@@ -431,7 +541,7 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["tank_mode_distance_alarm_config.enable", "tank_mode_distance_alarm_config.condition", "tank_mode_distance_alarm_config.alarm_release_enable", "tank_mode_distance_alarm_config.min_threshold", "tank_mode_distance_alarm_config.max_threshold"]
+            "reference": ["tank_mode_distance_alarm_config.enable", "tank_mode_distance_alarm_config.condition", "tank_mode_distance_alarm_config.alarm_release_enable", "tank_mode_distance_alarm_config.threshold_min", "tank_mode_distance_alarm_config.threshold_max"]
         },
         {
             "id": "tank_mode_distance_alarm_config.condition",
@@ -452,7 +562,7 @@
             "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["tank_mode_distance_alarm_config.enable", "tank_mode_distance_alarm_config.condition", "tank_mode_distance_alarm_config.alarm_release_enable", "tank_mode_distance_alarm_config.min_threshold", "tank_mode_distance_alarm_config.max_threshold"]
+            "reference": ["tank_mode_distance_alarm_config.enable", "tank_mode_distance_alarm_config.condition", "tank_mode_distance_alarm_config.alarm_release_enable", "tank_mode_distance_alarm_config.threshold_min", "tank_mode_distance_alarm_config.threshold_max"]
         },
         {
             "id": "tank_mode_distance_alarm_config.alarm_release_enable",
@@ -469,10 +579,10 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["tank_mode_distance_alarm_config.enable", "tank_mode_distance_alarm_config.condition", "tank_mode_distance_alarm_config.alarm_release_enable", "tank_mode_distance_alarm_config.min_threshold", "tank_mode_distance_alarm_config.max_threshold"]
+            "reference": ["tank_mode_distance_alarm_config.enable", "tank_mode_distance_alarm_config.condition", "tank_mode_distance_alarm_config.alarm_release_enable", "tank_mode_distance_alarm_config.threshold_min", "tank_mode_distance_alarm_config.threshold_max"]
         },
         {
-            "id": "tank_mode_distance_alarm_config.min_threshold",
+            "id": "tank_mode_distance_alarm_config.threshold_min",
             "name": "Tank Mode Distance Alarm Config (Min Threshold)",
             "value": "",
             "unit": "mm",
@@ -482,10 +592,10 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 30,
             "bacnet_unit_type": "UNITS_MILLIMETERS",
-            "reference": ["tank_mode_distance_alarm_config.enable", "tank_mode_distance_alarm_config.condition", "tank_mode_distance_alarm_config.alarm_release_enable", "tank_mode_distance_alarm_config.min_threshold", "tank_mode_distance_alarm_config.max_threshold"]
+            "reference": ["tank_mode_distance_alarm_config.enable", "tank_mode_distance_alarm_config.condition", "tank_mode_distance_alarm_config.alarm_release_enable", "tank_mode_distance_alarm_config.threshold_min", "tank_mode_distance_alarm_config.threshold_max"]
         },
         {
-            "id": "tank_mode_distance_alarm_config.max_threshold",
+            "id": "tank_mode_distance_alarm_config.threshold_max",
             "name": "Tank Mode Distance Alarm Config (Max Threshold)",
             "value": "",
             "unit": "mm",
@@ -495,7 +605,7 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 30,
             "bacnet_unit_type": "UNITS_MILLIMETERS",
-            "reference": ["tank_mode_distance_alarm_config.enable", "tank_mode_distance_alarm_config.condition", "tank_mode_distance_alarm_config.alarm_release_enable", "tank_mode_distance_alarm_config.min_threshold", "tank_mode_distance_alarm_config.max_threshold"]
+            "reference": ["tank_mode_distance_alarm_config.enable", "tank_mode_distance_alarm_config.condition", "tank_mode_distance_alarm_config.alarm_release_enable", "tank_mode_distance_alarm_config.threshold_min", "tank_mode_distance_alarm_config.threshold_max"]
         },
         {
             "id": "distance_mutation_alarm_config.enable",
@@ -535,7 +645,7 @@
             "id": "distance_mutation_alarm_config.mutation",
             "name": "Distance Mutation Alarm Config (Mutation)",
             "value": "",
-            "unit": "",
+            "unit": "mm",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "INT16",
@@ -636,7 +746,7 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "distance_calibration.enable",
+            "id": "distance_calibration_settings.enable",
             "name": "Distance Calibration (Enable)",
             "value": "",
             "unit": "",
@@ -650,11 +760,11 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["distance_calibration.enable", "distance_calibration.distance"]
+            "reference": ["distance_calibration_settings.enable", "distance_calibration_settings.calibration_value"]
         },
         {
-            "id": "distance_calibration.distance",
-            "name": "Distance Calibration (Distance)",
+            "id": "distance_calibration_settings.calibration_value",
+            "name": "Distance Calibration (Calibration Value)",
             "value": "",
             "unit": "mm",
             "access_mode": "RW",
@@ -663,7 +773,7 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 30,
             "bacnet_unit_type": "UNITS_MILLIMETERS",
-            "reference": ["distance_calibration.enable", "distance_calibration.distance"]
+            "reference": ["distance_calibration_settings.enable", "distance_calibration_settings.calibration_value"]
         },
         {
             "id": "distance_mode",

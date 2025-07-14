@@ -42,36 +42,15 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "device_status",
-            "name": "Device Status",
-            "value": "1",
-            "unit": "",
-            "access_mode": "R",
-            "data_type": "BOOL",
-            "value_type": "UINT8",
-            "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
-            ],
-            "bacnet_type": "binary_input_object",
-            "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
-        },
-        {
-            "id": "lorawan_class",
-            "name": "LoRaWAN Class Type",
+            "id": "tsl_version",
+            "name": "TSL Version",
             "value": "",
             "unit": "",
             "access_mode": "R",
-            "data_type": "ENUM",
-            "value_type": "UINT8",
-            "values": [
-                { "value": 0, "name": "ClassA" },
-                { "value": 1, "name": "ClassB" },
-                { "value": 2, "name": "ClassC" },
-                { "value": 3, "name": "ClassCtoB" }
-            ],
-            "bacnet_type": "multistate_value_object",
+            "data_type": "TEXT",
+            "value_type": "STRING",
+            "max_length": 6,
+            "bacnet_type": "character_string_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
@@ -88,6 +67,57 @@
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
+        {
+            "id": "lorawan_class",
+            "name": "LoRaWAN Class Type",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "Class A" },
+                { "value": 1, "name": "Class B" },
+                { "value": 2, "name": "Class C" },
+                { "value": 3, "name": "Class CtoB" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "reset_event",
+            "name": "Reset Event",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "normal" },
+                { "value": 1, "name": "reset" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "device_status",
+            "name": "Device Status",
+            "value": "1",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+
         {
             "id": "voltage",
             "name": "Voltage",
@@ -157,10 +187,27 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Off" },
-                { "value": 1, "name": "On" }
+                { "value": 0, "name": "off" },
+                { "value": 1, "name": "on" }
             ],
             "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+
+        {
+            "id": "reboot",
+            "name": "Reboot",
+            "value": "",
+            "unit": "",
+            "access_mode": "W",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
+            ],
+            "bacnet_type": "binary_output_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
@@ -173,8 +220,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "No" },
-                { "value": 1, "name": "Yes" }
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
             ],
             "bacnet_type": "binary_output_object",
             "bacnet_unit_type_id": 95,
@@ -189,16 +236,29 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "No" },
-                { "value": 1, "name": "Yes" }
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
             ],
             "bacnet_type": "binary_output_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "cancel_delay",
-            "name": "Cancel Delay",
+            "id": "delay_time",
+            "name": "Delay Time",
+            "value": "10",
+            "unit": "s",
+            "access_mode": "W",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_output_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS",
+            "reference": ["socket_status", "delay_time"]
+        },
+        {
+            "id": "cancel_delay_task",
+            "name": "Cancel Delay Task",
             "value": "0",
             "unit": "",
             "access_mode": "W",
@@ -209,25 +269,37 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "overcurrent_protection.enable",
-            "name": "Overcurrent Protection Enable",
+            "id": "report_interval",
+            "name": "Report Interval",
+            "value": "10",
+            "unit": "s",
+            "access_mode": "W",
+            "data_type": "NUMBER",
+            "value_type": "UINT16",
+            "bacnet_type": "analog_output_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
+        },
+        {
+            "id": "over_current_protection.enable",
+            "name": "Over Current Protection (Enable)",
             "value": "1",
             "unit": "",
             "access_mode": "RW",
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Disable" },
-                { "value": 1, "name": "Enable" }
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
             ],
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["overcurrent_protection.trip_current"]
+            "reference": ["over_current_protection.enable", "over_current_protection.trip_current"]
         },
         {
-            "id": "overcurrent_protection.trip_current",
-            "name": "Overcurrent Protection Trip Current",
+            "id": "over_current_protection.trip_current",
+            "name": "Over Current Protection (Trip Current)",
             "value": "10",
             "unit": "A",
             "access_mode": "RW",
@@ -236,28 +308,28 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 3,
             "bacnet_unit_type": "UNITS_AMPERES",
-            "reference": ["overcurrent_protection.enable"]
+            "reference": ["over_current_protection.enable", "over_current_protection.trip_current"]
         },
         {
-            "id": "current_threshold.enable",
-            "name": "Current Threshold Enable",
+            "id": "current_alarm_config.enable",
+            "name": "Current Alarm Config (Enable)",
             "value": "1",
             "unit": "",
             "access_mode": "RW",
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Disable" },
-                { "value": 1, "name": "Enable" }
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
             ],
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["current_threshold.threshold"]
+            "reference": ["current_alarm_config.enable", "current_alarm_config.threshold"]
         },
         {
-            "id": "current_threshold.threshold",
-            "name": "Current Threshold",
+            "id": "current_alarm_config.threshold",
+            "name": "Current Alarm Config (Threshold)",
             "value": "10",
             "unit": "A",
             "access_mode": "RW",
@@ -266,19 +338,19 @@
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 3,
             "bacnet_unit_type": "UNITS_AMPERES",
-            "reference": ["current_threshold.enable"]
+            "reference": ["current_alarm_config.enable", "current_alarm_config.threshold"]
         },
         {
             "id": "child_lock_config.enable",
-            "name": "Child Lock Config Enable",
+            "name": "Child Lock Config (Enable)",
             "value": "1",
             "unit": "",
             "access_mode": "RW",
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Disable" },
-                { "value": 1, "name": "Enable" }
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
             ],
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
@@ -287,7 +359,7 @@
         },
         {
             "id": "child_lock_config.lock_time",
-            "name": "Child Lock Config Lock Time",
+            "name": "Child Lock Config (Lock Time)",
             "value": "10",
             "unit": "min",
             "access_mode": "RW",
@@ -307,8 +379,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Disable" },
-                { "value": 1, "name": "Enable" }
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
             ],
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
@@ -323,24 +395,24 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "No" },
-                { "value": 1, "name": "Yes" }
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
             ],
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "led_enable",
-            "name": "LED Enable",
+            "id": "led_indicator_enable",
+            "name": "LED Indicator Enable",
             "value": "1",
             "unit": "",
             "access_mode": "RW",
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "Disable" },
-                { "value": 1, "name": "Enable" }
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
             ],
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,

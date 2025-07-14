@@ -78,8 +78,8 @@
             "values": [
                 { "value": 0, "name": "Class A" },
                 { "value": 1, "name": "Class B" },
-                { "value": 2, "name": "ClassC" },
-                { "value": 3, "name": "ClassCtoB" }
+                { "value": 2, "name": "Class C" },
+                { "value": 3, "name": "Class CtoB" }
             ],
             "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
@@ -117,6 +117,7 @@
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
+
         {
             "id": "battery",
             "name": "Battery",
@@ -199,6 +200,227 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
+            "id": "event._item.temperature",
+            "name": "Event (Temperature)",
+            "value": "",
+            "unit": "°C",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 62,
+            "bacnet_unit_type": "UNITS_DEGREES_CELSIUS"
+        },
+        {
+            "id": "event._item.temperature_alarm",
+            "name": "Event (Temperature Alarm)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "threshold alarm release" },
+                { "value": 1, "name": "threshold alarm" },
+                { "value": 2, "name": "mutation alarm" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "event._item.temperature_mutation",
+            "name": "Event (Temperature Mutation)",
+            "value": "",
+            "unit": "°C",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 62,
+            "bacnet_unit_type": "UNITS_DEGREES_CELSIUS"
+        },
+        {
+            "id": "event._item.temperature_sensor_status",
+            "name": "Event (Temperature Sensor Status)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "read error" },
+                { "value": 1, "name": "out of range" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "event._item.humidity",
+            "name": "Event (Humidity)",
+            "value": "",
+            "unit": "%r.h.",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 29,
+            "bacnet_unit_type": "UNITS_PERCENT_RELATIVE_HUMIDITY"
+        },
+        {
+            "id": "event._item.humidity_mutation",
+            "name": "Event (Humidity Mutation)",
+            "value": "",
+            "unit": "%r.h.",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 29,
+            "bacnet_unit_type": "UNITS_PERCENT_RELATIVE_HUMIDITY"
+        },
+        {
+            "id": "event._item.humidity_alarm",
+            "name": "Event (Humidity Alarm)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "threshold alarm release" },
+                { "value": 1, "name": "threshold alarm" },
+                { "value": 2, "name": "mutation alarm" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "event._item.humidity_sensor_status",
+            "name": "Event (Humidity Sensor Status)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "read error" },
+                { "value": 1, "name": "out of range" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.timestamp",
+            "name": "History (Timestamp)",
+            "value": "",
+            "unit": "s",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "UINT32",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 73,
+            "bacnet_unit_type": "UNITS_SECONDS"
+        },
+        {
+            "id": "history._item.sensor_type",
+            "name": "History (Sensor Type)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 1, "name": "DS18B20" },
+                { "value": 2, "name": "SHT4X" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.temperature",
+            "name": "History (Temperature)",
+            "value": "",
+            "unit": "°C",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 62,
+            "bacnet_unit_type": "UNITS_DEGREES_CELSIUS"
+        },
+        {
+            "id": "history._item.humidity",
+            "name": "History (Humidity)",
+            "value": "",
+            "unit": "%r.h.",
+            "access_mode": "R",
+            "data_type": "NUMBER",
+            "value_type": "FLOAT",
+            "bacnet_type": "analog_input_object",
+            "bacnet_unit_type_id": 29,
+            "bacnet_unit_type": "UNITS_PERCENT_RELATIVE_HUMIDITY"
+        },
+        {
+            "id": "history._item.event.event_type",
+            "name": "History (Event)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 1, "name": "periodic" },
+                { "value": 2, "name": "temperature alarm (threshold or mutation)" },
+                { "value": 3, "name": "temperature alarm release" },
+                { "value": 4, "name": "humidity alarm (threshold or mutation)" },
+                { "value": 5, "name": "humidity alarm release" },
+                { "value": 6, "name": "immediate" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.event.humidity_sensor_status",
+            "name": "History (Humidity Sensor Status)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "normal" },
+                { "value": 1, "name": "read error" },
+                { "value": 2, "name": "out of range" }
+            ],
+            "bacnet_type": "binary_input_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "history._item.event.temperature_sensor_status",
+            "name": "History (Temperature Sensor Status)",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "normal" },
+                { "value": 1, "name": "read error" },
+                { "value": 2, "name": "out of range" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+
+        {
             "id": "reboot",
             "name": "Reboot",
             "value": "",
@@ -207,8 +429,8 @@
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
-                { "value": 0, "name": "No" },
-                { "value": 1, "name": "Yes" }
+                { "value": 0, "name": "no" },
+                { "value": 1, "name": "yes" }
             ],
             "bacnet_type": "binary_output_object",
             "bacnet_unit_type_id": 95,
@@ -271,7 +493,7 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "temperature_calibrate.enable",
+            "id": "temperature_calibration_settings.enable",
             "name": "Temperature Calibrate (Enable)",
             "value": "",
             "unit": "",
@@ -285,23 +507,23 @@
             "bacnet_type": "binary_output_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["temperature_calibrate.enable", "temperature_calibrate.calibration_value"]
+            "reference": ["temperature_calibration_settings.enable", "temperature_calibration_settings.calibration_value"]
         },
         {
-            "id": "temperature_calibrate.calibration_value",
+            "id": "temperature_calibration_settings.calibration_value",
             "name": "Temperature Calibrate (Calibration Value)",
             "value": "",
-            "unit": "",
+            "unit": "°C",
             "access_mode": "W",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
             "bacnet_type": "analog_output_object",
             "bacnet_unit_type_id": 62,
             "bacnet_unit_type": "UNITS_DEGREES_CELSIUS",
-            "reference": ["temperature_calibrate.enable", "temperature_calibrate.calibration_value"]
+            "reference": ["temperature_calibration_settings.enable", "temperature_calibration_settings.calibration_value"]
         },
         {
-            "id": "humidity_calibrate.enable",
+            "id": "humidity_calibration_settings.enable",
             "name": "Humidity Calibrate (Enable)",
             "value": "",
             "unit": "",
@@ -315,23 +537,23 @@
             "bacnet_type": "binary_output_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["humidity_calibrate.enable", "humidity_calibrate.calibration_value"]
+            "reference": ["humidity_calibration_settings.enable", "humidity_calibration_settings.calibration_value"]
         },
         {
-            "id": "humidity_calibrate.calibration_value",
+            "id": "humidity_calibration_settings.calibration_value",
             "name": "Humidity Calibrate (Calibration Value)",
             "value": "",
-            "unit": "",
+            "unit": "%r.h.",
             "access_mode": "W",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
             "bacnet_type": "analog_output_object",
             "bacnet_unit_type_id": 29,
             "bacnet_unit_type": "UNITS_PERCENT_RELATIVE_HUMIDITY",
-            "reference": ["humidity_calibrate.enable", "humidity_calibrate.calibration_value"]
+            "reference": ["humidity_calibration_settings.enable", "humidity_calibration_settings.calibration_value"]
         },
         {
-            "id": "alarm_count",
+            "id": "alarm_report_counts",
             "name": "Alarm Count",
             "value": "",
             "unit": "",
@@ -343,7 +565,7 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "temperature_threshold_config.condition",
+            "id": "temperature_alarm_config.condition",
             "name": "Temperature Threshold Config (Condition)",
             "value": "",
             "unit": "",
@@ -360,36 +582,36 @@
             "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["temperature_threshold_config.condition", "temperature_threshold_config.max", "temperature_threshold_config.min", "temperature_threshold_config.enable"]
+            "reference": ["temperature_alarm_config.condition", "temperature_alarm_config.threshold_max", "temperature_alarm_config.threshold_min", "temperature_alarm_config.enable"]
         },
         {
-            "id": "temperature_threshold_config.max",
+            "id": "temperature_alarm_config.threshold_max",
             "name": "Temperature Threshold Config (Max)",
             "value": "",
-            "unit": "",
+            "unit": "°C",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 62,
             "bacnet_unit_type": "UNITS_DEGREES_CELSIUS",
-            "reference": ["temperature_threshold_config.condition", "temperature_threshold_config.max", "temperature_threshold_config.min", "temperature_threshold_config.enable"]
+            "reference": ["temperature_alarm_config.condition", "temperature_alarm_config.threshold_max", "temperature_alarm_config.threshold_min", "temperature_alarm_config.enable"]
         },
         {
-            "id": "temperature_threshold_config.min",
+            "id": "temperature_alarm_config.threshold_min",
             "name": "Temperature Threshold Config (Min)",
             "value": "",
-            "unit": "",
+            "unit": "°C",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 62,
             "bacnet_unit_type": "UNITS_DEGREES_CELSIUS",
-            "reference": ["temperature_threshold_config.condition", "temperature_threshold_config.max", "temperature_threshold_config.min", "temperature_threshold_config.enable"]
+            "reference": ["temperature_alarm_config.condition", "temperature_alarm_config.threshold_max", "temperature_alarm_config.threshold_min", "temperature_alarm_config.enable"]
         },
         {
-            "id": "temperature_threshold_config.enable",
+            "id": "temperature_alarm_config.enable",
             "name": "Temperature Threshold Config (Enable)",
             "value": "",
             "unit": "",
@@ -403,10 +625,10 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["temperature_threshold_config.condition", "temperature_threshold_config.max", "temperature_threshold_config.min", "temperature_threshold_config.enable"]
+            "reference": ["temperature_alarm_config.condition", "temperature_alarm_config.threshold_max", "temperature_alarm_config.threshold_min", "temperature_alarm_config.enable"]
         },
         {
-            "id": "humidity_threshold_config.condition",
+            "id": "humidity_alarm_config.condition",
             "name": "Humidity Threshold Config (Condition)",
             "value": "",
             "unit": "",
@@ -423,36 +645,36 @@
             "bacnet_type": "multistate_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["humidity_threshold_config.condition", "humidity_threshold_config.max", "humidity_threshold_config.min", "humidity_threshold_config.enable"]
+            "reference": ["humidity_alarm_config.condition", "humidity_alarm_config.threshold_max", "humidity_alarm_config.threshold_min", "humidity_alarm_config.enable"]
         },
         {
-            "id": "humidity_threshold_config.max",
+            "id": "humidity_alarm_config.threshold_max",
             "name": "Humidity Threshold Config (Max)",
             "value": "",
-            "unit": "",
+            "unit": "%r.h.",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 29,
             "bacnet_unit_type": "UNITS_PERCENT_RELATIVE_HUMIDITY",
-            "reference": ["humidity_threshold_config.condition", "humidity_threshold_config.max", "humidity_threshold_config.min", "humidity_threshold_config.enable"]
+            "reference": ["humidity_alarm_config.condition", "humidity_alarm_config.threshold_max", "humidity_alarm_config.threshold_min", "humidity_alarm_config.enable"]
         },
         {
-            "id": "humidity_threshold_config.min",
+            "id": "humidity_alarm_config.threshold_min",
             "name": "Humidity Threshold Config (Min)",
             "value": "",
-            "unit": "",
+            "unit": "%r.h.",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 29,
             "bacnet_unit_type": "UNITS_PERCENT_RELATIVE_HUMIDITY",
-            "reference": ["humidity_threshold_config.condition", "humidity_threshold_config.max", "humidity_threshold_config.min", "humidity_threshold_config.enable"]
+            "reference": ["humidity_alarm_config.condition", "humidity_alarm_config.threshold_max", "humidity_alarm_config.threshold_min", "humidity_alarm_config.enable"]
         },
         {
-            "id": "humidity_threshold_config.enable",
+            "id": "humidity_alarm_config.enable",
             "name": "Humidity Threshold Config (Enable)",
             "value": "",
             "unit": "",
@@ -466,23 +688,23 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["humidity_threshold_config.condition", "humidity_threshold_config.max", "humidity_threshold_config.min", "humidity_threshold_config.enable"]
+            "reference": ["humidity_alarm_config.condition", "humidity_alarm_config.threshold_max", "humidity_alarm_config.threshold_min", "humidity_alarm_config.enable"]
         },
         {
-            "id": "temperature_mutation_config.threshold",
+            "id": "temperature_mutation_alarm_config.mutation",
             "name": "Temperature Mutation Config (Threshold)",
             "value": "",
-            "unit": "",
+            "unit": "°C",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 62,
             "bacnet_unit_type": "UNITS_DEGREES_CELSIUS",
-            "reference": ["temperature_mutation_config.threshold", "temperature_mutation_config.enable"]
+            "reference": ["temperature_mutation_alarm_config.mutation", "temperature_mutation_alarm_config.enable"]
         },
         {
-            "id": "temperature_mutation_config.enable",
+            "id": "temperature_mutation_alarm_config.enable",
             "name": "Temperature Mutation Config (Enable)",
             "value": "",
             "unit": "",
@@ -496,23 +718,23 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["temperature_mutation_config.threshold", "temperature_mutation_config.enable"]
+            "reference": ["temperature_mutation_alarm_config.mutation", "temperature_mutation_alarm_config.enable"]
         },
         {
-            "id": "humidity_mutation_config.threshold",
+            "id": "humidity_mutation_alarm_config.mutation",
             "name": "Humidity Mutation Config (Threshold)",
             "value": "",
-            "unit": "",
+            "unit": "%r.h.",
             "access_mode": "RW",
             "data_type": "NUMBER",
             "value_type": "FLOAT",
             "bacnet_type": "analog_value_object",
             "bacnet_unit_type_id": 29,
             "bacnet_unit_type": "UNITS_PERCENT_RELATIVE_HUMIDITY",
-            "reference": ["humidity_mutation_config.threshold", "humidity_mutation_config.enable"]
+            "reference": ["humidity_mutation_alarm_config.mutation", "humidity_mutation_alarm_config.enable"]
         },
         {
-            "id": "humidity_mutation_config.enable",
+            "id": "humidity_mutation_alarm_config.enable",
             "name": "Humidity Mutation Config (Enable)",
             "value": "",
             "unit": "",
@@ -526,10 +748,10 @@
             "bacnet_type": "binary_value_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS",
-            "reference": ["humidity_mutation_config.threshold", "humidity_mutation_config.enable"]
+            "reference": ["humidity_mutation_alarm_config.mutation", "humidity_mutation_alarm_config.enable"]
         },
         {
-            "id": "threshold_alarm_release_enable",
+            "id": "alarm_release_enable",
             "name": "Threshold Alarm Release Enable",
             "value": "",
             "unit": "",
@@ -562,7 +784,7 @@
         },
         {
             "id": "fetch_history.start_time",
-            "name": "Fetch History Data Start Time",
+            "name": "Fetch History (Start Time)",
             "value": "",
             "unit": "s",
             "access_mode": "W",
@@ -570,12 +792,11 @@
             "value_type": "UINT32",
             "bacnet_type": "analog_output_object",
             "bacnet_unit_type_id": 73,
-            "bacnet_unit_type": "UNITS_SECONDS",
-            "reference": ["fetch_history.end_time"]
+            "bacnet_unit_type": "UNITS_SECONDS"
         },
         {
             "id": "fetch_history.end_time",
-            "name": "Fetch History Data End Time",
+            "name": "Fetch History (End Time)",
             "value": "",
             "unit": "s",
             "access_mode": "W",
@@ -584,7 +805,7 @@
             "bacnet_type": "analog_output_object",
             "bacnet_unit_type_id": 73,
             "bacnet_unit_type": "UNITS_SECONDS",
-            "reference": ["fetch_history.start_time"]
+            "reference": ["fetch_history.start_time", "fetch_history.end_time"]
         },
         {
             "id": "clear_history",
@@ -603,24 +824,25 @@
             "bacnet_unit_type": "UNITS_NO_UNITS"
         },
         {
-            "id": "retransmit_enable",
-            "name": "Retransmit Enable",
+            "id": "retransmit_config.enable",
+            "name": "Retransmit Config (enable)",
             "value": "1",
             "unit": "",
-            "access_mode": "RW",
+            "access_mode": "W",
             "data_type": "BOOL",
             "value_type": "UINT8",
             "values": [
                 { "value": 0, "name": "disable" },
                 { "value": 1, "name": "enable" }
             ],
-            "bacnet_type": "binary_value_object",
+            "bacnet_type": "binary_output_object",
             "bacnet_unit_type_id": 95,
-            "bacnet_unit_type": "UNITS_NO_UNITS"
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["retransmit_config.enable", "retransmit_config.interval"]
         },
         {
-            "id": "retransmit_interval",
-            "name": "Retransmit Interval",
+            "id": "retransmit_config.interval",
+            "name": "Retransmit Config (Interval)",
             "value": "10",
             "unit": "s",
             "access_mode": "RW",
@@ -685,6 +907,75 @@
             "bacnet_type": "analog_output_object",
             "bacnet_unit_type_id": 95,
             "bacnet_unit_type": "UNITS_NO_UNITS"
+        },
+        {
+            "id": "d2d_master_config._item.mode",
+            "name": "D2D Master Config (Mode)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "ENUM",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 1, "name": "temperature threshold alarm" },
+                { "value": 2, "name": "temperature threshold alarm release" },
+                { "value": 3, "name": "temperature mutation alarm" },
+                { "value": 4, "name": "humidity threshold alarm" },
+                { "value": 5, "name": "humidity threshold alarm release" },
+                { "value": 6, "name": "humidity mutation alarm" }
+            ],
+            "bacnet_type": "multistate_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_master_config._item.mode", "d2d_master_config._item.enable", "d2d_master_config._item.lora_uplink_enable", "d2d_master_config._item.d2d_cmd"]
+        },
+        {
+            "id": "d2d_master_config._item.enable",
+            "name": "D2D Master Config (Enable)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_master_config._item.mode", "d2d_master_config._item.enable", "d2d_master_config._item.lora_uplink_enable", "d2d_master_config._item.d2d_cmd"]
+        },
+        {
+            "id": "d2d_master_config._item.lora_uplink_enable",
+            "name": "D2D Master Config (LoRa Uplink Enable)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "BOOL",
+            "value_type": "UINT8",
+            "values": [
+                { "value": 0, "name": "disable" },
+                { "value": 1, "name": "enable" }
+            ],
+            "bacnet_type": "binary_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_master_config._item.mode", "d2d_master_config._item.enable", "d2d_master_config._item.lora_uplink_enable", "d2d_master_config._item.d2d_cmd"]
+        },
+        {
+            "id": "d2d_master_config._item.d2d_cmd",
+            "name": "D2D Master Config (D2D Command)",
+            "value": "",
+            "unit": "",
+            "access_mode": "RW",
+            "data_type": "TEXT",
+            "value_type": "STRING",
+            "max_length": 4,
+            "bacnet_type": "character_string_value_object",
+            "bacnet_unit_type_id": 95,
+            "bacnet_unit_type": "UNITS_NO_UNITS",
+            "reference": ["d2d_master_config._item.mode", "d2d_master_config._item.enable", "d2d_master_config._item.lora_uplink_enable", "d2d_master_config._item.d2d_cmd"]
         },
         {
             "id": "d2d_key",
