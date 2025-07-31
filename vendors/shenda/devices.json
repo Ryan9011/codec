@@ -1,0 +1,17 @@
+{
+    "version": "1.0.0",
+    "devices": [
+        {
+            "id": "device-1",
+            "name": "device1",
+            "description": "",
+            "catalog": "",
+            "sn": "",
+            "deveui": "",
+            "device_profile": ["ClassA-OTAA"],
+            "codec": "vendors/shenda/device-1/codec.json",
+            "decoder_script": "vendors/shenda/device-1/Decoder.js",
+            "encoder_script": "vendors/shenda/device-1/Encoder.js"
+        }
+    ]
+}

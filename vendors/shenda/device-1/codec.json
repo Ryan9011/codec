@@ -1,0 +1,51 @@
+{
+    "version": "1.0.0",
+    "bytes": "01755C03673401046865",
+    "object": [
+        {
+            "id": "meterReading",
+            "name": "meterReading",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "TEXT",
+            "value_type": "STRING"
+        },
+        {
+            "id": "meterType",
+            "name": "meterType",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "TEXT",
+            "value_type": "STRING"
+        },
+        {
+            "id": "measureMode",
+            "name": "measureMode",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "TEXT",
+            "value_type": "STRING"
+        },
+        {
+            "id": "meterStatusAlarm",
+            "name": "meterStatusAlarm",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "TEXT",
+            "value_type": "STRING"
+        },
+        {
+            "id": "valveStatus",
+            "name": "valveStatus",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "TEXT",
+            "value_type": "STRING"
+        }
+    ]
+}

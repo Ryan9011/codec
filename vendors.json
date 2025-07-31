@@ -8,6 +8,15 @@
             "description": "Make Sensing Matter",
             "oui": "24e124",
             "devices": "vendors/milesight-iot/devices.json"
+        },
+        {
+            "id": "shenda",
+            "name": "shenda",
+            "logo": "vendors/shenda/logo.png",
+            "website": "https://www.shenda.com",
+            "description": "Shenda Description",
+            "oui": "123456",
+            "devices": "vendors/shenda/devices.json"
         }
     ]
 }
