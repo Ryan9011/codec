@@ -46,6 +46,33 @@
             "access_mode": "R",
             "data_type": "TEXT",
             "value_type": "STRING"
+        },
+        {
+            "id": "batteryVoltage",
+            "name": "batteryVoltage",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "TEXT",
+            "value_type": "STRING"
+        },
+        {
+            "id": "endDeviceTime",
+            "name": "endDeviceTime",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "TEXT",
+            "value_type": "STRING"
+        },
+        {
+            "id": "serialNumber",
+            "name": "serialNumber",
+            "value": "",
+            "unit": "",
+            "access_mode": "R",
+            "data_type": "TEXT",
+            "value_type": "STRING"
         }
     ]
 }
